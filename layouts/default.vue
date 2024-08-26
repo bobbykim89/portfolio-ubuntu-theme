@@ -9,6 +9,7 @@ import SystemMenu from '@/components/layout-components/SystemMenu.vue'
 const currentTime = ref<string>('')
 const menuButton = ref<HTMLButtonElement>()
 const systemMenu = ref<InstanceType<typeof SystemMenu>>()
+const route = useRoute()
 const updateCurrentTime = () => {
   const time = new Date()
 
@@ -27,7 +28,9 @@ const updateCurrentTime = () => {
 }
 
 const handleButtonClick = () => {
-  systemMenu.value?.toggle()
+  if (route.path !== '/') {
+    systemMenu.value?.toggle()
+  }
 }
 
 useIntervalFn(() => {
