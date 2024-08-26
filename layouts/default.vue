@@ -46,7 +46,9 @@ onClickOutside(
 <template>
   <main class="bg-dark-4 h-screen overflow-hidden relative">
     <!-- top-bar -->
-    <div class="grid grid-cols-3 py-3xs text-light-1 w-full tracking-wide">
+    <div
+      class="grid grid-cols-3 py-3xs text-light-1 w-full tracking-wide z-[50]"
+    >
       <div class="col-start-2 text-center text-sm">{{ currentTime }}</div>
       <div class="ml-auto pr-3xs">
         <button
