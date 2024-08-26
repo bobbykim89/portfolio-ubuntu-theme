@@ -12,11 +12,11 @@ const handleButtonClick = (e: Event): void => {
 
 <template>
   <button
-    class="p-3xs focus:bg-dark-2 rounded-md transition-colors duration-150 ease-linear"
+    class="py-3xs px-2xs p-3xs focus:bg-dark-2 rounded-md transition-colors duration-150 ease-linear"
     @click="handleButtonClick"
   >
     <DesktopAppsSvgIcon
-      class="w-lg h-lg text-light-1"
+      class="w-lg aspect-square text-light-1"
       :fontControlled="false"
     />
   </button>

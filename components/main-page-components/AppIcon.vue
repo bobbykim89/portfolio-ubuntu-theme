@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import FireFoxIcon from '@/assets/img/program-icons/firefox.png'
-import SpotifyIcon from '@/assets/img/program-icons/spotify-client.png'
-import TerminalIcon from '@/assets/img/program-icons/terminal-app.png'
 import OfficeIcon from '@/assets/img/program-icons/libreoffice-writer.png'
+import MusicIcon from '@/assets/img/program-icons/preferences-system-sound.png'
+import TerminalIcon from '@/assets/img/program-icons/terminal-app.png'
 import FileManagerIcon from '@/assets/img/system-icons/filemanager-app.png'
 import TrashIcon from '@/assets/img/system-icons/user-trash.png'
 
 const iconArray = [
   'firefox',
-  'spotify',
+  'music',
   'terminal',
   'office',
   'filemanager',
@@ -26,9 +26,12 @@ type MainAppIconMap = {
 const props = withDefaults(
   defineProps<{
     iconType: MainAppIconType
+    isOpen: boolean
+    isActive: boolean
   }>(),
   {
     iconType: 'terminal',
+    isOpen: false,
   }
 )
 
@@ -38,7 +41,7 @@ const emit = defineEmits<{
 
 const imageIcons: MainAppIconMap = {
   firefox: { src: FireFoxIcon, alt: 'firefox icon' },
-  spotify: { src: SpotifyIcon, alt: 'spotify icon' },
+  music: { src: MusicIcon, alt: 'music player icon' },
   terminal: { src: TerminalIcon, alt: 'terminal icon' },
   office: { src: OfficeIcon, alt: 'libre office icon' },
   filemanager: { src: FileManagerIcon, alt: 'file manager icon' },
@@ -52,14 +55,21 @@ const handleIconClick = (e: Event) => {
 
 <template>
   <button
-    class="p-3xs focus:bg-dark-2 rounded-md transition-colors duration-150 ease-linear"
+    class="py-3xs px-2xs focus:bg-dark-2 rounded-md transition-colors duration-150 ease-linear relative"
     @click="handleIconClick"
   >
     <img
-      class="w-lg h-lg"
+      class="w-lg aspect-square"
       :src="imageIcons[iconType].src"
       :alt="imageIcons[iconType].alt"
     />
+    <div
+      v-if="isOpen"
+      :class="[
+        isActive ? 'bg-warning' : 'bg-light-1',
+        'absolute w-3xs h-3xs rounded-full top-1/2 left-[2px]',
+      ]"
+    ></div>
   </button>
 </template>
 
