@@ -2,18 +2,14 @@
 import BgImage from '@/assets/img/manguito_tree.jpeg'
 import AppIcon from '@/components/main-page-components/AppIcon.vue'
 import DesktopAppsIcon from '@/components/main-page-components/DesktopAppsIcon.vue'
+import FileManager from '@/components/main-page-components/FileManager.vue'
 import Terminal from '@/components/main-page-components/Terminal.vue'
 
 type AppStatus = {
   open: boolean
   active: boolean
 }
-const terminalOpen = ref<boolean>(false)
-const fileManagerOpen = ref<boolean>(false)
-const officeOpen = ref<boolean>(false)
-const firefoxOpen = ref<boolean>(false)
-const musicOpen = ref<boolean>(false)
-const trashOpen = ref<boolean>(false)
+
 const terminalStatus = reactive<AppStatus>({ open: false, active: false })
 const fileManagerStatus = reactive<AppStatus>({ open: false, active: false })
 const officeStatus = reactive<AppStatus>({ open: false, active: false })
@@ -21,6 +17,7 @@ const firefoxStatus = reactive<AppStatus>({ open: false, active: false })
 const musicStatus = reactive<AppStatus>({ open: false, active: false })
 const trashStatus = reactive<AppStatus>({ open: false, active: false })
 const terminalComponent = ref<InstanceType<typeof Terminal>>()
+const fileManagerComponent = ref<InstanceType<typeof FileManager>>()
 
 const setAppOpenActiveVal = (obj: AppStatus, val: boolean) => {
   obj.active = val
@@ -40,6 +37,16 @@ const handleTerminalClose = () => {
 
 const handleFileManagerOpen = () => {
   setAppOpenActiveVal(fileManagerStatus, true)
+  fileManagerComponent.value?.openFileManager()
+}
+
+const handleFIleManagerActive = (val: boolean) => {
+  fileManagerStatus.active = val
+}
+
+const handleFileManagerClose = () => {
+  setAppOpenActiveVal(fileManagerStatus, false)
+  setAppOpenActiveVal(trashStatus, false)
 }
 
 const handleOfficeOpen = () => {
@@ -56,6 +63,7 @@ const handleMusicOpen = () => {
 
 const handleTrashOpen = () => {
   setAppOpenActiveVal(trashStatus, true)
+  fileManagerComponent.value?.openFileManager('trash')
 }
 
 const bgImageVar = computed(() => {
@@ -111,6 +119,11 @@ const bgImageVar = computed(() => {
         ref="terminalComponent"
         @set-active="handleTerminalInactive"
         @close-click="handleTerminalClose"
+      />
+      <FileManager
+        ref="fileManagerComponent"
+        @set-active="handleFIleManagerActive"
+        @close-click="handleFileManagerClose"
       />
     </div>
   </div>

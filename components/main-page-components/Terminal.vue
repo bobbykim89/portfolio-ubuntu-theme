@@ -50,15 +50,16 @@ const onTerminalClick = () => {
   isActive.value = true
   emit('set-active', true)
 }
+const onMaximizeClick = () => {
+  isActive.value = true
+  isMaximized.value = !isMaximized.value
+}
+
 onClickOutside(draggableRef, () => {
   isActive.value = false
   emit('set-active', false)
 })
 
-const handleMaximizeClick = () => {
-  isActive.value = true
-  isMaximized.value = !isMaximized.value
-}
 defineExpose<{
   openTerminal: () => void
   closeTerminal: () => void
@@ -87,6 +88,7 @@ defineExpose<{
         'grid grid-cols-3 content-center text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
       ]"
     >
+      <!-- new-tab button -->
       <button
         class="rounded-md p-[6px] bg-dark-2 focus:bg-dark-3 border-2 border-dark-4 justify-self-start"
         @click.stop
@@ -94,6 +96,7 @@ defineExpose<{
         <NewTabSvgIcon class="aspect-square w-[14px]" :fontControlled="false" />
       </button>
       <p class="place-self-center cursor-default select-none">Terminal</p>
+      <!-- minimize/maximize/close buttons -->
       <div class="flex gap-2 items-center justify-self-end" @click.stop>
         <button
           class="rounded-full p-[2px] bg-dark-2"
@@ -104,10 +107,7 @@ defineExpose<{
             :fontControlled="false"
           />
         </button>
-        <button
-          class="rounded-full p-[2px] bg-dark-2"
-          @click="handleMaximizeClick"
-        >
+        <button class="rounded-full p-[2px] bg-dark-2" @click="onMaximizeClick">
           <RestoreSvgIcon
             v-if="isMaximized"
             class="aspect-square w-[14px]"
@@ -125,7 +125,10 @@ defineExpose<{
       </div>
     </div>
     <div
-      class="bg-primary h-[90vh] md:h-96 text-light-1 p-3xs overflow-y-scroll"
+      :class="[
+        isMaximized ? 'md:h-[92vh]' : 'md:h-96',
+        'bg-primary h-[90vh] md:h-96 text-light-1 p-3xs overflow-y-scroll',
+      ]"
     >
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam
       officia natus, eligendi provident aperiam iste vel laborum in veritatis!
