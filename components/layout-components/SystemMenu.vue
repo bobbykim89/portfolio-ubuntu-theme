@@ -54,7 +54,7 @@ defineExpose<{
 <template>
   <div
     v-if="visible"
-    class="absolute z-10 top-sm right-2xs bg-dark-3 drop-shadow-md rounded-lg px-2xs py-2xs w-[300px]"
+    class="absolute z-[50] top-md right-2xs bg-dark-3 drop-shadow-md rounded-lg px-2xs py-2xs w-[300px]"
   >
     <div class="relative text-light-1">
       <div class="flex gap-4 border-b-dark-2 border-b py-2xs px-xs">

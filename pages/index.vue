@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProfileImage from '@/assets/img/profile/manguito_tree.jpeg'
+import ProfileImage from '@/assets/img/profile/manguito_thumb.jpg'
 import UbuntuLogo from '@/assets/img/ubuntu-logo-dark.png'
 import { ref, computed } from 'vue'
 import { useIntervalFn } from '@vueuse/core'
