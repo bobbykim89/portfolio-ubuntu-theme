@@ -1,0 +1,53 @@
+<script setup lang="ts">
+import MusicFile from '@/assets/img/program-icons/audio-x-mpeg.png'
+import ImageFile from '@/assets/img/program-icons/image-x-generic.png'
+import TextFile from '@/assets/img/program-icons/libreoffice-writer.png'
+import DockerFile from '@/assets/img/program-icons/text-dockerfile.png'
+import RustFile from '@/assets/img/program-icons/text-rust.png'
+import CppFile from '@/assets/img/program-icons/text-x-cpp.png'
+import JsFile from '@/assets/img/program-icons/text-x-javascript.png'
+import PyFile from '@/assets/img/program-icons/text-x-python.png'
+import RubyFile from '@/assets/img/program-icons/text-x-ruby.png'
+import { FileMap, FileType } from '@/types'
+
+const folderData: FileMap = {
+  image: ImageFile,
+  music: MusicFile,
+  text: TextFile,
+  rust: RustFile,
+  cpp: CppFile,
+  js: JsFile,
+  py: PyFile,
+  docker: DockerFile,
+  ruby: RubyFile,
+}
+
+const props = withDefaults(
+  defineProps<{
+    type: FileType
+    text: string
+  }>(),
+  {
+    type: 'text',
+  }
+)
+const emit = defineEmits<{
+  (e: 'file-click', text: string): void
+}>()
+
+const onFolderClick = () => {
+  emit('file-click', props.text)
+}
+</script>
+
+<template>
+  <button
+    class="flex flex-col items-center w-24 justify-center gap-1 py-3xs rounded-lg focus:bg-dark-4 transition-colors duration-150 ease-linear"
+    @click="onFolderClick"
+  >
+    <img :src="folderData[type]" :alt="type" class="h-lg" />
+    <p class="text-light-1 text-sm text-wrap">{{ text }}</p>
+  </button>
+</template>
+
+<style scoped></style>
