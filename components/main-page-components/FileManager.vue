@@ -10,8 +10,11 @@ import CloseSvgIcon from '@/assets/img/svg-files/window-close-symbolic.svg'
 import MaximizeSvgIcon from '@/assets/img/svg-files/window-maximize-symbolic.svg'
 import MinimizeSvgIcon from '@/assets/img/svg-files/window-minimize-symbolic.svg'
 import RestoreSvgIcon from '@/assets/img/svg-files/window-restore-symbolic.svg'
+import { useFileManagerStore } from '@/stores'
+import { DirectoryMap } from '@/types'
 import { onClickOutside, useDraggable } from '@vueuse/core'
-import { markRaw, type Component } from 'vue'
+import { storeToRefs } from 'pinia'
+import { markRaw } from 'vue'
 import DocumentsRootDirectory from './file-manager-parts/documents-directory/DocumentsRootDirectory.vue'
 import FileManagerLeftSection from './file-manager-parts/FileManagerLeftSection.vue'
 import HomeDirectory from './file-manager-parts/HomeDirectory.vue'
@@ -19,54 +22,31 @@ import MusicDirectory from './file-manager-parts/MusicDirectory.vue'
 import PicturesDirectory from './file-manager-parts/PicturesDirectory.vue'
 import TrashDirectory from './file-manager-parts/TrashDirectory.vue'
 
-const directoryArray = [
-  'home',
-  'documents',
-  'music',
-  'picture',
-  'trash',
-] as const
-export type DirectoryType = (typeof directoryArray)[number]
-type DirectoryDataType = {
-  name: string
-  icon: string
-  component: Component
-  active: boolean
-}
-type DirectoryMap = {
-  [k in DirectoryType]: DirectoryDataType
-}
-
 const fileManagerDirectory: DirectoryMap = {
   home: {
     name: 'Home',
     icon: HomeSvgIcon,
     component: markRaw(HomeDirectory),
-    active: true,
   },
   documents: {
     name: 'Documents',
     icon: DocumentSvgIcon,
     component: markRaw(DocumentsRootDirectory),
-    active: false,
   },
   music: {
     name: 'Music',
     icon: MusicSvgIcon,
     component: markRaw(MusicDirectory),
-    active: false,
   },
   picture: {
     name: 'Pictures',
     icon: PicturesSvgIcon,
     component: markRaw(PicturesDirectory),
-    active: false,
   },
   trash: {
     name: 'Trash',
     icon: TrashSvgIcon,
     component: markRaw(TrashDirectory),
-    active: false,
   },
 }
 
@@ -88,63 +68,32 @@ const emit = defineEmits<{
 
 const draggableRef = ref<HTMLDivElement>()
 const dragHandle = ref<HTMLDivElement>()
-const isActive = ref<boolean>(true)
-const isVisible = ref<boolean>(false)
-const isMaximized = ref<boolean>(false)
-const isRootDir = ref<boolean>(true)
-const currentSection = ref<DirectoryType>('home')
 
-const { style, x, y } = useDraggable(draggableRef, {
+const fileManagerStore = useFileManagerStore()
+const { currentSection, isActive, isMaximized, isRootDir, isVisible } =
+  storeToRefs(fileManagerStore)
+
+const { style } = useDraggable(draggableRef, {
   handle: dragHandle,
   initialValue: { x: props.initialX, y: props.initialY },
 })
 
-const openFileManager = (dir: DirectoryType = 'home') => {
-  currentSection.value = dir
-  isVisible.value = true
-  isActive.value = true
-}
 const closeFileManager = () => {
-  isVisible.value = false
-  isActive.value = false
-  currentSection.value = 'home'
+  fileManagerStore.closeFileManager()
   emit('close-click')
 }
 const minimizeFileManager = () => {
-  isVisible.value = false
-  isActive.value = false
+  fileManagerStore.minimizeFileManager()
   emit('set-active', false)
 }
 const onFileManagerClick = () => {
-  isActive.value = true
+  fileManagerStore.setFileManagerActive(true)
   emit('set-active', true)
-}
-const onMaximizeClick = () => {
-  isActive.value = true
-  isMaximized.value = !isMaximized.value
-}
-const onDirectoryClick = (val: DirectoryType) => {
-  currentSection.value = val
-  Object.keys(fileManagerDirectory).forEach((item) => {
-    if (item === val) {
-      fileManagerDirectory[item].active = true
-    } else {
-      fileManagerDirectory[item as DirectoryType].active = false
-    }
-  })
 }
 
 onClickOutside(draggableRef, () => {
-  isActive.value = false
+  fileManagerStore.setFileManagerActive(false)
   emit('set-active', false)
-})
-
-defineExpose<{
-  openFileManager: (arg?: DirectoryType) => void
-  closeFileManager: () => void
-}>({
-  openFileManager,
-  closeFileManager,
 })
 </script>
 
@@ -202,7 +151,10 @@ defineExpose<{
             :fontControlled="false"
           />
         </button>
-        <button class="rounded-full p-[2px] bg-dark-2" @click="onMaximizeClick">
+        <button
+          class="rounded-full p-[2px] bg-dark-2"
+          @click="fileManagerStore.setFileManagerMaximize"
+        >
           <RestoreSvgIcon
             v-if="isMaximized"
             class="aspect-square w-[14px]"
@@ -226,12 +178,12 @@ defineExpose<{
     <div
       :class="[
         isMaximized ? 'md:h-[92vh]' : 'md:h-96',
-        'h-[90vh] md:h-96 text-light-1 overflow-y-scroll flex',
+        'h-[90vh] md:h-96 text-light-1 overflow-y-scroll flex flex-col md:flex-row',
       ]"
     >
       <FileManagerLeftSection
         :current-directory="currentSection"
-        @set-current-directory="onDirectoryClick"
+        @set-current-directory="fileManagerStore.setCurrentDirectory"
       />
       <!-- folders section -->
       <div class="w-full h-full bg-dark-2 relative">

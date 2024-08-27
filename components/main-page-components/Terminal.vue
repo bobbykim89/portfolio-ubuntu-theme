@@ -4,7 +4,9 @@ import CloseSvgIcon from '@/assets/img/svg-files/window-close-symbolic.svg'
 import MaximizeSvgIcon from '@/assets/img/svg-files/window-maximize-symbolic.svg'
 import MinimizeSvgIcon from '@/assets/img/svg-files/window-minimize-symbolic.svg'
 import RestoreSvgIcon from '@/assets/img/svg-files/window-restore-symbolic.svg'
+import { useTerminalStore } from '@/stores'
 import { onClickOutside, useDraggable } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 
 const props = withDefaults(
   defineProps<{
@@ -24,48 +26,30 @@ const emit = defineEmits<{
 
 const draggableRef = ref<HTMLDivElement>()
 const dragHandle = ref<HTMLDivElement>()
-const isActive = ref<boolean>(true)
-const isVisible = ref<boolean>(false)
-const isMaximized = ref<boolean>(false)
+
+const terminalStore = useTerminalStore()
+const { isActive, isVisible, isMaximized } = storeToRefs(terminalStore)
 
 const { style, x, y } = useDraggable(draggableRef, {
   handle: dragHandle,
   initialValue: { x: props.initialX, y: props.initialY },
 })
-const openTerminal = () => {
-  isVisible.value = true
-  isActive.value = true
-}
 const closeTerminal = () => {
-  isVisible.value = false
-  isActive.value = false
+  terminalStore.closeTerminal()
   emit('close-click')
 }
 const minimizeTerminal = () => {
-  isVisible.value = false
-  isActive.value = false
+  terminalStore.minimizeTerminal()
   emit('set-active', false)
 }
 const onTerminalClick = () => {
-  isActive.value = true
+  terminalStore.setTerminalActive(true)
   emit('set-active', true)
-}
-const onMaximizeClick = () => {
-  isActive.value = true
-  isMaximized.value = !isMaximized.value
 }
 
 onClickOutside(draggableRef, () => {
-  isActive.value = false
+  terminalStore.setTerminalActive(false)
   emit('set-active', false)
-})
-
-defineExpose<{
-  openTerminal: () => void
-  closeTerminal: () => void
-}>({
-  openTerminal,
-  closeTerminal,
 })
 </script>
 
@@ -107,7 +91,10 @@ defineExpose<{
             :fontControlled="false"
           />
         </button>
-        <button class="rounded-full p-[2px] bg-dark-2" @click="onMaximizeClick">
+        <button
+          class="rounded-full p-[2px] bg-dark-2"
+          @click="terminalStore.setTerminalMaximize"
+        >
           <RestoreSvgIcon
             v-if="isMaximized"
             class="aspect-square w-[14px]"

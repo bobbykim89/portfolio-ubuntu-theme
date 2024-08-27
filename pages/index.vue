@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import ProfileImage from '@/assets/img/profile/manguito_thumb.jpg'
 import UbuntuLogo from '@/assets/img/ubuntu-logo-dark.png'
-import { ref, computed } from 'vue'
 import { useIntervalFn } from '@vueuse/core'
+import { computed, ref } from 'vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -16,8 +16,6 @@ const { pause } = useIntervalFn(() => {
   //   showProgressBar.value = false
   // }
 }, 15)
-
-console.log(route.query.restart)
 
 const progressWtsVar = computed(() => {
   const progressWidth =
