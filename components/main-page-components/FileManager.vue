@@ -15,7 +15,10 @@ import { DirectoryMap } from '@/types'
 import { onClickOutside, useDraggable } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { markRaw } from 'vue'
+import AboutDirectory from './file-manager-parts/documents-directory/AboutDirectory.vue'
 import DocumentsRootDirectory from './file-manager-parts/documents-directory/DocumentsRootDirectory.vue'
+import ProjectsDirectory from './file-manager-parts/documents-directory/ProjectsDirectory.vue'
+import SkillsDirectory from './file-manager-parts/documents-directory/SkillsDirectory.vue'
 import FileManagerLeftSection from './file-manager-parts/FileManagerLeftSection.vue'
 import HomeDirectory from './file-manager-parts/HomeDirectory.vue'
 import MusicDirectory from './file-manager-parts/MusicDirectory.vue'
@@ -32,6 +35,21 @@ const fileManagerDirectory: DirectoryMap = {
     name: 'Documents',
     icon: DocumentSvgIcon,
     component: markRaw(DocumentsRootDirectory),
+  },
+  'documents/about': {
+    name: 'Documents / About',
+    icon: DocumentSvgIcon,
+    component: markRaw(AboutDirectory),
+  },
+  'documents/projects': {
+    name: 'Documents / Projects',
+    icon: DocumentSvgIcon,
+    component: markRaw(ProjectsDirectory),
+  },
+  'documents/skills': {
+    name: 'Documents / Skills',
+    icon: DocumentSvgIcon,
+    component: markRaw(SkillsDirectory),
   },
   music: {
     name: 'Music',
@@ -70,8 +88,14 @@ const draggableRef = ref<HTMLDivElement>()
 const dragHandle = ref<HTMLDivElement>()
 
 const fileManagerStore = useFileManagerStore()
-const { currentSection, isActive, isMaximized, isRootDir, isVisible } =
-  storeToRefs(fileManagerStore)
+const {
+  currentSection,
+  isActive,
+  isMaximized,
+  isRootDir,
+  isVisible,
+  currentLocationIdx,
+} = storeToRefs(fileManagerStore)
 
 const { style } = useDraggable(draggableRef, {
   handle: dragHandle,
@@ -116,17 +140,26 @@ onClickOutside(draggableRef, () => {
         'flex items-center gap-2 text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
       ]"
     >
-      <div class="">
+      <div>
+        <!-- prev button -->
         <button
           :class="[
-            isRootDir ? 'bg-dark-2' : 'bg-dark-3',
+            isRootDir ? 'bg-dark-3' : 'bg-dark-2',
             'px-3xs py-[5px] rounded-l-md border-2 border-dark-4 h-full',
           ]"
+          :disabled="isRootDir"
+          @click="fileManagerStore.onPrevClick"
         >
           <ChevronLeft class="h-[18px]" :fontControlled="false" />
         </button>
+        <!-- next button -->
         <button
-          class="px-3xs py-[5px] rounded-r-md bg-dark-3 h-full border-y-2 border-r-2 border-dark-4"
+          :class="[
+            currentLocationIdx > 1 ? 'bg-dark-2' : 'bg-dark-3',
+            'px-3xs py-[5px] rounded-r-md h-full border-y-2 border-r-2 border-dark-4',
+          ]"
+          :disabled="currentLocationIdx <= 1"
+          @click="fileManagerStore.onNextClick"
         >
           <ChevronRight class="h-[18px]" :fontControlled="false" />
         </button>
@@ -178,7 +211,7 @@ onClickOutside(draggableRef, () => {
     <div
       :class="[
         isMaximized ? 'md:h-[92vh]' : 'md:h-96',
-        'h-[90vh] md:h-96 text-light-1 overflow-y-scroll flex flex-col md:flex-row',
+        'h-[90vh] md:h-96 text-light-1 flex flex-col md:flex-row',
       ]"
     >
       <FileManagerLeftSection
@@ -186,7 +219,7 @@ onClickOutside(draggableRef, () => {
         @set-current-directory="fileManagerStore.setCurrentDirectory"
       />
       <!-- folders section -->
-      <div class="w-full h-full bg-dark-2 relative">
+      <div class="w-full h-full bg-dark-2 relative overflow-y-scroll">
         <component :is="fileManagerDirectory[currentSection].component" />
       </div>
     </div>

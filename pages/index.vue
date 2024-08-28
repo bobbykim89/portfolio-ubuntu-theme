@@ -12,9 +12,6 @@ const showProgressBar = ref<boolean>(true)
 
 const { pause } = useIntervalFn(() => {
   progressBarWidth.value += 0.5
-  // if (progressBarWidth.value === 100) {
-  //   showProgressBar.value = false
-  // }
 }, 15)
 
 const progressWtsVar = computed(() => {

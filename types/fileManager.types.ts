@@ -3,6 +3,9 @@ import type { FolderType } from './fileFolders.types'
 const directoryArray = [
   'home',
   'documents',
+  'documents/about',
+  'documents/projects',
+  'documents/skills',
   'music',
   'picture',
   'trash',

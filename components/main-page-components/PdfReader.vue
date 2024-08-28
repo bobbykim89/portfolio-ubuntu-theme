@@ -1,0 +1,68 @@
+<script setup lang="ts">
+import PdfFile from '@/assets/pdf/resume.pdf'
+import { useTextReaderStore } from '@/stores'
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
+import AppContainerGeneric from './AppContainerGeneric.vue'
+
+const props = withDefaults(
+  defineProps<{
+    initialX: number
+    initialY: number
+  }>(),
+  {
+    initialX: 80,
+    initialY: 40,
+  }
+)
+
+const emit = defineEmits<{
+  (e: 'close-click'): void
+  (e: 'set-active', active: boolean): void
+}>()
+
+const pdfUrl = ref<string>(PdfFile)
+const textReaderStore = useTextReaderStore()
+const { isPdfActive, isPdfMaximized, isPdfVisible } =
+  storeToRefs(textReaderStore)
+
+const closePdfReader = () => {
+  textReaderStore.closePdfReader()
+  emit('close-click')
+}
+const minimizePdfReader = () => {
+  textReaderStore.minimizePdfReader()
+  emit('set-active', false)
+}
+const setPdfReaderActive = (val: boolean) => {
+  textReaderStore.setPdfReaderActive(val)
+  emit('set-active', val)
+}
+</script>
+
+<template>
+  <AppContainerGeneric
+    app-name="PDF Reader"
+    :initial-x="initialX"
+    :initial-y="initialY"
+    :visible="isPdfVisible"
+    :active="isPdfActive"
+    :maximized="isPdfMaximized"
+    container-size="70"
+    @close-click="closePdfReader"
+    @minimize-click="minimizePdfReader"
+    @maximize-click="textReaderStore.setPdfReaderMaximize"
+    @set-active="setPdfReaderActive"
+  >
+    <div
+      :class="[
+        isPdfMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
+        'bg-dark-3 h-[90vh] md:h-96 text-light-1 py-3xs px-lg relative',
+      ]"
+    >
+      <embed :src="pdfUrl" width="100%" height="100%" />
+    </div>
+  </AppContainerGeneric>
+</template>
+
+<style lang="scss" scoped></style>

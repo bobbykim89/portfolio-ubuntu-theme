@@ -2,7 +2,10 @@
 import BgImage from '@/assets/img/manguito_tree.jpeg'
 import AppIcon from '@/components/main-page-components/AppIcon.vue'
 import DesktopAppsIcon from '@/components/main-page-components/DesktopAppsIcon.vue'
+import DocumentReader from '@/components/main-page-components/DocumentReader.vue'
 import FileManager from '@/components/main-page-components/FileManager.vue'
+import ImageViewer from '@/components/main-page-components/ImageViewer.vue'
+import PdfReader from '@/components/main-page-components/PdfReader.vue'
 import Terminal from '@/components/main-page-components/Terminal.vue'
 import { useAppStore } from '@/stores'
 import { storeToRefs } from 'pinia'
@@ -26,7 +29,7 @@ const bgImageVar = computed(() => {
         @icon-click="appStore.setTerminalOpen"
       />
       <AppIcon
-        icon-type="filemanager"
+        icon-type="file-manager"
         :is-open="appStatus['file-manager'].open"
         :is-active="appStatus['file-manager'].active"
         @icon-click="appStore.setFileManagerOpen"
@@ -55,17 +58,53 @@ const bgImageVar = computed(() => {
         :is-active="appStatus.trash.active"
         @icon-click="appStore.setTrashOpen"
       />
+      <AppIcon
+        v-if="appStatus['image-viewer'].open"
+        icon-type="image-viewer"
+        :is-open="appStatus['image-viewer'].open"
+        :is-active="appStatus['image-viewer'].active"
+        @icon-click="appStore.setImageViewerOpen"
+      />
+      <AppIcon
+        v-if="appStatus['document-reader'].open"
+        icon-type="document-reader"
+        :is-open="appStatus['document-reader'].open"
+        :is-active="appStatus['document-reader'].active"
+        @icon-click="appStore.setDocumentReaderOpen"
+      />
       <DesktopAppsIcon class="mt-auto mb-md" />
     </div>
     <!-- main screen -->
     <div class="h-full w-full relative">
       <Terminal
+        :initial-x="80"
+        :initial-y="40"
         @set-active="appStore.setTerminalActive"
         @close-click="appStore.setTerminalClose"
       />
       <FileManager
+        :initial-x="120"
+        :initial-y="120"
         @set-active="appStore.setFileManagerActive"
         @close-click="appStore.setFileManagerClose"
+      />
+      <ImageViewer
+        :initial-x="240"
+        :initial-y="40"
+        @set-active="appStore.setImageViewerActive"
+        @close-click="appStore.setImageViewerClose"
+      />
+      <PdfReader
+        :initial-x="300"
+        :initial-y="40"
+        @set-active="appStore.setOfficeActive"
+        @close-click="appStore.setOfficeClose"
+      />
+      <DocumentReader
+        :initial-x="300"
+        :initial-y="40"
+        @set-active="appStore.setDocumentReaderActive"
+        @close-click="appStore.setDocumentReaderClose"
       />
     </div>
   </div>

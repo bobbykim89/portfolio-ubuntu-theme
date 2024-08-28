@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useIntervalFn, onClickOutside } from '@vueuse/core'
-import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-symbolic.svg'
 import SpeakerSvgIcon from '@/assets/img/svg-files/audio-speakers-symbolic.svg'
+import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-symbolic.svg'
 import ShutdownSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
 import SystemMenu from '@/components/layout-components/SystemMenu.vue'
+import { onClickOutside, useIntervalFn } from '@vueuse/core'
+import { ref } from 'vue'
 
 const currentTime = ref<string>('')
 const menuButton = ref<HTMLButtonElement>()
