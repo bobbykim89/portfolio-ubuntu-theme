@@ -1,27 +1,12 @@
 <script setup lang="ts">
 import FireFoxIcon from '@/assets/img/program-icons/firefox.png'
+import ImageViewerIcon from '@/assets/img/program-icons/image-x-generic.png'
 import OfficeIcon from '@/assets/img/program-icons/libreoffice-writer.png'
 import MusicIcon from '@/assets/img/program-icons/preferences-system-sound.png'
 import TerminalIcon from '@/assets/img/program-icons/terminal-app.png'
 import FileManagerIcon from '@/assets/img/system-icons/filemanager-app.png'
 import TrashIcon from '@/assets/img/system-icons/user-trash.png'
-
-const iconArray = [
-  'firefox',
-  'music',
-  'terminal',
-  'office',
-  'filemanager',
-  'trash',
-] as const
-export type MainAppIconType = (typeof iconArray)[number]
-type IconInfo = {
-  src: string
-  alt: string
-}
-type MainAppIconMap = {
-  [K in MainAppIconType]: IconInfo
-}
+import type { MainAppIconMap, MainAppIconType } from '@/types'
 
 const props = withDefaults(
   defineProps<{
@@ -44,8 +29,10 @@ const imageIcons: MainAppIconMap = {
   music: { src: MusicIcon, alt: 'music player icon' },
   terminal: { src: TerminalIcon, alt: 'terminal icon' },
   office: { src: OfficeIcon, alt: 'libre office icon' },
-  filemanager: { src: FileManagerIcon, alt: 'file manager icon' },
+  'file-manager': { src: FileManagerIcon, alt: 'file manager icon' },
   trash: { src: TrashIcon, alt: 'trash icon' },
+  'image-viewer': { src: ImageViewerIcon, alt: 'image viewer icon' },
+  'document-reader': { src: OfficeIcon, alt: 'libre office icon' },
 }
 
 const handleIconClick = (e: Event) => {

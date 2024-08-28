@@ -1,3 +1,5 @@
 export * from './appStore'
 export * from './fileManagerStore'
+export * from './picturesStore'
 export * from './terminalStore'
+export * from './textReaderStore'

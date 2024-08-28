@@ -26,6 +26,7 @@ const props = withDefaults(
   defineProps<{
     type: FileType
     text: string
+    path: string
   }>(),
   {
     type: 'text',
@@ -35,15 +36,15 @@ const emit = defineEmits<{
   (e: 'file-click', text: string): void
 }>()
 
-const onFolderClick = () => {
-  emit('file-click', props.text)
+const onFileClick = () => {
+  emit('file-click', props.path)
 }
 </script>
 
 <template>
   <button
     class="flex flex-col items-center w-24 justify-center gap-1 py-3xs rounded-lg focus:bg-dark-4 transition-colors duration-150 ease-linear"
-    @click="onFolderClick"
+    @click="onFileClick"
   >
     <img :src="folderData[type]" :alt="type" class="h-lg" />
     <p class="text-light-1 text-sm text-wrap">{{ text }}</p>

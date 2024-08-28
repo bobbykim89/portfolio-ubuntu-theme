@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import SpeakerIcon from '@/assets/img/svg-files/audio-speakers-symbolic.svg'
-import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-symbolic.svg'
+import LockSvgIcon from '@/assets/img/svg-files/changes-prevent-symbolic.svg'
 import PerformanceSvgIcon from '@/assets/img/svg-files/document-open-recent-symbolic.svg'
 import SettingsSvgIcon from '@/assets/img/svg-files/document-properties-symbolic.svg'
-import LockSvgIcon from '@/assets/img/svg-files/changes-prevent-symbolic.svg'
-import PowerSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
+import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-symbolic.svg'
 import ChevronRight from '@/assets/img/svg-files/pan-end-symbolic.svg'
-import { vCollapse, Collapse } from '@bobbykim/manguito-theme'
+import PowerSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
+import { useFileManagerStore } from '@/stores'
+import { Collapse, vCollapse } from '@bobbykim/manguito-theme'
 
 const visible = ref<boolean>(false)
 const networkCollapseVisible = ref<boolean>(false)
 const performanceCollapseVisible = ref<boolean>(false)
 const powerCollapseVisible = ref<boolean>(false)
+const fileManagerStore = useFileManagerStore()
 const router = useRouter()
 
 const toggleVisibility = () => {
@@ -33,9 +35,12 @@ const handleLockScreenClick = () => {
 }
 const handleRestartClick = () => {
   closeMenu()
+  fileManagerStore.closeFileManager()
   router.push({ path: '/' })
 }
 const handlePowerOffClick = () => {
+  closeMenu()
+  fileManagerStore.closeFileManager()
   router.push({ path: '/shutdown' })
 }
 const handlePowerButtonClick = (visible: boolean) => {
