@@ -2,14 +2,14 @@
 import { useFileManagerStore } from '@/stores'
 import Folder from '../Folder.vue'
 
-type RootDirectoryFildersMap = {
+type RootDirectoryFoldersMap = {
   text: string
   handler: () => void
 }
 
 const fileManagerStore = useFileManagerStore()
 
-const folders: RootDirectoryFildersMap[] = [
+const folders: RootDirectoryFoldersMap[] = [
   {
     text: 'About',
     handler: () => fileManagerStore.setCurrentDirectory('documents/about'),

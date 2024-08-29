@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTextReaderStore } from '@/stores'
+import { useAppStore, useTextReaderStore } from '@/stores'
 import { type FileType } from '@/types'
 import File from '../File.vue'
 
@@ -7,35 +7,36 @@ type RootDirectoryFildersMap = {
   text: string
   type: FileType
   path: string
-  handler: (arg: string) => void
 }
 
+const appStore = useAppStore()
 const textReaderStore = useTextReaderStore()
+
+const openDocumentReader = (arg: string) => {
+  appStore.setDocumentReaderOpen()
+  textReaderStore.openMdReader(arg)
+}
 
 const folders: RootDirectoryFildersMap[] = [
   {
     text: 'Info.md',
     type: 'text',
     path: '/documents/about/info',
-    handler: (arg: string) => textReaderStore.openMdReader(arg),
   },
   {
     text: 'Education.md',
     type: 'text',
     path: '/documents/about/education',
-    handler: (arg: string) => textReaderStore.openMdReader(arg),
   },
   {
     text: 'Experience.md',
     type: 'text',
     path: '/documents/about/experience',
-    handler: (arg: string) => textReaderStore.openMdReader(arg),
   },
   {
     text: 'Contact.md',
     type: 'text',
     path: '/documents/about/contact',
-    handler: (arg: string) => textReaderStore.openMdReader(arg),
   },
 ]
 </script>
@@ -48,7 +49,7 @@ const folders: RootDirectoryFildersMap[] = [
       :text="item.text"
       :type="item.type"
       :path="item.path"
-      @file-click="item.handler"
+      @file-click="openDocumentReader"
     />
   </div>
 </template>

@@ -45,7 +45,7 @@ const setMdReaderActive = (val: boolean) => {
     :visible="isMdVisible"
     :active="isMdActive"
     :maximized="isMdMaximized"
-    container-size="70"
+    container-size="30"
     @close-click="closeMdReader"
     @minimize-click="minimizeMdReader"
     @maximize-click="textReaderStore.setMdReaderMaximize"
@@ -54,7 +54,7 @@ const setMdReaderActive = (val: boolean) => {
     <div
       :class="[
         isMdMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
-        'bg-dark-3 h-[90vh] md:h-96 text-light-1 py-3xs px-lg relative',
+        'bg-dark-3 h-[90vh] md:h-96 text-light-1 py-3xs px-sm relative overflow-y-scroll',
       ]"
     >
       <ContentRenderer v-if="currentMdContent" :value="currentMdContent">
