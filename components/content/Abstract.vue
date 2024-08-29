@@ -3,7 +3,7 @@ import generateClass, { type ColorPalette } from '@bobbykim/manguito-theme'
 
 const props = withDefaults(
   defineProps<{
-    color: ColorPalette
+    color?: ColorPalette
   }>(),
   {
     color: 'warning',

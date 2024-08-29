@@ -42,7 +42,9 @@ const folders: RootDirectoryFildersMap[] = [
 </script>
 
 <template>
-  <div class="p-xs flex flex-wrap gap-[10px] items-start">
+  <div
+    class="p-xs gap-[10px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-items-center"
+  >
     <File
       v-for="(item, idx) in folders"
       :key="idx"

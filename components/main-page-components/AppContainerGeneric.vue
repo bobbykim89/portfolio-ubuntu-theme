@@ -34,10 +34,10 @@ const setContainerSize = computed<string>(() => {
   const { containerSize, maximized } = props
   const widthClass =
     containerSize === '30'
-      ? 'md:w-1/3'
+      ? 'md:w-1/2 lg:w-1/3'
       : containerSize === '50'
-      ? 'md:w-1/2'
-      : 'md:w-2/3'
+      ? 'md:w-2/3 lg:w-1/2'
+      : 'md:w-4/5 lg:w-2/3'
   return maximized ? '' : `md:fixed ${widthClass}`
 })
 
@@ -67,7 +67,7 @@ onClickOutside(draggableRef, () => {
     :class="[
       active ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
       setContainerSize,
-      'md:rounded-lg overflow-hidden w-full border-2 drop-shadow-md',
+      'md:rounded-lg overflow-hidden border-2 drop-shadow-md',
     ]"
     @click="onAppClick"
   >
@@ -75,10 +75,10 @@ onClickOutside(draggableRef, () => {
       ref="dragHandle"
       :class="[
         active ? 'bg-dark-3' : 'bg-dark-2',
-        'grid grid-cols-3 content-center text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
+        'grid grid-cols-2 xl:grid-cols-3 content-center text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
       ]"
     >
-      <p class="col-start-2 place-self-center cursor-default select-none">
+      <p class="xl:col-start-2 xl:place-self-center cursor-default select-none">
         {{ appName }}
       </p>
       <!-- minimize/maximize/close buttons -->

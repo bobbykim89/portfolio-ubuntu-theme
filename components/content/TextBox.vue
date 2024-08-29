@@ -34,14 +34,14 @@ const styleClass = computed(() => {
 
   return classArray.join(' ')
 })
+const getBorderClass = computed(() =>
+  generateClass('BORDER', props.borderColor)
+)
 </script>
 
 <template>
   <div :class="[styleClass, 'overflow-hidden py-2xs px-xs mb-md']">
-    <div
-      class="border-b-2 py-3xs mb-xs"
-      :class="generateClass('BORDER', borderColor)"
-    >
+    <div class="border-b-2 py-3xs mb-xs" :class="getBorderClass">
       <h3 class="h3-md">{{ title }}</h3>
     </div>
     <slot />

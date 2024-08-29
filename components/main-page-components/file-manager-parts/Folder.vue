@@ -14,7 +14,7 @@ const folderData: FolderMap = {
 
 const props = withDefaults(
   defineProps<{
-    type: FolderType
+    type?: FolderType
     text: string
   }>(),
   {
