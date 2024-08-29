@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import generateClass, { type ColorPalette } from '@bobbykim/manguito-theme'
+import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -10,6 +11,8 @@ const props = withDefaults(
     color: 'secondary',
   }
 )
+
+const getBtnColor = computed(() => generateClass('BTNCOLOR', props.color))
 </script>
 
 <template>
@@ -17,10 +20,8 @@ const props = withDefaults(
     :href="url"
     target="_blank"
     class="btn btn-progress btn-round"
-    :class="generateClass('BTNCOLOR', color)"
+    :class="getBtnColor"
   >
     <slot />
   </a>
 </template>
-
-<style scoped></style>
