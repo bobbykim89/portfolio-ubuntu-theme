@@ -1,4 +1,5 @@
 export * from './appStore'
+export * from './blogStore'
 export * from './fileManagerStore'
 export * from './picturesStore'
 export * from './terminalStore'

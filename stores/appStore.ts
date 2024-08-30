@@ -1,6 +1,7 @@
 import { AppType, AppTypeMap } from '@/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useBlogStore } from './blogStore'
 import { useFileManagerStore } from './fileManagerStore'
 import { usePictureStore } from './picturesStore'
 import { useTerminalStore } from './terminalStore'
@@ -12,6 +13,7 @@ export const useAppStore = defineStore('app', () => {
   const fileManagerStore = useFileManagerStore()
   const pictureStore = usePictureStore()
   const textReaderStore = useTextReaderStore()
+  const blogStore = useBlogStore()
   // states
   const appStatus = ref<AppTypeMap>({
     terminal: { open: false, active: false },
@@ -67,6 +69,14 @@ export const useAppStore = defineStore('app', () => {
 
   const setFirefoxOpen = () => {
     setAppStatus('firefox', true)
+    blogStore.openBlog()
+  }
+  const setFirefoxActive = (val: boolean) => {
+    appStatus.value.firefox.active = val
+  }
+
+  const setFirefoxClose = () => {
+    setAppStatus('firefox', false)
   }
 
   const setMusicOpen = () => {
@@ -112,6 +122,8 @@ export const useAppStore = defineStore('app', () => {
     setOfficeActive,
     setOfficeClose,
     setFirefoxOpen,
+    setFirefoxActive,
+    setFirefoxClose,
     setMusicOpen,
     setTrashOpen,
     setImageViewerOpen,

@@ -15,7 +15,7 @@ const openPhotoViewer = (id: string) => {
 
 <template>
   <div
-    class="p-xs gap-[10px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-items-center"
+    class="p-xs gap-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-items-center"
   >
     <Picture
       v-for="(item, idx) in imageData"

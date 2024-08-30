@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BgImage from '@/assets/img/manguito_tree.jpeg'
 import AppIcon from '@/components/main-page-components/AppIcon.vue'
+import BlogPage from '@/components/main-page-components/BlogPage.vue'
 import DesktopAppsIcon from '@/components/main-page-components/DesktopAppsIcon.vue'
 import DocumentReader from '@/components/main-page-components/DocumentReader.vue'
 import FileManager from '@/components/main-page-components/FileManager.vue'
@@ -58,6 +59,14 @@ const bgImageVar = computed(() => {
         :is-active="appStatus.trash.active"
         @icon-click="appStore.setTrashOpen"
       />
+      <div
+        v-if="
+          appStatus['image-viewer'].open || appStatus['document-reader'].open
+        "
+        class="px-2xs py-3xs"
+      >
+        <div class="w-full h-[2px] bg-light-3 rounded-sm opacity-50"></div>
+      </div>
       <AppIcon
         v-if="appStatus['image-viewer'].open"
         icon-type="image-viewer"
@@ -105,6 +114,12 @@ const bgImageVar = computed(() => {
         :initial-y="40"
         @set-active="appStore.setDocumentReaderActive"
         @close-click="appStore.setDocumentReaderClose"
+      />
+      <BlogPage
+        :initial-x="200"
+        :initial-y="80"
+        @set-active="appStore.setFirefoxActive"
+        @close-click="appStore.setFirefoxClose"
       />
     </div>
   </div>
