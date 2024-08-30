@@ -1,0 +1,161 @@
+<script setup lang="ts">
+import { queryContent, useAsyncData } from '#imports'
+import ChevronRight from '@/assets/img/svg-files/pan-end-symbolic.svg'
+import ChevronLeft from '@/assets/img/svg-files/pan-start-symbolic.svg'
+import CloseSvgIcon from '@/assets/img/svg-files/window-close-symbolic.svg'
+import MaximizeSvgIcon from '@/assets/img/svg-files/window-maximize-symbolic.svg'
+import MinimizeSvgIcon from '@/assets/img/svg-files/window-minimize-symbolic.svg'
+import RestoreSvgIcon from '@/assets/img/svg-files/window-restore-symbolic.svg'
+import { useBlogStore } from '@/stores'
+import { onClickOutside, useDraggable } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
+import BlogHome from './blog-parts/BlogHome.vue'
+
+const props = withDefaults(
+  defineProps<{
+    initialX: number
+    initialY: number
+  }>(),
+  {
+    initialX: 80,
+    initialY: 40,
+  }
+)
+
+const emit = defineEmits<{
+  (e: 'close-click'): void
+  (e: 'set-active', active: boolean): void
+}>()
+
+const draggableRef = ref<HTMLDivElement>()
+const dragHandle = ref<HTMLDivElement>()
+const blogStore = useBlogStore()
+const {
+  isActive,
+  isMaximized,
+  isRootDir,
+  isVisible,
+  currentPath,
+  currentPathIdx,
+} = storeToRefs(blogStore)
+
+const { data: posts } = await useAsyncData('posts', () =>
+  queryContent('/blog').find()
+)
+
+const { style } = useDraggable(draggableRef, {
+  handle: dragHandle,
+  initialValue: { x: props.initialX, y: props.initialY },
+})
+
+const closeBlog = () => {
+  blogStore.closeBlog()
+  emit('close-click')
+}
+const minimizeBlog = () => {
+  blogStore.minimizeBlog()
+  emit('set-active', false)
+}
+const onBlogClick = () => {
+  blogStore.setBlogActive(true)
+  emit('set-active', true)
+}
+
+onClickOutside(draggableRef, () => {
+  blogStore.setBlogActive(false)
+  emit('set-active', false)
+})
+</script>
+
+<template>
+  <div
+    v-if="isVisible"
+    ref="draggableRef"
+    :style="style"
+    :class="[
+      isActive ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
+      isMaximized ? '' : 'md:fixed md:w-2/3 lg:w-2/3 xl:w-1/2',
+      'md:rounded-lg overflow-hidden w-full border-2 drop-shadow-md',
+    ]"
+    @click="onBlogClick"
+  >
+    <div
+      ref="dragHandle"
+      :class="[
+        isActive ? 'bg-dark-3' : 'bg-dark-2',
+        'flex items-center gap-2 text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
+      ]"
+    >
+      <div>
+        <!-- prev button -->
+        <button
+          :class="[
+            isRootDir ? 'bg-dark-3' : 'bg-dark-2',
+            'px-3xs py-[5px] rounded-l-md border-2 border-dark-4 h-full',
+          ]"
+          :disabled="isRootDir"
+          @click="blogStore.onPrevClick"
+        >
+          <ChevronLeft class="h-[18px]" :fontControlled="false" />
+        </button>
+        <!-- next button -->
+        <button
+          :class="[
+            currentPathIdx > 1 ? 'bg-dark-2' : 'bg-dark-3',
+            'px-3xs py-[5px] rounded-r-md h-full border-y-2 border-r-2 border-dark-4',
+          ]"
+          :disabled="currentPathIdx <= 1"
+          @click="blogStore.onNextClick"
+        >
+          <ChevronRight class="h-[18px]" :fontControlled="false" />
+        </button>
+      </div>
+      <div
+        class="grow flex gap-2 justify-start items-center border-2 border-dark-4 h-md md:mr-3xl px-3xs py-[2px] bg-dark-2 rounded-md"
+      >
+        <p class="text-sm">{{ currentPath }}</p>
+      </div>
+      <!-- minimize/maximize/close buttons -->
+      <div class="flex gap-2 items-center justify-self-end ml-auto" @click.stop>
+        <button class="rounded-full p-[2px] bg-dark-2" @click="minimizeBlog">
+          <MinimizeSvgIcon
+            class="aspect-square w-[14px]"
+            :fontControlled="false"
+          />
+        </button>
+        <button
+          class="rounded-full p-[2px] bg-dark-2"
+          @click="blogStore.setBlogMaximize"
+        >
+          <RestoreSvgIcon
+            v-if="isMaximized"
+            class="aspect-square w-[14px]"
+            :fontControlled="false"
+          />
+          <MaximizeSvgIcon
+            v-else
+            class="aspect-square w-[14px]"
+            :fontControlled="false"
+          />
+        </button>
+        <button class="rounded-full p-[2px] bg-dark-2" @click="closeBlog">
+          <CloseSvgIcon class="aspect-square w-xs" :fontControlled="false" />
+        </button>
+      </div>
+    </div>
+    <!-- content section -->
+    <div
+      :class="[
+        isMaximized ? 'md:h-[92vh]' : 'md:h-96',
+        'h-[90vh] md:h-96 text-light-1 flex flex-col md:flex-row',
+      ]"
+    >
+      <!-- folders section -->
+      <div class="w-full h-full bg-dark-2 relative overflow-y-scroll">
+        <BlogHome v-if="currentPath === '/blog'" :posts="posts!" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped></style>
