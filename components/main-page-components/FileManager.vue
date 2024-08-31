@@ -220,7 +220,10 @@ onClickOutside(draggableRef, () => {
       />
       <!-- folders section -->
       <div class="w-full h-full bg-dark-2 relative overflow-y-scroll">
-        <component :is="fileManagerDirectory[currentSection].component" />
+        <component
+          :maximized="isMaximized"
+          :is="fileManagerDirectory[currentSection].component"
+        />
       </div>
     </div>
   </div>

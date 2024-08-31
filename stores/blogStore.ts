@@ -13,13 +13,14 @@ export const useBlogStore = defineStore('blog', () => {
   const currentPath = ref<string>('/blog')
   const historyRef = ref<string[]>([])
   const currentContent = ref<ParsedContent | null>(null)
+  const searchQuery = ref<string>('')
 
   // actions
   const fetchBlogContent = async () => {
     if (currentPath.value === '/blog') {
       return
     }
-
+    console.log(currentPath.value)
     const res = await queryContent()
       .where({ _path: currentPath.value })
       .findOne()
@@ -33,11 +34,18 @@ export const useBlogStore = defineStore('blog', () => {
   const openBlog = () => {
     isVisible.value = true
     isActive.value = true
+    historyRef.value.push('/blog')
   }
   const closeBlog = () => {
     isVisible.value = false
     isActive.value = false
+    isRootDir.value = true
+    isMaximized.value = false
     currentPath.value = '/blog'
+    currentPathIdx.value = 1
+    historyRef.value = []
+    searchQuery.value = ''
+    currentContent.value = null
   }
   const minimizeBlog = () => {
     isVisible.value = false
@@ -64,13 +72,15 @@ export const useBlogStore = defineStore('blog', () => {
       currentPathIdx.value = 1
     }
     historyRef.value.push(val)
-    await fetchBlogContent()
+    searchQuery.value = ''
     currentPath.value = val
+    await fetchBlogContent()
     if (historyRef.value.length > currentPathIdx.value) {
       isRootDir.value = false
     }
   }
   const onPrevClick = () => {
+    searchQuery.value = ''
     if (
       historyRef.value.length > 1 &&
       currentPathIdx.value < historyRef.value.length
@@ -85,6 +95,7 @@ export const useBlogStore = defineStore('blog', () => {
     }
   }
   const onNextClick = () => {
+    searchQuery.value = ''
     if (currentPathIdx.value > 1) {
       currentPathIdx.value -= 1
       const newTargetDirectory =
@@ -104,6 +115,7 @@ export const useBlogStore = defineStore('blog', () => {
     currentPath,
     currentPathIdx,
     historyRef,
+    searchQuery,
     openBlog,
     closeBlog,
     minimizeBlog,

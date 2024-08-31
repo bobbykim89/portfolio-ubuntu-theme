@@ -11,6 +11,9 @@ importers:
       '@bobbykim/manguito-theme':
         specifier: ^0.22.1
         version: 0.22.1(typescript@5.5.4)
+      '@bobbykim/mcl-forms':
+        specifier: ^0.8.2
+        version: 0.8.2(typescript@5.5.4)
       '@nuxt/content':
         specifier: ^2.13.2
         version: 2.13.2(ioredis@5.4.1)(magicast@0.3.5)(nuxt@3.13.0(@parcel/watcher@2.4.1)(@types/node@22.5.1)(ioredis@5.4.1)(magicast@0.3.5)(rollup@4.21.1)(sass@1.77.8)(terser@5.31.6)(typescript@5.5.4)(vite@5.4.2(@types/node@22.5.1)(sass@1.77.8)(terser@5.31.6))(vue-tsc@2.0.29(typescript@5.5.4)))(rollup@4.21.1)(vue@3.4.38(typescript@5.5.4))
@@ -225,6 +228,9 @@ packages:
 
   '@bobbykim/manguito-theme@0.22.1':
     resolution: {integrity: sha512-DgjM8U/bBhMqBIwq8B6q6ROc2qJgCvLdxVhO/ZwDLQp0wiA+htEJ/DEGlklTgSq8AIBZNdoadUnDRqOv2b8Zxw==}
+
+  '@bobbykim/mcl-forms@0.8.2':
+    resolution: {integrity: sha512-5Be8CT3yABPObEfKlr1+qIy4gXidVfKMkQkGMDhWni5Jj/x2xi5Y9I3p+Jig196KC1HyoiApwcXVa9avRWkylg==}
 
   '@cloudflare/kv-asset-handler@0.3.4':
     resolution: {integrity: sha512-YLPHc8yASwjNkmcDMQMY35yiWjoKAKnhUbPRszBRS0YgH+IXtsMp61j+yTcnCE3oO2DgP0U3iejLC8FTtKDC8Q==}
@@ -4431,6 +4437,15 @@ snapshots:
 
   '@bobbykim/manguito-theme@0.22.1(typescript@5.5.4)':
     dependencies:
+      '@vueuse/core': 10.11.1(vue@3.4.38(typescript@5.5.4))
+      vue: 3.4.38(typescript@5.5.4)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - typescript
+
+  '@bobbykim/mcl-forms@0.8.2(typescript@5.5.4)':
+    dependencies:
+      '@bobbykim/manguito-theme': 0.22.1(typescript@5.5.4)
       '@vueuse/core': 10.11.1(vue@3.4.38(typescript@5.5.4))
       vue: 3.4.38(typescript@5.5.4)
     transitivePeerDependencies:

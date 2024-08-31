@@ -2,6 +2,10 @@
 import { useFileManagerStore } from '@/stores'
 import Folder from '../Folder.vue'
 
+defineProps<{
+  maximized: boolean
+}>()
+
 type RootDirectoryFoldersMap = {
   text: string
   handler: () => void
@@ -27,7 +31,12 @@ const folders: RootDirectoryFoldersMap[] = [
 
 <template>
   <div
-    class="p-xs gap-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-items-center"
+    :class="[
+      maximized
+        ? 'md:grid-cols-4 lg:grid-cols-8'
+        : 'md:grid-cols-3 lg:grid-cols-5',
+      'p-xs gap-3 grid grid-cols-2 justify-items-center',
+    ]"
   >
     <Folder
       v-for="(item, idx) in folders"
