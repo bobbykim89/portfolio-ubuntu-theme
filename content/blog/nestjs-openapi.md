@@ -1,17 +1,17 @@
 ---
-title: 'Applying Object Oriented Programming (OOP) on Nuxt 3 Nitro Server'
-description: 'Applying Object Oriented Programming (OOP) on Nuxt 3 Nitro Server description text pio pio...'
+title: 'Setting up OpenAPI configuration for NestJS'
+description: 'Setting up OpenAPI configuration for NestJS description text pio pio pollito is very cute lovebird...'
 category: 'Backend'
 image: '/content_img/about/manguito_small.jpg'
 githubUrl: 'https://github.com/bobbykim89'
 linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'
 emailAddress: 'bobby.sihun.kim@gmail.com'
-date: 2024-08-25
+date: 2024-08-29
 ---
 
 ::hero{:image-src="image" :rounded="true" :gradient="true"}
 
-## Applying Object Oriented Programming (OOP) on Nuxt 3 Nitro Server
+## Setting up OpenAPI configuration for NestJS
 
 ::
 

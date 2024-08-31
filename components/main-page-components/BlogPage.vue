@@ -9,7 +9,9 @@ import RestoreSvgIcon from '@/assets/img/svg-files/window-restore-symbolic.svg'
 import { useBlogStore } from '@/stores'
 import { onClickOutside, useDraggable } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
 import BlogHome from './blog-parts/BlogHome.vue'
+import BlogPost from './blog-parts/BlogPost.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -37,11 +39,22 @@ const {
   isVisible,
   currentPath,
   currentPathIdx,
+  searchQuery,
 } = storeToRefs(blogStore)
 
 const { data: posts } = await useAsyncData('posts', () =>
-  queryContent('/blog').find()
+  queryContent('/blog').sort({ date: -1 }).find()
 )
+
+const filteredSearchQuery = computed(() => {
+  if (searchQuery.value === '') {
+    return posts.value
+  }
+  const searchTerm = new RegExp(searchQuery.value, 'gi')
+  return posts.value?.filter((item) => {
+    return item.title?.match(searchTerm) || item.description.match(searchTerm)
+  })
+})
 
 const { style } = useDraggable(draggableRef, {
   handle: dragHandle,
@@ -111,7 +124,7 @@ onClickOutside(draggableRef, () => {
         </button>
       </div>
       <div
-        class="grow flex gap-2 justify-start items-center border-2 border-dark-4 h-md md:mr-3xl px-3xs py-[2px] bg-dark-2 rounded-md"
+        class="grow flex gap-2 justify-start items-center border-2 border-dark-4 h-md md:mr-3xl px-2xs py-[2px] bg-dark-2 rounded-md"
       >
         <p class="text-sm">{{ currentPath }}</p>
       </div>
@@ -146,13 +159,18 @@ onClickOutside(draggableRef, () => {
     <!-- content section -->
     <div
       :class="[
-        isMaximized ? 'md:h-[92vh]' : 'md:h-96',
-        'h-[90vh] md:h-96 text-light-1 flex flex-col md:flex-row',
+        isMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
+        'bg-dark-3 h-[90vh] text-light-1 p-3xs relative overflow-y-scroll',
       ]"
     >
       <!-- folders section -->
-      <div class="w-full h-full bg-dark-2 relative overflow-y-scroll">
-        <BlogHome v-if="currentPath === '/blog'" :posts="posts!" />
+      <div class="w-full h-full relative overflow-y-scroll">
+        <BlogHome
+          v-if="currentPath === '/blog'"
+          :posts="filteredSearchQuery!"
+          :maximized="isMaximized"
+        />
+        <BlogPost v-else />
       </div>
     </div>
   </div>

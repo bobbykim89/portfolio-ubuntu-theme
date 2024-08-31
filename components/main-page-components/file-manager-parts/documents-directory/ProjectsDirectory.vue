@@ -3,6 +3,10 @@ import { useAppStore, useTextReaderStore } from '@/stores'
 import { type FileType } from '@/types'
 import File from '../File.vue'
 
+defineProps<{
+  maximized: boolean
+}>()
+
 type RootDirectoryFildersMap = {
   text: string
   type: FileType
@@ -43,7 +47,12 @@ const folders: RootDirectoryFildersMap[] = [
 
 <template>
   <div
-    class="p-xs gap-3 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-items-center"
+    :class="[
+      maximized
+        ? 'md:grid-cols-4 lg:grid-cols-8'
+        : 'md:grid-cols-3 lg:grid-cols-5',
+      'p-xs gap-3 grid grid-cols-2 justify-items-center',
+    ]"
   >
     <File
       v-for="(item, idx) in folders"
