@@ -68,7 +68,6 @@ const setCurrentMusic = () => {
   currentCopyText.value = playList.value[currentTrackNumber.value].copyText
 }
 const playMusic = () => {
-  setCurrentMusic()
   musicPlayer.value?.play()
   musicPlayerStore.setPlay(true)
 }
@@ -79,6 +78,7 @@ const pauseMusic = () => {
 const onNextClick = () => {
   musicPlayerStore.setNextMusic()
   setCurrentMusic()
+  musicPlayer.value?.pause()
   if (isMusicPlaying.value === true) {
     musicPlayer.value?.play()
   }
@@ -86,6 +86,7 @@ const onNextClick = () => {
 const onPrevClick = () => {
   musicPlayerStore.setPrevMusic()
   setCurrentMusic()
+  musicPlayer.value?.pause()
   if (isMusicPlaying.value === true) {
     musicPlayer.value?.play()
   }
@@ -106,6 +107,13 @@ const minimizeMusicPlayer = () => {
 const setMusicPlayerActive = (val: boolean) => {
   musicPlayerStore.setMusicPlayerActive(val)
   emit('set-active', val)
+}
+
+const onPlayListClick = (track: number) => {
+  musicPlayerStore.setCurrentTrackNumber(track)
+  setCurrentMusic()
+  musicPlayerStore.setPlay(true)
+  musicPlayer.value?.play()
 }
 
 const currentMusicStatus = computed(() => {
@@ -134,12 +142,11 @@ onMounted(() => {
   musicPlayer.value = new Audio()
   setCurrentMusic()
 })
-watch(
-  () => currentTrackNumber.value,
-  () => {
-    setCurrentMusic()
+watch(musicVolume, (newVal) => {
+  if (typeof musicPlayer.value !== 'undefined') {
+    musicPlayer.value.volume = newVal / 100
   }
-)
+})
 </script>
 
 <template>
@@ -156,12 +163,12 @@ watch(
     @set-active="setMusicPlayerActive"
   >
     <div
-      class="bg-dark-3 h-[90vh] md:h-[50vh] text-light-1 py-3xs px-xs lg:px-sm relative overflow-y-scroll"
+      class="bg-dark-3 h-[90vh] md:h-[65vh] text-light-1 py-3xs px-xs lg:px-sm relative overflow-y-scroll"
       :style="currentMusicStatus"
     >
       <!-- music player -->
       <div
-        class="bg-dark-2 rounded-lg py-sm px-xs my-md grid grid-cols-3 gap-4 place-items-center"
+        class="bg-dark-2 rounded-lg py-sm px-xs mt-2xs mb-sm grid grid-cols-3 gap-4 place-items-center"
       >
         <img
           class="w-3xl aspect-square rounded-lg"
@@ -239,7 +246,7 @@ watch(
         ></div>
       </div>
       <!-- play-list -->
-      <div class="bg-dark-2 p-xs rounded-lg">
+      <div class="bg-dark-2 p-xs rounded-lg mb-sm">
         <PlayerListCards
           v-for="(card, idx) in playList"
           :key="idx"
@@ -247,7 +254,7 @@ watch(
           :title="card.title"
           :track-number="idx"
           :active-track-number="currentTrackNumber"
-          @card-click="musicPlayerStore.setCurrentTrackNumber"
+          @card-click="onPlayListClick"
         />
       </div>
     </div>

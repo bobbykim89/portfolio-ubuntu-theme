@@ -125,7 +125,7 @@ const bgImageVar = computed(() => {
       <MusicPlayer
         :initial-x="160"
         :initial-y="80"
-        @set-active="appStore.setMusicOpen"
+        @set-active="appStore.setMusicPlayerActive"
         @close-click="appStore.setMusicPlayerClose"
       />
     </div>

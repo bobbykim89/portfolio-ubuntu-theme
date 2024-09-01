@@ -6,15 +6,19 @@ import SettingsSvgIcon from '@/assets/img/svg-files/document-properties-symbolic
 import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-symbolic.svg'
 import ChevronRight from '@/assets/img/svg-files/pan-end-symbolic.svg'
 import PowerSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
-import { useFileManagerStore } from '@/stores'
+import { useFileManagerStore, useMusicPlayerStore } from '@/stores'
 import { Collapse, vCollapse } from '@bobbykim/manguito-theme'
+import { storeToRefs } from 'pinia'
 
 const visible = ref<boolean>(false)
 const networkCollapseVisible = ref<boolean>(false)
 const performanceCollapseVisible = ref<boolean>(false)
 const powerCollapseVisible = ref<boolean>(false)
 const fileManagerStore = useFileManagerStore()
+const musicPlayerStore = useMusicPlayerStore()
 const router = useRouter()
+
+const { musicVolume } = storeToRefs(musicPlayerStore)
 
 const toggleVisibility = () => {
   visible.value = !visible.value
@@ -74,6 +78,7 @@ defineExpose<{
           max="100"
           step="1"
           class="accent-warning w-full"
+          v-model="musicVolume"
         />
       </div>
       <!-- network and performance buttons -->
