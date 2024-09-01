@@ -32,10 +32,11 @@ export type AppContainerPropTypes = {
   initialX: number
   initialY: number
   visible: boolean
-  maximized: boolean
+  maximized?: boolean
   active: boolean
   appName: string
   containerSize?: '30' | '50' | '70'
+  disableMaximize?: boolean
 }
 
 export type CoordinatesType = {

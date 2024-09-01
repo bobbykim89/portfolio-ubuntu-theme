@@ -30,7 +30,7 @@ export const useBlogStore = defineStore('blog', () => {
     }
     currentContent.value = res
   }
-  // actions: MD reader
+  // actions: BlogPage
   const openBlog = () => {
     isVisible.value = true
     isActive.value = true
@@ -52,10 +52,8 @@ export const useBlogStore = defineStore('blog', () => {
     isActive.value = false
   }
   const setBlogVisible = () => {
-    if (currentPath.value !== null) {
-      isVisible.value = true
-      isActive.value = true
-    }
+    isVisible.value = true
+    isActive.value = true
   }
   const setBlogActive = (val: boolean) => {
     isActive.value = val
