@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 export const useMusicPlayerStore = defineStore('music', () => {
   // states
-  const isActive = ref<boolean>(true)
+  const isActive = ref<boolean>(false)
   const isVisible = ref<boolean>(false)
   const isMusicPlaying = ref<boolean>(false)
   const currentTrackNumber = ref<number>(0)
