@@ -77,7 +77,6 @@ const pauseMusic = () => {
 }
 const onNextClick = () => {
   musicPlayerStore.setNextMusic()
-  setCurrentMusic()
   musicPlayer.value?.pause()
   if (isMusicPlaying.value === true) {
     musicPlayer.value?.play()
@@ -85,7 +84,6 @@ const onNextClick = () => {
 }
 const onPrevClick = () => {
   musicPlayerStore.setPrevMusic()
-  setCurrentMusic()
   musicPlayer.value?.pause()
   if (isMusicPlaying.value === true) {
     musicPlayer.value?.play()
@@ -97,7 +95,7 @@ const onPlayButtonClick = () => {
 
 const closeMusicPlayer = () => {
   musicPlayerStore.closeMusicPlayer()
-  setCurrentMusic()
+  musicPlayer.value?.pause()
   emit('close-click')
 }
 const minimizeMusicPlayer = () => {
@@ -111,7 +109,6 @@ const setMusicPlayerActive = (val: boolean) => {
 
 const onPlayListClick = (track: number) => {
   musicPlayerStore.setCurrentTrackNumber(track)
-  setCurrentMusic()
   musicPlayerStore.setPlay(true)
   musicPlayer.value?.play()
 }
@@ -145,6 +142,12 @@ onMounted(() => {
 watch(musicVolume, (newVal) => {
   if (typeof musicPlayer.value !== 'undefined') {
     musicPlayer.value.volume = newVal / 100
+  }
+})
+watch(currentTrackNumber, () => {
+  setCurrentMusic()
+  if (isMusicPlaying.value === true) {
+    musicPlayer.value?.play()
   }
 })
 </script>

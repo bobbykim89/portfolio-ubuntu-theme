@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { useRuntimeConfig } from '#imports'
 import ProfileImage from '@/assets/img/profile/manguito_thumb.jpg'
 import UbuntuLogo from '@/assets/img/ubuntu-logo-dark.png'
 import { useIntervalFn } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
+const config = useRuntimeConfig()
 const router = useRouter()
 const route = useRoute()
-const profileName = ref<string>('Manguito Lovebird')
+const profileName = ref<string>(config.public.userName)
 const progressBarWidth = ref<number>(0)
 const showProgressBar = ref<boolean>(true)
 

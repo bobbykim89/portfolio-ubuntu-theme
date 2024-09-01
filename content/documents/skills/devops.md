@@ -1,5 +1,8 @@
 ---
 title: 'DevOps Skills'
+order: 3
+fileName: 'DevOps.md'
+type: 'text'
 githubUrl: 'https://github.com/bobbykim89'
 linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'
 emailAddress: 'bobby.sihun.kim@gmail.com'

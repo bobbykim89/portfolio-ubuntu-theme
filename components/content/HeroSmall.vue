@@ -8,7 +8,7 @@ type ColorPaletteMap = {
 
 const props = withDefaults(
   defineProps<{
-    color: ColorPalette
+    color?: ColorPalette
   }>(),
   {
     color: 'warning',

@@ -1,5 +1,7 @@
 ---
 title: 'Manguito Page'
+fileName: 'Manguito Page.md'
+type: 'js'
 image: '/content_img/about/manguito_small.jpg'
 gitUrl: 'https://github.com/bobbykim89/manguito-page-v2'
 pageUrl: 'https://manguito-page.vercel.app/'
