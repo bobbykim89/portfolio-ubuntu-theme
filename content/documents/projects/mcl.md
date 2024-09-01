@@ -1,5 +1,7 @@
 ---
 title: 'Manguito Component Library (MCL)'
+fileName: 'MCL.md'
+type: 'js'
 image: '/content_img/about/manguito_small.jpg'
 gitUrl: 'https://github.com/bobbykim89/manguito-component-library'
 pageUrl: 'https://manguito-component-library.vercel.app'

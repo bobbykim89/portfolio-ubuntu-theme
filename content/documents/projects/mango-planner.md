@@ -1,5 +1,7 @@
 ---
 title: 'Mango Planner'
+fileName: 'Mango Planner.md'
+type: 'js'
 image: '/content_img/about/manguito_small.jpg'
 gitUrl: 'https://github.com/bobbykim89/mango-planner-v2'
 gitUrlOld: 'https://github.com/bobbykim89/mango-planner'

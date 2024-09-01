@@ -1,17 +1,15 @@
 <script setup lang="ts">
+import { queryContent, useAsyncData } from '#imports'
 import { useAppStore, useTextReaderStore } from '@/stores'
-import { type FileType } from '@/types'
 import File from '../File.vue'
 
 defineProps<{
   maximized: boolean
 }>()
 
-type RootDirectoryFildersMap = {
-  text: string
-  type: FileType
-  path: string
-}
+const { data: files } = await useAsyncData('projects', () =>
+  queryContent('/documents/projects').find()
+)
 
 const appStore = useAppStore()
 const textReaderStore = useTextReaderStore()
@@ -20,29 +18,6 @@ const openDocumentReader = (arg: string) => {
   appStore.setDocumentReaderOpen()
   textReaderStore.openMdReader(arg)
 }
-
-const folders: RootDirectoryFildersMap[] = [
-  {
-    text: 'MCL.md',
-    type: 'js',
-    path: '/documents/projects/mcl',
-  },
-  {
-    text: 'Manguito Page.md',
-    type: 'js',
-    path: '/documents/projects/manguito-page',
-  },
-  {
-    text: 'Mango Planner.md',
-    type: 'js',
-    path: '/documents/projects/mango-planner',
-  },
-  {
-    text: 'Cookbook.md',
-    type: 'js',
-    path: '/documents/projects/cookbook',
-  },
-]
 </script>
 
 <template>
@@ -55,11 +30,11 @@ const folders: RootDirectoryFildersMap[] = [
     ]"
   >
     <File
-      v-for="(item, idx) in folders"
+      v-for="(item, idx) in files"
       :key="idx"
-      :text="item.text"
+      :text="item.fileName"
       :type="item.type"
-      :path="item.path"
+      :path="item._path!"
       @file-click="openDocumentReader"
     />
   </div>

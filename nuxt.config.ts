@@ -18,6 +18,12 @@ export default defineNuxtConfig({
       },
     },
   },
+  runtimeConfig: {
+    public: {
+      userName: 'Manguito Lovebird',
+    },
+    photoApiUrl: process.env.PHOTO_API_URL,
+  },
   typescript: {
     typeCheck: true,
     strict: true,
