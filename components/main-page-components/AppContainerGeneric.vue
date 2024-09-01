@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<AppContainerPropTypes>(), {
   active: true,
   maximized: false,
   containerSize: '30',
+  disableMaximize: false,
 })
 
 const emit = defineEmits<{
@@ -89,7 +90,11 @@ onClickOutside(draggableRef, () => {
             :fontControlled="false"
           />
         </button>
-        <button class="rounded-full p-[2px] bg-dark-2" @click="onMaximize">
+        <button
+          v-if="disableMaximize === false"
+          class="rounded-full p-[2px] bg-dark-2"
+          @click="onMaximize"
+        >
           <RestoreSvgIcon
             v-if="maximized"
             class="aspect-square w-[14px]"

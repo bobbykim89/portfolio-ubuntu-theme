@@ -6,6 +6,7 @@ import DesktopAppsIcon from '@/components/main-page-components/DesktopAppsIcon.v
 import DocumentReader from '@/components/main-page-components/DocumentReader.vue'
 import FileManager from '@/components/main-page-components/FileManager.vue'
 import ImageViewer from '@/components/main-page-components/ImageViewer.vue'
+import MusicPlayer from '@/components/main-page-components/MusicPlayer.vue'
 import PdfReader from '@/components/main-page-components/PdfReader.vue'
 import Terminal from '@/components/main-page-components/Terminal.vue'
 import { useAppStore } from '@/stores'
@@ -120,6 +121,12 @@ const bgImageVar = computed(() => {
         :initial-y="80"
         @set-active="appStore.setFirefoxActive"
         @close-click="appStore.setFirefoxClose"
+      />
+      <MusicPlayer
+        :initial-x="160"
+        :initial-y="80"
+        @set-active="appStore.setMusicOpen"
+        @close-click="appStore.setMusicPlayerClose"
       />
     </div>
   </div>

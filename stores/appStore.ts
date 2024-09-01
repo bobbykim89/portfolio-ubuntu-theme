@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useBlogStore } from './blogStore'
 import { useFileManagerStore } from './fileManagerStore'
+import { useMusicPlayerStore } from './musicPlayerStore'
 import { usePictureStore } from './picturesStore'
 import { useTerminalStore } from './terminalStore'
 import { useTextReaderStore } from './textReaderStore'
@@ -14,6 +15,7 @@ export const useAppStore = defineStore('app', () => {
   const pictureStore = usePictureStore()
   const textReaderStore = useTextReaderStore()
   const blogStore = useBlogStore()
+  const musicPlayerStore = useMusicPlayerStore()
   // states
   const appStatus = ref<AppTypeMap>({
     terminal: { open: false, active: false },
@@ -81,6 +83,13 @@ export const useAppStore = defineStore('app', () => {
 
   const setMusicOpen = () => {
     setAppStatus('music', true)
+    musicPlayerStore.openMusicPlayer()
+  }
+  const setMusicPlayerActive = (val: boolean) => {
+    appStatus.value.music.active = val
+  }
+  const setMusicPlayerClose = () => {
+    setAppStatus('music', false)
   }
 
   const setTrashOpen = () => {
@@ -125,6 +134,8 @@ export const useAppStore = defineStore('app', () => {
     setFirefoxActive,
     setFirefoxClose,
     setMusicOpen,
+    setMusicPlayerActive,
+    setMusicPlayerClose,
     setTrashOpen,
     setImageViewerOpen,
     setImageViewerActive,
