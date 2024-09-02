@@ -166,7 +166,7 @@ onClickOutside(draggableRef, () => {
     <div
       :class="[
         isMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
-        'bg-dark-3 h-[90vh] text-light-1 p-3xs relative overflow-y-scroll',
+        'bg-dark-3 h-full text-light-1 pt-3xs pb-lg md:pb-3xs relative overflow-y-scroll',
       ]"
     >
       <!-- folders section -->

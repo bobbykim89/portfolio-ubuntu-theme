@@ -12,13 +12,11 @@ import MinimizeSvgIcon from '@/assets/img/svg-files/window-minimize-symbolic.svg
 import RestoreSvgIcon from '@/assets/img/svg-files/window-restore-symbolic.svg'
 import { useFileManagerStore } from '@/stores'
 import { DirectoryMap } from '@/types'
+import { ParsedContent } from '@nuxt/content'
 import { onClickOutside, useDraggable } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { markRaw } from 'vue'
-import AboutDirectory from './file-manager-parts/documents-directory/AboutDirectory.vue'
 import DocumentsRootDirectory from './file-manager-parts/documents-directory/DocumentsRootDirectory.vue'
-import ProjectsDirectory from './file-manager-parts/documents-directory/ProjectsDirectory.vue'
-import SkillsDirectory from './file-manager-parts/documents-directory/SkillsDirectory.vue'
+import DocumentsSubDirectory from './file-manager-parts/documents-directory/DocumentsSubDirectory.vue'
 import FileManagerLeftSection from './file-manager-parts/FileManagerLeftSection.vue'
 import HomeDirectory from './file-manager-parts/HomeDirectory.vue'
 import MusicDirectory from './file-manager-parts/MusicDirectory.vue'
@@ -29,42 +27,34 @@ const fileManagerDirectory: DirectoryMap = {
   home: {
     name: 'Home',
     icon: HomeSvgIcon,
-    component: markRaw(HomeDirectory),
   },
   documents: {
     name: 'Documents',
     icon: DocumentSvgIcon,
-    component: markRaw(DocumentsRootDirectory),
   },
   'documents/about': {
     name: 'Documents / About',
     icon: DocumentSvgIcon,
-    component: markRaw(AboutDirectory),
   },
   'documents/projects': {
     name: 'Documents / Projects',
     icon: DocumentSvgIcon,
-    component: markRaw(ProjectsDirectory),
   },
   'documents/skills': {
     name: 'Documents / Skills',
     icon: DocumentSvgIcon,
-    component: markRaw(SkillsDirectory),
   },
   music: {
     name: 'Music',
     icon: MusicSvgIcon,
-    component: markRaw(MusicDirectory),
   },
   picture: {
     name: 'Pictures',
     icon: PicturesSvgIcon,
-    component: markRaw(PicturesDirectory),
   },
   trash: {
     name: 'Trash',
     icon: TrashSvgIcon,
-    component: markRaw(TrashDirectory),
   },
 }
 
@@ -86,6 +76,11 @@ const emit = defineEmits<{
 
 const draggableRef = ref<HTMLDivElement>()
 const dragHandle = ref<HTMLDivElement>()
+const subDirectoryPath = ref<string[]>([
+  'documents/about',
+  'documents/projects',
+  'documents/skills',
+])
 
 const fileManagerStore = useFileManagerStore()
 const {
@@ -101,6 +96,20 @@ const { style } = useDraggable(draggableRef, {
   handle: dragHandle,
   initialValue: { x: props.initialX, y: props.initialY },
 })
+
+const { data: files } = await useAsyncData(
+  currentSection.value,
+  async () => {
+    let res: ParsedContent[] = []
+    if (subDirectoryPath.value.includes(currentSection.value)) {
+      res = await queryContent(currentSection.value).sort({ order: 1 }).find()
+    }
+    return res
+  },
+  {
+    watch: [currentSection],
+  }
+)
 
 const closeFileManager = () => {
   fileManagerStore.closeFileManager()
@@ -214,7 +223,7 @@ onClickOutside(draggableRef, () => {
     <div
       :class="[
         isMaximized ? 'md:h-[92vh]' : 'md:h-96',
-        'h-[86vh] md:h-96 text-light-1 flex flex-col md:flex-row',
+        'h-full text-light-1 flex flex-col md:flex-row',
       ]"
     >
       <FileManagerLeftSection
@@ -222,11 +231,31 @@ onClickOutside(draggableRef, () => {
         @set-current-directory="fileManagerStore.setCurrentDirectory"
       />
       <!-- folders section -->
-      <div class="w-full h-full bg-dark-2 relative overflow-y-scroll">
-        <component
+      <div
+        class="w-full h-full pb-xl md:pb-0 bg-dark-2 relative overflow-y-scroll"
+      >
+        <HomeDirectory
+          v-if="currentSection === 'home'"
           :maximized="isMaximized"
-          :is="fileManagerDirectory[currentSection].component"
         />
+        <DocumentsRootDirectory
+          v-else-if="currentSection === 'documents'"
+          :maximized="isMaximized"
+        />
+        <DocumentsSubDirectory
+          v-else-if="subDirectoryPath.includes(currentSection)"
+          :maximized="isMaximized"
+          :files="files!"
+        />
+        <PicturesDirectory
+          v-else-if="currentSection === 'picture'"
+          :maximized="isMaximized"
+        />
+        <MusicDirectory
+          v-else-if="currentSection === 'music'"
+          :maximized="isMaximized"
+        />
+        <TrashDirectory v-else />
       </div>
     </div>
   </div>

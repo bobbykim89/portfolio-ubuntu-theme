@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRuntimeConfig } from '#imports'
-import ProfileImage from '@/assets/img/profile/manguito_thumb.jpg'
+import ProfileImage from '@/assets/img/profile/thumbnail_img.jpg'
 import UbuntuLogo from '@/assets/img/ubuntu-logo-dark.png'
 import { useIntervalFn } from '@vueuse/core'
 import { computed, ref } from 'vue'
@@ -66,7 +66,7 @@ const progressWtsVar = computed(() => {
     </div>
     <!-- logo -->
     <img
-      class="w-1/2 md:w-1/5 absolute bottom-lg left-1/2 -translate-x-1/2"
+      class="w-1/2 md:w-1/5 absolute bottom-sm left-1/2 -translate-x-1/2"
       :src="UbuntuLogo"
       alt="ubuntu logo"
     />

@@ -14,7 +14,6 @@ export type DirectoryType = (typeof directoryArray)[number]
 type DirectoryDataType = {
   name: string
   icon: string
-  component: Component
 }
 export type DirectoryMap = {
   [k in DirectoryType]: DirectoryDataType
