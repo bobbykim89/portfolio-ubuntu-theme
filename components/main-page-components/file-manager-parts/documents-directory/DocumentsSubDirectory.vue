@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { queryContent, useAsyncData } from '#imports'
 import { useAppStore, useTextReaderStore } from '@/stores'
+import { ParsedContent } from '@nuxt/content'
 import File from '../File.vue'
 
 defineProps<{
+  files: ParsedContent[]
   maximized: boolean
 }>()
-
-const { data: files } = await useAsyncData('projects', () =>
-  queryContent('/documents/projects').find()
-)
 
 const appStore = useAppStore()
 const textReaderStore = useTextReaderStore()

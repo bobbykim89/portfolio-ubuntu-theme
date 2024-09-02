@@ -24,6 +24,8 @@ export default defineNuxtConfig({
       userName: 'Manguito Lovebird',
       audioExternalSrc: true,
       audioSrcBaseUrl: process.env.AUDIO_SOURCE_BASE_URL,
+      pdfPublicUrl:
+        'https://drive.google.com/file/d/1BFqAufQaxf9PGZCLVq8swfsNU4x4A6n2/view?usp=sharing',
     },
     photoApiUrl: process.env.PHOTO_API_URL,
   },

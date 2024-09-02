@@ -111,7 +111,7 @@ onClickOutside(draggableRef, () => {
         </button>
       </div>
     </div>
-    <div>
+    <div class="h-full bg-dark-3">
       <slot />
     </div>
   </div>

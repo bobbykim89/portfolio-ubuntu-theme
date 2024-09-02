@@ -27,14 +27,37 @@ export const useAppStore = defineStore('app', () => {
     'image-viewer': { open: false, active: false },
     'document-reader': { open: false, active: false },
   })
+  const windowWidth = ref<number>(0)
+  const isMobile = ref<boolean>(false)
   // actions
   const setAppStatus = (arg: AppType, val: boolean) => {
     appStatus.value[arg].active = val
     appStatus.value[arg].open = val
   }
+  const setOtherAppsInactive = (arg: AppType) => {
+    appStatus.value
+    Object.keys(appStatus.value).forEach((key) => {
+      if (key !== arg) {
+        appStatus.value[key as AppType].active = false
+      }
+    })
+  }
+  const setWindowWidth = (val: number) => {
+    windowWidth.value = val
+    isMobile.value = val < 768 ? true : false
+  }
   const setTerminalOpen = () => {
     setAppStatus('terminal', true)
     terminalStore.openTerminal()
+    if (isMobile.value === true) {
+      fileManagerStore.minimizeFileManager()
+      pictureStore.minimizePhotoViewer()
+      textReaderStore.minimizeMdReader()
+      textReaderStore.minimizePdfReader()
+      blogStore.minimizeBlog()
+      musicPlayerStore.minimizeMusicPlayer()
+      setOtherAppsInactive('terminal')
+    }
   }
   const setTerminalActive = (val: boolean) => {
     appStatus.value.terminal.active = val
@@ -46,6 +69,15 @@ export const useAppStore = defineStore('app', () => {
   const setFileManagerOpen = () => {
     setAppStatus('file-manager', true)
     fileManagerStore.openFileManager()
+    if (isMobile.value === true) {
+      terminalStore.minimizeTerminal()
+      pictureStore.minimizePhotoViewer()
+      textReaderStore.minimizeMdReader()
+      textReaderStore.minimizePdfReader()
+      blogStore.minimizeBlog()
+      musicPlayerStore.minimizeMusicPlayer()
+      setOtherAppsInactive('file-manager')
+    }
   }
 
   const setFileManagerActive = (val: boolean) => {
@@ -60,6 +92,15 @@ export const useAppStore = defineStore('app', () => {
   const setOfficeOpen = () => {
     setAppStatus('office', true)
     textReaderStore.openPdfReader()
+    if (isMobile.value === true) {
+      terminalStore.minimizeTerminal()
+      fileManagerStore.minimizeFileManager()
+      pictureStore.minimizePhotoViewer()
+      textReaderStore.minimizeMdReader()
+      blogStore.minimizeBlog()
+      musicPlayerStore.minimizeMusicPlayer()
+      setOtherAppsInactive('office')
+    }
   }
   const setOfficeActive = (val: boolean) => {
     appStatus.value.office.active = val
@@ -72,6 +113,15 @@ export const useAppStore = defineStore('app', () => {
   const setFirefoxOpen = () => {
     setAppStatus('firefox', true)
     blogStore.openBlog()
+    if (isMobile.value === true) {
+      terminalStore.minimizeTerminal()
+      fileManagerStore.minimizeFileManager()
+      pictureStore.minimizePhotoViewer()
+      textReaderStore.minimizePdfReader()
+      textReaderStore.minimizeMdReader()
+      musicPlayerStore.minimizeMusicPlayer()
+      setOtherAppsInactive('firefox')
+    }
   }
   const setFirefoxActive = (val: boolean) => {
     appStatus.value.firefox.active = val
@@ -84,6 +134,15 @@ export const useAppStore = defineStore('app', () => {
   const setMusicOpen = () => {
     setAppStatus('music', true)
     musicPlayerStore.openMusicPlayer()
+    if (isMobile.value === true) {
+      terminalStore.minimizeTerminal()
+      fileManagerStore.minimizeFileManager()
+      pictureStore.minimizePhotoViewer()
+      textReaderStore.minimizePdfReader()
+      textReaderStore.minimizeMdReader()
+      blogStore.minimizeBlog()
+      setOtherAppsInactive('music')
+    }
   }
   const setMusicPlayerActive = (val: boolean) => {
     appStatus.value.music.active = val
@@ -95,10 +154,28 @@ export const useAppStore = defineStore('app', () => {
   const setTrashOpen = () => {
     setAppStatus('trash', true)
     fileManagerStore.openFileManager('trash')
+    if (isMobile.value === true) {
+      terminalStore.minimizeTerminal()
+      pictureStore.minimizePhotoViewer()
+      textReaderStore.minimizePdfReader()
+      textReaderStore.minimizeMdReader()
+      blogStore.minimizeBlog()
+      musicPlayerStore.minimizeMusicPlayer()
+      setOtherAppsInactive('trash')
+    }
   }
   const setImageViewerOpen = () => {
     setAppStatus('image-viewer', true)
     pictureStore.setPhotiViewerVisible()
+    if (isMobile.value === true) {
+      terminalStore.minimizeTerminal()
+      fileManagerStore.minimizeFileManager()
+      textReaderStore.minimizePdfReader()
+      textReaderStore.minimizeMdReader()
+      blogStore.minimizeBlog()
+      musicPlayerStore.minimizeMusicPlayer()
+      setOtherAppsInactive('image-viewer')
+    }
   }
   const setImageViewerActive = (val: boolean) => {
     appStatus.value['image-viewer'].active = val
@@ -108,9 +185,16 @@ export const useAppStore = defineStore('app', () => {
   }
   const setDocumentReaderOpen = () => {
     setAppStatus('document-reader', true)
-    // appStatus.value['document-reader'].open = true
-    // appStatus.value['document-reader'].active = true
     textReaderStore.setMdReaderVisible()
+    if (isMobile.value === true) {
+      terminalStore.minimizeTerminal()
+      pictureStore.minimizePhotoViewer()
+      fileManagerStore.minimizeFileManager()
+      textReaderStore.minimizePdfReader()
+      blogStore.minimizeBlog()
+      musicPlayerStore.minimizeMusicPlayer()
+      setOtherAppsInactive('document-reader')
+    }
   }
   const setDocumentReaderActive = (val: boolean) => {
     appStatus.value['document-reader'].active = val
@@ -121,6 +205,9 @@ export const useAppStore = defineStore('app', () => {
 
   return {
     appStatus,
+    windowWidth,
+    isMobile,
+    setWindowWidth,
     setTerminalOpen,
     setTerminalActive,
     setTerminalClose,

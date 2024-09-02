@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRuntimeConfig } from '#imports'
 import PdfFile from '@/assets/pdf/resume.pdf'
 import { useTextReaderStore } from '@/stores'
 import { storeToRefs } from 'pinia'
@@ -21,7 +22,9 @@ const emit = defineEmits<{
   (e: 'set-active', active: boolean): void
 }>()
 
+const config = useRuntimeConfig()
 const pdfUrl = ref<string>(PdfFile)
+const pdfRemoteUrl = ref<string>(config.public.pdfPublicUrl)
 const textReaderStore = useTextReaderStore()
 const { isPdfActive, isPdfMaximized, isPdfVisible } =
   storeToRefs(textReaderStore)
@@ -57,10 +60,12 @@ const setPdfReaderActive = (val: boolean) => {
     <div
       :class="[
         isPdfMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
-        'bg-dark-3 h-[90vh] md:h-96 text-light-1 py-3xs px-lg relative',
+        'bg-dark-3 h-full md:h-96 text-light-1 py-3xs px-xs md:px-lg relative',
       ]"
     >
-      <embed :src="pdfUrl" width="100%" height="100%" />
+      <object :data="pdfUrl" type="application/pdf" width="100%" height="100%">
+        <embed :src="pdfRemoteUrl" width="100%" height="100%" />
+      </object>
     </div>
   </AppContainerGeneric>
 </template>

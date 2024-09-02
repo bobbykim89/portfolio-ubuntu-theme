@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BgImage from '@/assets/img/manguito_tree.jpeg'
+import BgImage from '@/assets/img/bg-image.jpeg'
 import AppIcon from '@/components/main-page-components/AppIcon.vue'
 import BlogPage from '@/components/main-page-components/BlogPage.vue'
 import DesktopAppsIcon from '@/components/main-page-components/DesktopAppsIcon.vue'
@@ -10,20 +10,30 @@ import MusicPlayer from '@/components/main-page-components/MusicPlayer.vue'
 import PdfReader from '@/components/main-page-components/PdfReader.vue'
 import Terminal from '@/components/main-page-components/Terminal.vue'
 import { useAppStore } from '@/stores'
+import { useWindowSize } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
+import { onMounted, watch } from 'vue'
 
 const appStore = useAppStore()
 const { appStatus } = storeToRefs(appStore)
 
+const { width } = useWindowSize()
+
 const bgImageVar = computed(() => {
   return { '--bg-img': `url(${BgImage})` }
+})
+watch(width, (newVal) => {
+  appStore.setWindowWidth(newVal)
+})
+onMounted(() => {
+  appStore.setWindowWidth(width.value)
 })
 </script>
 
 <template>
   <div class="h-full w-full flex bg-img" :style="bgImageVar">
     <!-- menu bar -->
-    <div class="flex flex-col gap-1 bg-dark-4/90 z-[50]">
+    <div class="flex flex-col gap-1 bg-dark-4/90 z-[25]">
       <AppIcon
         icon-type="terminal"
         :is-open="appStatus.terminal.open"
@@ -82,10 +92,10 @@ const bgImageVar = computed(() => {
         :is-active="appStatus['document-reader'].active"
         @icon-click="appStore.setDocumentReaderOpen"
       />
-      <DesktopAppsIcon class="mt-auto mb-md" />
+      <DesktopAppsIcon class="mt-auto mb-2xs" />
     </div>
     <!-- main screen -->
-    <div class="h-full w-full relative">
+    <div class="grid md:block h-full w-full relative">
       <Terminal
         :initial-x="80"
         :initial-y="40"

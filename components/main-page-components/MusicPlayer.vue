@@ -170,12 +170,12 @@ watch(currentTrackNumber, () => {
     @set-active="setMusicPlayerActive"
   >
     <div
-      class="bg-dark-3 h-[90vh] md:h-[65vh] text-light-1 py-3xs px-xs lg:px-sm relative overflow-y-scroll"
+      class="bg-dark-3 h-full md:h-[65vh] text-light-1 pt-3xs pb-sm md:pb-3xs px-xs lg:px-sm relative overflow-y-scroll"
       :style="currentMusicStatus"
     >
       <!-- music player -->
       <div
-        class="bg-dark-2 rounded-lg py-sm px-xs mt-2xs mb-sm grid grid-cols-3 gap-4 place-items-center"
+        class="bg-dark-2 rounded-lg py-sm px-xs mt-2xs mb-sm grid grid-cols-3 gap-x-1 gap-y-3 md:gap-4 place-items-center"
       >
         <img
           class="w-3xl aspect-square rounded-lg"
@@ -187,12 +187,13 @@ watch(currentTrackNumber, () => {
           <div
             class="flex gap-2 items-center relative before:absolute before:w-full before:h-3/5 before:bg-dark-3 before:rounded-2xl"
           >
-            <button @click="onPrevClick" class="relative ml-[12px]">
+            <!-- prev -->
+            <button @click="onPrevClick" class="relative ml-2xs md:ml-[12px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
                 fill="currentColor"
-                class="w-sm"
+                class="w-xs md:w-sm"
               >
                 <!-- !Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                 <path
@@ -200,16 +201,17 @@ watch(currentTrackNumber, () => {
                 />
               </svg>
             </button>
+            <!-- play/pause -->
             <button
               @click="onPlayButtonClick"
-              class="relative p-xs rounded-full border-2 border-dark-2 bg-dark-3 focus:bg-opacity-75 transition-colors duration-150 ease-linear"
+              class="relative p-2xs md:p-xs rounded-full border-2 border-dark-2 bg-dark-3"
             >
               <svg
                 v-if="isMusicPlaying"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 320 512"
                 fill="currentColor"
-                class="w-md aspect-square"
+                class="w-sm md:w-md aspect-square"
               >
                 <!-- !Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                 <path
@@ -221,7 +223,7 @@ watch(currentTrackNumber, () => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 384 512"
                 fill="currentColor"
-                class="w-md aspect-square"
+                class="w-sm md:w-md aspect-square"
               >
                 <!-- !Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                 <path
@@ -229,12 +231,13 @@ watch(currentTrackNumber, () => {
                 />
               </svg>
             </button>
-            <button @click="onNextClick" class="relative mr-[12px]">
+            <!-- next -->
+            <button @click="onNextClick" class="relative mr-2xs md:mr-[12px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
                 fill="currentColor"
-                class="w-sm"
+                class="w-xs md:w-sm"
               >
                 <!-- !Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                 <path
@@ -248,7 +251,7 @@ watch(currentTrackNumber, () => {
           class="w-full col-span-3 bg-dark-3 rounded-md overflow-hidden music-progress relative before:bg-warning before:absolute before:left-0 before:h-full h-2xs"
         ></div>
         <div
-          class="w-full col-span-3 text-xs whitespace-pre-line bg-dark-3 rounded-lg px-2xs py-3xs"
+          class="w-full col-span-3 text-xs whitespace-pre-line break-words bg-dark-3 rounded-lg px-2xs py-3xs"
           v-html="currentCopyText"
         ></div>
       </div>
