@@ -5,10 +5,9 @@ import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-symbolic.svg
 import ShutdownSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
 import SystemMenu from '@/components/layout-components/SystemMenu.vue'
 import { onClickOutside, useIntervalFn } from '@vueuse/core'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const config = useRuntimeConfig()
-const userName = ref<string>(config.public.userName)
 const currentTime = ref<string>('')
 const menuButton = ref<HTMLButtonElement>()
 const systemMenu = ref<InstanceType<typeof SystemMenu>>()
@@ -36,6 +35,13 @@ const handleButtonClick = () => {
   }
 }
 
+const getUserName = computed(() => {
+  if (route.path === '/') {
+    return ''
+  }
+  return config.public.userName
+})
+
 useIntervalFn(() => {
   updateCurrentTime()
 }, 5000)
@@ -56,7 +62,7 @@ onClickOutside(
       class="grid grid-cols-3 py-3xs text-light-1 w-full tracking-wide z-[50]"
     >
       <div class="hidden md:block text-sm pl-2xs">
-        {{ userName }}
+        {{ getUserName }}
       </div>
       <div class="col-start-2 text-center text-sm">{{ currentTime }}</div>
       <div class="ml-auto pr-3xs">
