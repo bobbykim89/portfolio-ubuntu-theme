@@ -96,40 +96,14 @@ onClickOutside(draggableRef, () => {
       ref="dragHandle"
       :class="[
         isActive ? 'bg-dark-3' : 'bg-dark-2',
-        'flex items-center gap-2 text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
+        'grid grid-cols-2 xl:grid-cols-3 text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
       ]"
     >
-      <div>
-        <!-- prev button -->
-        <button
-          :class="[
-            isRootDir ? 'bg-dark-3' : 'bg-dark-2',
-            'px-3xs py-[5px] rounded-l-md border-2 border-dark-4 h-full',
-          ]"
-          :disabled="isRootDir"
-          @click="blogStore.onPrevClick"
-        >
-          <ChevronLeft class="h-[18px]" :fontControlled="false" />
-        </button>
-        <!-- next button -->
-        <button
-          :class="[
-            currentPathIdx > 1 ? 'bg-dark-2' : 'bg-dark-3',
-            'px-3xs py-[5px] rounded-r-md h-full border-y-2 border-r-2 border-dark-4',
-          ]"
-          :disabled="currentPathIdx <= 1"
-          @click="blogStore.onNextClick"
-        >
-          <ChevronRight class="h-[18px]" :fontControlled="false" />
-        </button>
-      </div>
-      <div
-        class="grow flex gap-2 justify-start items-center border-2 border-dark-4 h-md md:mr-3xl px-2xs py-[2px] bg-dark-2 rounded-md"
-      >
-        <p class="text-sm">{{ currentPath }}</p>
-      </div>
+      <p class="xl:col-start-2 xl:place-self-center cursor-default select-none">
+        FireFox
+      </p>
       <!-- minimize/maximize/close buttons -->
-      <div class="flex gap-2 items-center justify-self-end ml-auto" @click.stop>
+      <div class="flex gap-2 items-center justify-self-end" @click.stop>
         <button class="rounded-full p-[2px] bg-dark-2" @click="minimizeBlog">
           <MinimizeSvgIcon
             class="aspect-square w-[14px]"
@@ -154,6 +128,38 @@ onClickOutside(draggableRef, () => {
         <button class="rounded-full p-[2px] bg-dark-2" @click="closeBlog">
           <CloseSvgIcon class="aspect-square w-xs" :fontControlled="false" />
         </button>
+      </div>
+      <!-- second row -->
+      <div class="col-span-2 xl:col-span-3 flex items-center gap-2">
+        <div>
+          <!-- prev button -->
+          <button
+            :class="[
+              isRootDir ? 'bg-dark-3' : 'bg-dark-2',
+              'px-3xs py-[5px] rounded-l-md border-2 border-dark-4 h-full',
+            ]"
+            :disabled="isRootDir"
+            @click="blogStore.onPrevClick"
+          >
+            <ChevronLeft class="h-[18px]" :fontControlled="false" />
+          </button>
+          <!-- next button -->
+          <button
+            :class="[
+              currentPathIdx > 1 ? 'bg-dark-2' : 'bg-dark-3',
+              'px-3xs py-[5px] rounded-r-md h-full border-y-2 border-r-2 border-dark-4',
+            ]"
+            :disabled="currentPathIdx <= 1"
+            @click="blogStore.onNextClick"
+          >
+            <ChevronRight class="h-[18px]" :fontControlled="false" />
+          </button>
+        </div>
+        <div
+          class="grow flex gap-2 justify-start items-center border-2 border-dark-4 h-md px-2xs py-[2px] bg-dark-2 rounded-md"
+        >
+          <p class="text-sm">{{ currentPath }}</p>
+        </div>
       </div>
     </div>
     <!-- content section -->

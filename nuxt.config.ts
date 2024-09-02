@@ -16,11 +16,14 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en',
       },
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
   },
   runtimeConfig: {
     public: {
       userName: 'Manguito Lovebird',
+      audioExternalSrc: true,
+      audioSrcBaseUrl: process.env.AUDIO_SOURCE_BASE_URL,
     },
     photoApiUrl: process.env.PHOTO_API_URL,
   },

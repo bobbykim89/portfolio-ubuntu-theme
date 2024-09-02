@@ -137,10 +137,10 @@ onClickOutside(draggableRef, () => {
       ref="dragHandle"
       :class="[
         isActive ? 'bg-dark-3' : 'bg-dark-2',
-        'flex items-center gap-2 text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
+        'flex flex-wrap items-center gap-2 text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear ',
       ]"
     >
-      <div>
+      <div class="order-4 md:order-1">
         <!-- prev button -->
         <button
           :class="[
@@ -165,7 +165,7 @@ onClickOutside(draggableRef, () => {
         </button>
       </div>
       <div
-        class="grow flex gap-2 justify-start items-center border-2 border-dark-4 h-md md:mr-3xl px-3xs py-[2px] bg-dark-2 rounded-md"
+        class="order-5 md:order-2 grow flex gap-2 justify-start items-center border-2 border-dark-4 h-md md:mr-3xl px-3xs py-[2px] bg-dark-2 rounded-md"
       >
         <component
           :is="fileManagerDirectory[currentSection].icon"
@@ -174,7 +174,10 @@ onClickOutside(draggableRef, () => {
         <p class="text-sm">{{ fileManagerDirectory[currentSection].name }}</p>
       </div>
       <!-- minimize/maximize/close buttons -->
-      <div class="flex gap-2 items-center justify-self-end ml-auto" @click.stop>
+      <div
+        class="w-full md:w-fit order-3 flex gap-2 justify-end items-center justify-self-end ml-auto"
+        @click.stop
+      >
         <button
           class="rounded-full p-[2px] bg-dark-2"
           @click="minimizeFileManager"
@@ -211,7 +214,7 @@ onClickOutside(draggableRef, () => {
     <div
       :class="[
         isMaximized ? 'md:h-[92vh]' : 'md:h-96',
-        'h-[90vh] md:h-96 text-light-1 flex flex-col md:flex-row',
+        'h-[86vh] md:h-96 text-light-1 flex flex-col md:flex-row',
       ]"
     >
       <FileManagerLeftSection
