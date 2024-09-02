@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { queryContent, useAsyncData } from '#imports'
 import { useTextReaderStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import AppContainerGeneric from './AppContainerGeneric.vue'
@@ -20,8 +21,29 @@ const emit = defineEmits<{
 }>()
 
 const textReaderStore = useTextReaderStore()
-const { isMdActive, isMdMaximized, isMdVisible, currentMdContent } =
-  storeToRefs(textReaderStore)
+const {
+  isMdActive,
+  isMdMaximized,
+  isMdVisible,
+  currentMdContent,
+  currentMdPath,
+} = storeToRefs(textReaderStore)
+
+const { data } = await useAsyncData(
+  `content-${currentMdPath}`,
+  async () => {
+    const res = await queryContent()
+      .where({ _path: currentMdPath.value as string })
+      .findOne()
+    if (res === null) {
+      return null
+    }
+    return res
+  },
+  {
+    watch: [currentMdPath],
+  }
+)
 
 const closeMdReader = () => {
   textReaderStore.closeMdReader()
@@ -57,10 +79,8 @@ const setMdReaderActive = (val: boolean) => {
         'bg-dark-3 h-[90vh] text-light-1 py-3xs px-sm relative overflow-y-scroll',
       ]"
     >
-      <ContentRenderer v-if="currentMdContent" :value="currentMdContent">
-        <ContentRendererMarkdown
-          :value="currentMdContent"
-        ></ContentRendererMarkdown>
+      <ContentRenderer v-if="data?._path === currentMdPath" :value="data">
+        <ContentRendererMarkdown :value="data"></ContentRendererMarkdown>
       </ContentRenderer>
     </div>
   </AppContainerGeneric>

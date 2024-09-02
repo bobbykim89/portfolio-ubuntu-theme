@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRuntimeConfig } from '#imports'
 import { musicPlayerData } from '@/assets/data'
 import { useMusicPlayerStore } from '@/stores'
 import { useEventListener } from '@vueuse/core'
@@ -30,6 +31,7 @@ const emit = defineEmits<{
   (e: 'set-active', active: boolean): void
 }>()
 
+const config = useRuntimeConfig()
 const playList = ref<FormattedMusicPlayerDataType[]>([])
 const musicPlayer = ref<HTMLAudioElement>()
 const musicTitle = ref<string>('')
@@ -45,10 +47,12 @@ const formatPlayList = () => {
   playList.value = musicPlayerData.map((item) => {
     return {
       title: item.title,
-      fileSrc: new URL(
-        `../../assets/mp3/music/${item.filename}.mp3`,
-        import.meta.url
-      ).href,
+      fileSrc: config.public.audioExternalSrc
+        ? `${config.public.audioSrcBaseUrl}/${item.filename}.mp3`
+        : new URL(
+            `../../assets/mp3/music/${item.filename}.mp3`,
+            import.meta.url
+          ).href,
       coverSrc: new URL(
         `../../assets/mp3/cover/${item.filename}.jpg`,
         import.meta.url
