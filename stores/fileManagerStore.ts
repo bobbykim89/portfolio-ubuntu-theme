@@ -4,6 +4,7 @@ import { ref } from 'vue'
 
 export const useFileManagerStore = defineStore('file-manager', () => {
   // states
+  const isOpen = ref<boolean>(false)
   const isActive = ref<boolean>(true)
   const isVisible = ref<boolean>(false)
   const isMaximized = ref<boolean>(false)
@@ -12,13 +13,19 @@ export const useFileManagerStore = defineStore('file-manager', () => {
   const historyRef = ref<DirectoryType[]>([])
   const currentLocationIdx = ref<number>(1)
   // actions
-  const openFileManager = (dir: DirectoryType = 'home') => {
-    currentSection.value = dir
-    historyRef.value.push(dir)
+  const openFileManager = (dir?: DirectoryType) => {
+    if (dir) {
+      currentSection.value = dir
+    }
+    if (isOpen.value === false) {
+      historyRef.value.push(currentSection.value)
+    }
+    isOpen.value = true
     isVisible.value = true
     isActive.value = true
   }
   const closeFileManager = () => {
+    isOpen.value = false
     isActive.value = true
     isVisible.value = false
     isMaximized.value = false
@@ -78,6 +85,7 @@ export const useFileManagerStore = defineStore('file-manager', () => {
   }
   const setFileOpen = () => {}
   return {
+    isOpen,
     isActive,
     isVisible,
     isMaximized,

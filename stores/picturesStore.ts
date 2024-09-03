@@ -18,12 +18,13 @@ export const usePictureStore = defineStore('pictures', () => {
     if (!data.value) {
       return
     }
-    const formattedRes = data.value.map((item) => {
+    const formattedRes = data.value.map((item, idx) => {
       return {
         _id: item._id,
         imageId: item.imageId,
         thumbnail: `https://res.cloudinary.com/dwgni1x3t/image/upload/c_scale,w_48/f_auto/v1700694621/${item.imageId}.jpg`,
         imageUrl: `https://res.cloudinary.com/dwgni1x3t/image/upload/c_scale,w_1200/f_auto/v1700694621/${item.imageId}.jpg`,
+        fileName: `img-${idx}.jpg`,
       }
     })
     imageData.value = formattedRes

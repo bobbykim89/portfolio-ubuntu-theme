@@ -2,7 +2,7 @@
 title: 'Programming Languages'
 order: 4
 fileName: 'Language.md'
-type: 'text'
+type: 'md'
 githubUrl: 'https://github.com/bobbykim89'
 linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'
 emailAddress: 'bobby.sihun.kim@gmail.com'

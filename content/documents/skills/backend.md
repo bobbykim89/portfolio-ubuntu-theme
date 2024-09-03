@@ -2,7 +2,7 @@
 title: 'Backend Skills'
 order: 2
 fileName: 'Backend.md'
-type: 'text'
+type: 'md'
 githubUrl: 'https://github.com/bobbykim89'
 linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'
 emailAddress: 'bobby.sihun.kim@gmail.com'

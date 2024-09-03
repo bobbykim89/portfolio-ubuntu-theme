@@ -2,7 +2,7 @@
 title: 'Education'
 order: 3
 fileName: 'Education.md'
-type: 'text'
+type: 'md'
 imageUrl: '/content_img/about/manguito_small.jpg'
 githubUrl: 'https://github.com/bobbykim89'
 linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'

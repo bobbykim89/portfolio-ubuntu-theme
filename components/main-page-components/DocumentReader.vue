@@ -21,13 +21,8 @@ const emit = defineEmits<{
 }>()
 
 const textReaderStore = useTextReaderStore()
-const {
-  isMdActive,
-  isMdMaximized,
-  isMdVisible,
-  currentMdContent,
-  currentMdPath,
-} = storeToRefs(textReaderStore)
+const { isMdActive, isMdMaximized, isMdVisible, currentMdPath } =
+  storeToRefs(textReaderStore)
 
 const { data } = await useAsyncData(
   `content-${currentMdPath}`,

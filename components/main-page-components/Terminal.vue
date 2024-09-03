@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRuntimeConfig } from '#imports'
 import NewTabSvgIcon from '@/assets/img/svg-files/tab-new-symbolic.svg'
 import CloseSvgIcon from '@/assets/img/svg-files/window-close-symbolic.svg'
 import MaximizeSvgIcon from '@/assets/img/svg-files/window-maximize-symbolic.svg'
@@ -7,6 +8,7 @@ import RestoreSvgIcon from '@/assets/img/svg-files/window-restore-symbolic.svg'
 import { useTerminalStore } from '@/stores'
 import { onClickOutside, useDraggable } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -24,11 +26,21 @@ const emit = defineEmits<{
   (e: 'set-active', active: boolean): void
 }>()
 
+const config = useRuntimeConfig()
 const draggableRef = ref<HTMLDivElement>()
 const dragHandle = ref<HTMLDivElement>()
+const textInput = ref<HTMLInputElement>()
+const textInputHistory = ref<string[]>([])
 
 const terminalStore = useTerminalStore()
-const { isActive, isVisible, isMaximized } = storeToRefs(terminalStore)
+const {
+  isActive,
+  isVisible,
+  isMaximized,
+  inputText,
+  currentPath,
+  terminalMessage,
+} = storeToRefs(terminalStore)
 
 const { style, x, y } = useDraggable(draggableRef, {
   handle: dragHandle,
@@ -40,11 +52,29 @@ const closeTerminal = () => {
 }
 const minimizeTerminal = () => {
   terminalStore.minimizeTerminal()
+  textInputHistory.value = []
   emit('set-active', false)
 }
 const onTerminalClick = () => {
   terminalStore.setTerminalActive(true)
+  textInput.value?.focus()
   emit('set-active', true)
+}
+
+const getUserName = computed(() => {
+  const splitUsername = config.public.userName.toLowerCase().split(' ')
+  const formattedUsername = splitUsername.join('-')
+  return `${formattedUsername}@${splitUsername[0]}-pc ~${
+    currentPath.value === 'home' ? '' : currentPath.value
+  } $`
+})
+
+const onEnterKeyDown = () => {
+  terminalStore.onTerminalEnter()
+  const prevTextLine = `${getUserName.value} ${inputText.value}\n${terminalMessage.value}`
+  textInputHistory.value?.push(prevTextLine)
+  inputText.value = ''
+  terminalStore.clearTerminalMsg()
 }
 
 onClickOutside(draggableRef, () => {
@@ -114,46 +144,56 @@ onClickOutside(draggableRef, () => {
     <div
       :class="[
         isMaximized ? 'md:h-[92vh]' : 'md:h-96',
-        'bg-primary h-[90vh] md:h-96 text-light-1 p-3xs overflow-y-scroll',
+        'relative bg-primary h-[90vh] md:h-96 text-light-1 p-3xs overflow-y-scroll',
       ]"
+      @keydown.enter="onEnterKeyDown"
     >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quisquam
-      officia natus, eligendi provident aperiam iste vel laborum in veritatis!
-      x: {{ x }}, y: {{ y }}\n style: {{ style }}
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, nostrum
-      labore aliquid minima beatae ducimus temporibus, ratione iusto accusamus
-      iure nihil! Sequi molestias aliquid iure corrupti. Quidem neque sit quos
-      atque ex accusantium eius dolore ad, inventore vitae molestias
-      perspiciatis eligendi quibusdam, ab eveniet deserunt unde velit
-      dignissimos quod debitis in. Quisquam, in minima? Voluptatum rem adipisci
-      voluptas nisi maxime et doloremque dolorum, exercitationem obcaecati
-      aspernatur cum corporis doloribus, praesentium magnam eos amet ea, omnis
-      ab error iusto possimus aut culpa. Vitae in saepe perferendis eius
-      laudantium veniam sed veritatis harum quo laboriosam unde ea, numquam
-      accusantium natus quae rerum. Lorem ipsum, dolor sit amet consectetur
-      adipisicing elit. Blanditiis nisi incidunt mollitia perferendis. Porro,
-      soluta voluptatum voluptatibus possimus harum cumque impedit nemo nobis
-      expedita magnam, quasi architecto eveniet fugiat aliquid cupiditate iure
-      perferendis mollitia ratione deleniti laborum odio eos corrupti
-      necessitatibus. Et exercitationem aliquam, quia vel eligendi repudiandae
-      quaerat molestiae nesciunt dolor obcaecati eum error delectus eius
-      adipisci laborum repellat ad, quam reiciendis amet libero, quidem quod
-      corrupti eos? Debitis illo ipsa odit ab architecto omnis delectus ut
-      nesciunt velit! Amet rerum iure aspernatur, laborum totam a sit
-      exercitationem cum ad consectetur iste soluta praesentium nemo numquam rem
-      maxime. Possimus in expedita non nisi eos assumenda sed cupiditate nulla
-      odit quia officiis voluptas laboriosam voluptates illum tempora, ducimus
-      quis reiciendis facere recusandae veritatis sint voluptatem quidem
-      aperiam. Nam, corporis expedita consectetur tempora quasi voluptatem quam
-      aspernatur possimus consequatur est animi rem ad aut enim incidunt
-      nostrum. Voluptate nulla similique et, iste totam harum impedit sunt
-      aliquam architecto rem repudiandae, quibusdam ut provident maiores
-      corrupti labore. Mollitia esse enim eveniet odit ad dignissimos dolor,
-      magnam veritatis eligendi sapiente? Veritatis, eveniet minima! Enim fugiat
-      sed quo. Aliquid corrupti, nostrum magnam nihil autem eligendi velit
-      quidem reprehenderit odit ducimus beatae veniam, est alias.
+      <input
+        ref="textInput"
+        type="text"
+        v-model="inputText"
+        class="absolute h-0 w-0"
+      />
+      <div>
+        <p
+          class="whitespace-pre-line"
+          v-for="(text, idx) in textInputHistory"
+          :key="idx"
+          v-html="text"
+        ></p>
+      </div>
+      <p>
+        {{ getUserName }} {{ inputText }}
+        <span class="bg-light-1 blink">&nbsp;&nbsp;</span>
+      </p>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+@keyframes blink-animation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes blink-animation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.blink {
+  animation: blink-animation 1s infinite;
+}
+</style>

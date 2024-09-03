@@ -14,6 +14,8 @@ const fileTypeList = [
   'py',
   'docker',
   'ruby',
+  'md',
+  'cs',
 ] as const
 export type FileType = (typeof fileTypeList)[number]
 export type FileMap = {
