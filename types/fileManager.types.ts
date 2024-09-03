@@ -23,3 +23,15 @@ export type HomeFoldersType = {
   type: FolderType
   text: string
 }
+
+const terminalDirectoryOptionsArray = [
+  '',
+  'documents',
+  'documents/about',
+  'documents/projects',
+  'documents/skills',
+  'music',
+  'picture',
+] as const
+export type TerminalDirectoryOptionsType =
+  (typeof terminalDirectoryOptionsArray)[number]

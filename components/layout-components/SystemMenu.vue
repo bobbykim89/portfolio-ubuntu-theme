@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import SpeakerIcon from '@/assets/img/svg-files/audio-speakers-symbolic.svg'
 import LockSvgIcon from '@/assets/img/svg-files/changes-prevent-symbolic.svg'
-import PerformanceSvgIcon from '@/assets/img/svg-files/document-open-recent-symbolic.svg'
 import SettingsSvgIcon from '@/assets/img/svg-files/document-properties-symbolic.svg'
-import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-symbolic.svg'
+import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-connected-symbolic.svg'
 import ChevronRight from '@/assets/img/svg-files/pan-end-symbolic.svg'
+import PerformanceSvgIcon from '@/assets/img/svg-files/power-profile-balanced-symbolic.svg'
 import PowerSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
 import { useFileManagerStore, useMusicPlayerStore } from '@/stores'
 import { Collapse, vCollapse } from '@bobbykim/manguito-theme'
 import { storeToRefs } from 'pinia'
 
 const visible = ref<boolean>(false)
+const networkCollapse = ref<InstanceType<typeof Collapse>>()
 const networkCollapseVisible = ref<boolean>(false)
+const performanceCollapse = ref<InstanceType<typeof Collapse>>()
+const performanceTabText = ref<'Balanced' | 'Power Saver'>('Balanced')
 const performanceCollapseVisible = ref<boolean>(false)
 const powerCollapseVisible = ref<boolean>(false)
 const fileManagerStore = useFileManagerStore()
@@ -30,8 +33,17 @@ const closeMenu = () => {
 const handleNetworkButtonClick = (visible: boolean) => {
   networkCollapseVisible.value = visible
 }
+const handleNetworkCollapseSubMenuClick = () => {
+  networkCollapse.value?.close()
+}
 const handlePerformanceButtonClick = (visible: boolean) => {
   performanceCollapseVisible.value = visible
+}
+const handlePerformanceCollapseSubMenuClick = (
+  text: 'Balanced' | 'Power Saver'
+) => {
+  performanceCollapse.value?.close()
+  performanceTabText.value = text
 }
 const handleLockScreenClick = () => {
   closeMenu()
@@ -68,7 +80,7 @@ defineExpose<{
     <div class="relative text-light-1">
       <div class="flex gap-4 border-b-dark-2 border-b py-2xs px-xs">
         <label for="volume-input">
-          <SpeakerIcon class="text-lg" />
+          <SpeakerIcon class="text-lg my-auto" />
         </label>
         <input
           type="range"
@@ -90,7 +102,7 @@ defineExpose<{
           v-collapse:network-collapse
         >
           <div class="flex gap-4 mr-md">
-            <NetworkSvgIcon class="text-lg" />
+            <NetworkSvgIcon class="text-lg my-auto" />
             <p class="text-sm">Wireless Connected</p>
           </div>
           <ChevronRight
@@ -102,15 +114,27 @@ defineExpose<{
         </button>
         <Collapse
           id="network-collapse"
+          ref="networkCollapse"
           accordion="network-performance"
           :visible="networkCollapseVisible"
           @open="handleNetworkButtonClick"
           @close="handleNetworkButtonClick"
         >
-          <div class="text-sm rounded-b-lg bg-dark-2 px-2xs pb-2xs">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ad
-            adipisci illum! Maiores expedita labore, dolorem eum dolores
-            corporis molestiae.
+          <div
+            class="text-sm rounded-b-lg bg-dark-2 flex flex-col items-start px-lg"
+          >
+            <button
+              class="py-2xs w-full text-start"
+              @click="handleNetworkCollapseSubMenuClick"
+            >
+              Turn Off
+            </button>
+            <button
+              class="py-2xs w-full text-start"
+              @click="handleNetworkCollapseSubMenuClick"
+            >
+              Wireless Settings
+            </button>
           </div>
         </Collapse>
         <!-- performance button -->
@@ -120,8 +144,8 @@ defineExpose<{
           v-collapse:performance-collapse
         >
           <div class="flex gap-4 mr-md">
-            <PerformanceSvgIcon class="text-lg" />
-            <p class="text-sm">Balanced</p>
+            <PerformanceSvgIcon class="text-lg my-auto" />
+            <p class="text-sm">{{ performanceTabText }}</p>
           </div>
           <ChevronRight
             :class="[
@@ -132,15 +156,27 @@ defineExpose<{
         </button>
         <Collapse
           id="performance-collapse"
+          ref="performanceCollapse"
           accordion="network-performance"
           :visible="performanceCollapseVisible"
           @open="handlePerformanceButtonClick"
           @close="handlePerformanceButtonClick"
         >
-          <div class="text-sm rounded-b-lg bg-dark-2 px-2xs pb-2xs">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ad
-            adipisci illum! Maiores expedita labore, dolorem eum dolores
-            corporis molestiae.
+          <div
+            class="text-sm rounded-b-lg bg-dark-2 flex flex-col items-start px-lg"
+          >
+            <button
+              class="py-2xs w-full text-start"
+              @click="handlePerformanceCollapseSubMenuClick('Balanced')"
+            >
+              Balanced
+            </button>
+            <button
+              class="py-2xs w-full text-start"
+              @click="handlePerformanceCollapseSubMenuClick('Power Saver')"
+            >
+              Power Saver
+            </button>
           </div>
         </Collapse>
       </div>
@@ -152,7 +188,7 @@ defineExpose<{
           @click="closeMenu"
         >
           <div class="flex gap-4 mr-md">
-            <SettingsSvgIcon class="text-lg" />
+            <SettingsSvgIcon class="text-lg my-auto" />
             <p class="text-sm">Settings</p>
           </div>
         </button>
@@ -162,7 +198,7 @@ defineExpose<{
           @click="handleLockScreenClick"
         >
           <div class="flex gap-4 mr-md">
-            <LockSvgIcon class="text-lg" />
+            <LockSvgIcon class="text-lg my-auto" />
             <p class="text-sm">Lock Screen</p>
           </div>
         </button>
@@ -173,7 +209,7 @@ defineExpose<{
           v-collapse:power-collapse
         >
           <div class="flex gap-4 mr-md">
-            <PowerSvgIcon class="text-lg" />
+            <PowerSvgIcon class="text-lg my-auto" />
             <p class="text-sm">Power Off/Log Out</p>
           </div>
           <ChevronRight
@@ -192,9 +228,6 @@ defineExpose<{
           <div
             class="text-sm rounded-b-lg bg-dark-2 flex flex-col items-start px-lg"
           >
-            <button class="pb-2xs w-full text-start" @click="closeMenu">
-              Suspend
-            </button>
             <button
               class="py-2xs w-full text-start"
               @click="handleRestartClick"

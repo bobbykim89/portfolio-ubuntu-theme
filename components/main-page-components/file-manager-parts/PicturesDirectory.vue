@@ -30,7 +30,7 @@ const openPhotoViewer = (id: string) => {
       v-for="(item, idx) in imageData"
       :key="idx"
       :thumb="item.thumbnail"
-      :text="`img-${idx}`"
+      :text="item.fileName"
       :uid="item._id"
       @picture-click="openPhotoViewer"
     />

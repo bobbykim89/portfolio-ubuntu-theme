@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRuntimeConfig } from '#imports'
 import SpeakerSvgIcon from '@/assets/img/svg-files/audio-speakers-symbolic.svg'
-import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-symbolic.svg'
+import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-connected-symbolic.svg'
 import ShutdownSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
 import SystemMenu from '@/components/layout-components/SystemMenu.vue'
 import { onClickOutside, useIntervalFn } from '@vueuse/core'

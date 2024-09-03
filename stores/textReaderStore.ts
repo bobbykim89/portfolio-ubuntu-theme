@@ -1,5 +1,3 @@
-import { queryContent } from '#imports'
-import { ParsedContent } from '@nuxt/content'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -13,7 +11,6 @@ export const useTextReaderStore = defineStore('text-reader', () => {
   const isMdVisible = ref<boolean>(false)
   const isMdMaximized = ref<boolean>(false)
   const currentMdPath = ref<string | null>(null)
-  const currentMdContent = ref<ParsedContent | null>(null)
 
   // actions: PDF reader
   const openPdfReader = () => {
@@ -38,24 +35,9 @@ export const useTextReaderStore = defineStore('text-reader', () => {
   const setMdPath = (path: string) => {
     currentMdPath.value = path
   }
-  const fetchMdContent = async () => {
-    if (currentMdPath.value === null) {
-      return
-    }
-
-    const res = await queryContent()
-      .where({ _path: currentMdPath.value as string })
-      .findOne()
-
-    if (res === null) {
-      return
-    }
-    currentMdContent.value = res
-  }
   // actions: MD reader
   const openMdReader = async (path: string) => {
     setMdPath(path)
-    await fetchMdContent()
     isMdVisible.value = true
     isMdActive.value = true
   }
@@ -97,7 +79,6 @@ export const useTextReaderStore = defineStore('text-reader', () => {
     isMdVisible,
     isMdMaximized,
     currentMdPath,
-    currentMdContent,
     openMdReader,
     closeMdReader,
     minimizeMdReader,

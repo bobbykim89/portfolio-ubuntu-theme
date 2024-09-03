@@ -3,8 +3,10 @@ import MusicFile from '@/assets/img/program-icons/audio-x-mpeg.png'
 import ImageFile from '@/assets/img/program-icons/image-x-generic.png'
 import TextFile from '@/assets/img/program-icons/libreoffice-writer.png'
 import DockerFile from '@/assets/img/program-icons/text-dockerfile.png'
+import MdFile from '@/assets/img/program-icons/text-markdown.png'
 import RustFile from '@/assets/img/program-icons/text-rust.png'
 import CppFile from '@/assets/img/program-icons/text-x-cpp.png'
+import CsFile from '@/assets/img/program-icons/text-x-csharp.png'
 import JsFile from '@/assets/img/program-icons/text-x-javascript.png'
 import PyFile from '@/assets/img/program-icons/text-x-python.png'
 import RubyFile from '@/assets/img/program-icons/text-x-ruby.png'
@@ -20,6 +22,8 @@ const folderData: FileMap = {
   py: PyFile,
   docker: DockerFile,
   ruby: RubyFile,
+  md: MdFile,
+  cs: CsFile,
 }
 
 const props = withDefaults(
