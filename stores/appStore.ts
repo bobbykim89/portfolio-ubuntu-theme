@@ -5,6 +5,7 @@ import { useBlogStore } from './blogStore'
 import { useFileManagerStore } from './fileManagerStore'
 import { useMusicPlayerStore } from './musicPlayerStore'
 import { usePictureStore } from './picturesStore'
+import { useSettingsStore } from './settingsStore'
 import { useTerminalStore } from './terminalStore'
 import { useTextReaderStore } from './textReaderStore'
 
@@ -16,6 +17,7 @@ export const useAppStore = defineStore('app', () => {
   const textReaderStore = useTextReaderStore()
   const blogStore = useBlogStore()
   const musicPlayerStore = useMusicPlayerStore()
+  const settingsStore = useSettingsStore()
   // states
   const appStatus = ref<AppTypeMap>({
     terminal: { open: false, active: false },
@@ -26,6 +28,7 @@ export const useAppStore = defineStore('app', () => {
     trash: { open: false, active: false },
     'image-viewer': { open: false, active: false },
     'document-reader': { open: false, active: false },
+    settings: { open: false, active: false },
   })
   const windowWidth = ref<number>(0)
   const isMobile = ref<boolean>(false)
@@ -216,6 +219,26 @@ export const useAppStore = defineStore('app', () => {
   const setDocumentReaderClose = () => {
     setAppStatus('document-reader', false)
   }
+  const setSettingsOpen = () => {
+    setAppStatus('settings', true)
+    settingsStore.openSettings()
+    if (isMobile.value === true) {
+      terminalStore.minimizeTerminal()
+      pictureStore.minimizePhotoViewer()
+      fileManagerStore.minimizeFileManager()
+      textReaderStore.minimizePdfReader()
+      blogStore.minimizeBlog()
+      musicPlayerStore.minimizeMusicPlayer()
+      textReaderStore.minimizeMdReader()
+      setOtherAppsInactive('settings')
+    }
+  }
+  const setSettingsActive = (val: boolean) => {
+    appStatus.value.settings.active = val
+  }
+  const setSettingsClose = () => {
+    setAppStatus('settings', false)
+  }
 
   return {
     appStatus,
@@ -245,5 +268,8 @@ export const useAppStore = defineStore('app', () => {
     setDocumentReaderOpen,
     setDocumentReaderActive,
     setDocumentReaderClose,
+    setSettingsOpen,
+    setSettingsActive,
+    setSettingsClose,
   }
 })

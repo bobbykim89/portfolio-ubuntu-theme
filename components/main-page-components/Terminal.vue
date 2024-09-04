@@ -79,9 +79,11 @@ const getTextInputHistory = computed(() => {
 })
 
 const onEnterKeyDown = async () => {
+  const firstTextLine = `${getUserName.value} ${inputText.value}`
+  textInputHistory.value?.push(firstTextLine)
   await terminalStore.onTerminalEnter()
-  const prevTextLine = `${getUserName.value} ${inputText.value}\n${terminalMessage.value}`
-  textInputHistory.value?.push(prevTextLine)
+  const secondTextLine = `${terminalMessage.value}`
+  textInputHistory.value?.push(secondTextLine)
   if (inputText.value === 'clear') {
     textInputHistory.value = []
   }

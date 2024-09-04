@@ -178,7 +178,7 @@ export const useTerminalStore = defineStore('terminal', () => {
     }
   }
   const onTerminalEnter = async () => {
-    const [command, arg] = inputText.value.split(' ')
+    const [command, arg] = inputText.value.toLowerCase().split(' ')
 
     const commands: Record<string, Function> = {
       cd: () => onCd(arg as PossibleInputOptionsType),

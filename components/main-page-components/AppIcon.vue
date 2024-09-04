@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import FireFoxIcon from '@/assets/img/program-icons/firefox.png'
-import ImageViewerIcon from '@/assets/img/program-icons/image-x-generic.png'
+import ImageViewerIcon from '@/assets/img/program-icons/image-viewer-app.png'
 import OfficeIcon from '@/assets/img/program-icons/libreoffice-writer.png'
 import MusicIcon from '@/assets/img/program-icons/preferences-system-sound.png'
+import SettingsIcon from '@/assets/img/program-icons/system-settings.png'
 import TerminalIcon from '@/assets/img/program-icons/terminal-app.png'
 import MdIcon from '@/assets/img/program-icons/text-markdown.png'
 import FileManagerIcon from '@/assets/img/system-icons/filemanager-app.png'
@@ -34,6 +35,7 @@ const imageIcons: MainAppIconMap = {
   trash: { src: TrashIcon, alt: 'trash icon' },
   'image-viewer': { src: ImageViewerIcon, alt: 'image viewer icon' },
   'document-reader': { src: MdIcon, alt: 'markdown file icon' },
+  settings: { src: SettingsIcon, alt: 'gearbox icon' },
 }
 
 const handleIconClick = (e: Event) => {

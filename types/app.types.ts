@@ -7,6 +7,7 @@ const appArray = [
   'trash',
   'image-viewer',
   'document-reader',
+  'settings',
 ] as const
 export type AppType = (typeof appArray)[number]
 
