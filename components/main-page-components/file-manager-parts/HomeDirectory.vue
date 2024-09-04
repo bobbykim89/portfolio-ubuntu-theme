@@ -29,7 +29,7 @@ const folders: HomeFoldersType[] = [
   {
     type: 'pictures',
     text: 'Pictures',
-    handler: () => fileManagerStore.setCurrentDirectory('picture'),
+    handler: () => fileManagerStore.setCurrentDirectory('pictures'),
   },
 ]
 </script>

@@ -78,10 +78,10 @@ const onCollapseClick = (visible: boolean) => {
       </button>
       <button
         :class="[
-          setDirBgColor('picture'),
+          setDirBgColor('pictures'),
           'flex items-center pl-sm pr-lg py-2xs gap-2 text-start transition-colors duration-150 ease-linear',
         ]"
-        @click="setCurrent('picture')"
+        @click="setCurrent('pictures')"
       >
         <PicturesSvgIcon class="text-sm" />
         <p class="text-sm">Pictures</p>
@@ -152,10 +152,10 @@ const onCollapseClick = (visible: boolean) => {
           </button>
           <button
             :class="[
-              setDirBgColor('picture'),
+              setDirBgColor('pictures'),
               'flex items-center pl-sm pr-lg py-2xs gap-2 text-start transition-colors duration-150 ease-linear w-full',
             ]"
-            @click="setCurrent('picture')"
+            @click="setCurrent('pictures')"
           >
             <PicturesSvgIcon class="text-sm" />
             <p class="text-sm">Pictures</p>

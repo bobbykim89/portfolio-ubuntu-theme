@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useRuntimeConfig } from '#imports'
-import NewTabSvgIcon from '@/assets/img/svg-files/tab-new-symbolic.svg'
 import CloseSvgIcon from '@/assets/img/svg-files/window-close-symbolic.svg'
 import MaximizeSvgIcon from '@/assets/img/svg-files/window-maximize-symbolic.svg'
 import MinimizeSvgIcon from '@/assets/img/svg-files/window-minimize-symbolic.svg'
@@ -26,11 +25,14 @@ const emit = defineEmits<{
   (e: 'set-active', active: boolean): void
 }>()
 
+const initialText =
+  '##########################\n#&nbsp;Welcome to Terminal!&nbsp;&nbsp;&nbsp;#\n#&nbsp;Available commands are:#\n#&nbsp;cd, ls, clear, open .&nbsp;&nbsp;#\n#&nbsp;Thank you!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#\n##########################'
+
 const config = useRuntimeConfig()
 const draggableRef = ref<HTMLDivElement>()
 const dragHandle = ref<HTMLDivElement>()
 const textInput = ref<HTMLInputElement>()
-const textInputHistory = ref<string[]>([])
+const textInputHistory = ref<string[]>([initialText])
 
 const terminalStore = useTerminalStore()
 const {
@@ -60,6 +62,9 @@ const onTerminalClick = () => {
   textInput.value?.focus()
   emit('set-active', true)
 }
+const terminalFocus = () => {
+  textInput.value?.focus()
+}
 
 const getUserName = computed(() => {
   const splitUsername = config.public.userName.toLowerCase().split(' ')
@@ -69,10 +74,17 @@ const getUserName = computed(() => {
   } $`
 })
 
-const onEnterKeyDown = () => {
-  terminalStore.onTerminalEnter()
+const getTextInputHistory = computed(() => {
+  return textInputHistory.value
+})
+
+const onEnterKeyDown = async () => {
+  await terminalStore.onTerminalEnter()
   const prevTextLine = `${getUserName.value} ${inputText.value}\n${terminalMessage.value}`
   textInputHistory.value?.push(prevTextLine)
+  if (inputText.value === 'clear') {
+    textInputHistory.value = []
+  }
   inputText.value = ''
   terminalStore.clearTerminalMsg()
 }
@@ -80,6 +92,11 @@ const onEnterKeyDown = () => {
 onClickOutside(draggableRef, () => {
   terminalStore.setTerminalActive(false)
   emit('set-active', false)
+})
+defineExpose<{
+  focus: () => void
+}>({
+  focus: terminalFocus,
 })
 </script>
 
@@ -99,17 +116,12 @@ onClickOutside(draggableRef, () => {
       ref="dragHandle"
       :class="[
         isActive ? 'bg-dark-3' : 'bg-dark-2',
-        'grid grid-cols-3 content-center text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
+        'grid grid-cols-2 xl:grid-cols-3 content-center text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
       ]"
     >
-      <!-- new-tab button -->
-      <button
-        class="rounded-md p-[6px] bg-dark-2 focus:bg-dark-3 border-2 border-dark-4 justify-self-start"
-        @click.stop
-      >
-        <NewTabSvgIcon class="aspect-square w-[14px]" :fontControlled="false" />
-      </button>
-      <p class="place-self-center cursor-default select-none">Terminal</p>
+      <p class="xl:col-start-2 xl:place-self-center cursor-default select-none">
+        Terminal
+      </p>
       <!-- minimize/maximize/close buttons -->
       <div class="flex gap-2 items-center justify-self-end" @click.stop>
         <button
@@ -144,28 +156,28 @@ onClickOutside(draggableRef, () => {
     <div
       :class="[
         isMaximized ? 'md:h-[92vh]' : 'md:h-96',
-        'relative bg-primary h-[90vh] md:h-96 text-light-1 p-3xs overflow-y-scroll',
+        'relative bg-primary h-[90vh] md:h-96 text-light-1 p-3xs overflow-y-scroll font-vt323 text-lg',
       ]"
       @keydown.enter="onEnterKeyDown"
     >
-      <input
-        ref="textInput"
-        type="text"
-        v-model="inputText"
-        class="absolute h-0 w-0"
-      />
       <div>
         <p
           class="whitespace-pre-line"
-          v-for="(text, idx) in textInputHistory"
+          v-for="(text, idx) in getTextInputHistory"
           :key="idx"
           v-html="text"
         ></p>
       </div>
       <p>
         {{ getUserName }} {{ inputText }}
-        <span class="bg-light-1 blink">&nbsp;&nbsp;</span>
+        <span class="bg-light-1 blink">&nbsp;</span>
       </p>
+      <input
+        ref="textInput"
+        type="text"
+        v-model="inputText"
+        class="absolute h-0 w-0"
+      />
     </div>
   </div>
 </template>

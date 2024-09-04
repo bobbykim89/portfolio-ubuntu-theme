@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/content',
     '@nuxt/image',
+    '@nuxt/fonts',
   ],
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },

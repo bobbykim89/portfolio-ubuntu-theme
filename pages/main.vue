@@ -12,12 +12,20 @@ import Terminal from '@/components/main-page-components/Terminal.vue'
 import { useAppStore } from '@/stores'
 import { useWindowSize } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { onMounted, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 const appStore = useAppStore()
 const { appStatus } = storeToRefs(appStore)
+const terminalRef = ref<InstanceType<typeof Terminal>>()
 
 const { width } = useWindowSize()
+
+const onTerminalOpen = () => {
+  appStore.setTerminalOpen()
+  nextTick(() => {
+    terminalRef.value?.focus()
+  })
+}
 
 const bgImageVar = computed(() => {
   return { '--bg-img': `url(${BgImage})` }
@@ -36,9 +44,10 @@ onMounted(() => {
     <div class="flex flex-col gap-1 bg-dark-4/90 z-[25]">
       <AppIcon
         icon-type="terminal"
+        ref="terminalRef"
         :is-open="appStatus.terminal.open"
         :is-active="appStatus.terminal.active"
-        @icon-click="appStore.setTerminalOpen"
+        @icon-click="onTerminalOpen"
       />
       <AppIcon
         icon-type="file-manager"
@@ -99,6 +108,7 @@ onMounted(() => {
       <Terminal
         :initial-x="80"
         :initial-y="40"
+        ref="terminalRef"
         @set-active="appStore.setTerminalActive"
         @close-click="appStore.setTerminalClose"
       />

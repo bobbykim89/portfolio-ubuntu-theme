@@ -1,5 +1,9 @@
+import { queryContent } from '#imports'
+import { musicPlayerData } from '@/assets/data'
+import { DirectoryType } from '@/types'
 import { defineStore, storeToRefs } from 'pinia'
 import { ref } from 'vue'
+import { useAppStore } from './appStore'
 import { usePictureStore } from './picturesStore'
 
 const possibleInputOptions = [
@@ -17,25 +21,25 @@ const possibleInputOptions = [
   'trash',
 ] as const
 type PossibleInputOptionsType = (typeof possibleInputOptions)[number]
-const possiblePaths = [
-  'home',
-  'documents',
-  'documents/about',
-  'documents/projects',
-  'documents/skills',
-  'music',
-  'pictures',
-  'trash',
-] as const
-type PossiblePathsType = (typeof possiblePaths)[number]
+
+type PossiblePathsType = DirectoryType
 const documentsSubDirectoryOptions = ['about', 'projects', 'skills'] as const
 type DocumentsSubdirectoryTypes = (typeof documentsSubDirectoryOptions)[number]
 type DocumentsSubDirectoryPathsType = {
   [K in DocumentsSubdirectoryTypes]: Partial<PossiblePathsType>
 }
+const documentSubDirectoryFullPath: Record<
+  DocumentsSubdirectoryTypes,
+  PossiblePathsType
+> = {
+  about: 'documents/about',
+  projects: 'documents/projects',
+  skills: 'documents/skills',
+}
 
 export const useTerminalStore = defineStore('terminal', () => {
   const picturestore = usePictureStore()
+  const appStore = useAppStore()
   // states
   const isActive = ref<boolean>(true)
   const isVisible = ref<boolean>(false)
@@ -51,13 +55,16 @@ export const useTerminalStore = defineStore('terminal', () => {
   const closeTerminal = () => {
     isVisible.value = false
     isActive.value = false
-    inputText.value = ''
-    currentPath.value = 'home'
-    terminalMessage.value = ''
+    resetTerminalState()
   }
   const minimizeTerminal = () => {
     isVisible.value = false
     isActive.value = false
+  }
+  const resetTerminalState = () => {
+    inputText.value = ''
+    currentPath.value = 'home'
+    terminalMessage.value = ''
   }
   const setTerminalActive = (val: boolean) => {
     isActive.value = val
@@ -66,84 +73,121 @@ export const useTerminalStore = defineStore('terminal', () => {
     isActive.value = true
     isMaximized.value = !isMaximized.value
   }
+  const cdErrorMessage = (path: string) => {
+    terminalMessage.value = `cd: no such file or directory: ${path}`
+  }
   const onCd = (path: PossibleInputOptionsType) => {
-    const documentSubDirectoryFullPath: DocumentsSubDirectoryPathsType = {
-      about: 'documents/about',
-      projects: 'documents/projects',
-      skills: 'documents/skills',
-    }
     if (path === undefined) {
       return
-    } else if (!possibleInputOptions.includes(path)) {
-      terminalMessage.value = `cd: no such file or directory: ${path}`
+    }
+    if (!possibleInputOptions.includes(path)) {
+      cdErrorMessage(path)
       return
-    } else if (path === '~') {
+    }
+    if (path === '~') {
       currentPath.value = 'home'
       return
-    } else if (
-      (currentPath.value === 'documents/about' ||
+    }
+    if (path === '..') {
+      if (
+        currentPath.value === 'documents/about' ||
         currentPath.value === 'documents/projects' ||
-        currentPath.value === 'documents/skills') &&
-      path === '..'
-    ) {
-      currentPath.value = 'documents'
-      return
-    } else if (
-      (currentPath.value === 'documents' ||
+        currentPath.value === 'documents/skills'
+      ) {
+        currentPath.value = 'documents'
+        return
+      }
+      if (
+        currentPath.value === 'documents' ||
         currentPath.value === 'music' ||
-        currentPath.value === 'pictures') &&
-      path === '..'
+        currentPath.value === 'pictures'
+      ) {
+        currentPath.value = 'home'
+        return
+      }
+    }
+    if (
+      path === 'documents' ||
+      path === 'music' ||
+      path === 'pictures' ||
+      path === 'trash'
     ) {
-      currentPath.value = 'home'
-      return
-    } else if (
-      currentPath.value === 'documents' &&
-      (path === 'projects' || path === 'about' || path === 'skills')
+      if (currentPath.value !== 'home') {
+        cdErrorMessage(path)
+        return
+      }
+      if (currentPath.value === 'home') {
+        currentPath.value = path
+        return
+      }
+    }
+    if (
+      path === 'documents/about' ||
+      path === 'documents/projects' ||
+      path === 'documents/skills'
     ) {
-      currentPath.value = documentSubDirectoryFullPath[path]
-      return
-    } else if (currentPath.value === 'home') {
-      currentPath.value =
-        path === 'documents'
-          ? 'documents'
-          : path === 'music'
-          ? 'music'
-          : path === 'pictures'
-          ? 'pictures'
-          : path === 'trash'
-          ? 'trash'
-          : 'home'
+      if (currentPath.value !== 'home') {
+        cdErrorMessage(path)
+        return
+      }
+      if (currentPath.value === 'home') {
+        currentPath.value = path
+        return
+      }
+    }
+    if (path === 'projects' || path === 'about' || path === 'skills') {
+      if (currentPath.value !== 'documents') {
+        cdErrorMessage(path)
+        return
+      }
+      if (currentPath.value === 'documents') {
+        currentPath.value = documentSubDirectoryFullPath[path]
+        return
+      }
     }
   }
   const formatImgData = () => {
     const { imageData } = storeToRefs(picturestore)
-    const textArray = imageData.value.map((item) => {
-      return item.fileName
-    })
-    return textArray.join('\n')
+    return imageData.value.map((item) => item.fileName).join('\n')
   }
-  const onLs = () => {
-    if (currentPath.value === 'home') {
-      terminalMessage.value = 'Documents\nMusic\nPictures'
-      return
+  const formatFilesData = async () => {
+    const res = await queryContent(currentPath.value).sort({ order: 1 }).find()
+    return res.length > 0 ? res.map((item) => item.fileName).join('\n') : ''
+  }
+  const formatMusicPlayerFilesData = () => {
+    return musicPlayerData.map((item) => item.filename + '.mp3').join('\n')
+  }
+  const listDirectoryContents = async () => {
+    const pathContent: Record<PossiblePathsType, string> = {
+      home: 'Documents\nMusic\nPictures',
+      documents: 'About\nProjects\nSkills',
+      pictures: formatImgData(),
+      music: formatMusicPlayerFilesData(),
+      'documents/about': await formatFilesData(),
+      'documents/projects': await formatFilesData(),
+      'documents/skills': await formatFilesData(),
+      trash: '',
     }
-    if (currentPath.value === 'trash') {
-      return
-    }
-    if (currentPath.value === 'pictures') {
-      terminalMessage.value = formatImgData()
+
+    terminalMessage.value = pathContent[currentPath.value] || ''
+  }
+
+  const onOpen = (arg: string) => {
+    if (arg === '.') {
+      appStore.setFileManagerOpenFromTerminal(currentPath.value)
     }
   }
-  const onTerminalEnter = () => {
-    const splitInput = inputText.value.split(' ')
-    switch (splitInput[0]) {
-      case 'cd':
-        return onCd(splitInput[1] as PossibleInputOptionsType)
-      case 'ls':
-        return onLs()
-      default:
-        return ' '
+  const onTerminalEnter = async () => {
+    const [command, arg] = inputText.value.split(' ')
+
+    const commands: Record<string, Function> = {
+      cd: () => onCd(arg as PossibleInputOptionsType),
+      ls: listDirectoryContents,
+      clear: () => (terminalMessage.value = ''),
+      open: () => onOpen(arg),
     }
+
+    await commands[command]?.()
   }
   const clearTerminalMsg = () => {
     terminalMessage.value = ''
