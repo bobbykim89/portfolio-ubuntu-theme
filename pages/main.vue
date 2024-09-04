@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BgImage from '@/assets/img/bg-image.jpeg'
+import BgImage from '@/assets/img/wallpapers/image/wallpaper-custom.jpg'
 import AppIcon from '@/components/main-page-components/AppIcon.vue'
 import BlogPage from '@/components/main-page-components/BlogPage.vue'
 import DesktopAppsIcon from '@/components/main-page-components/DesktopAppsIcon.vue'
@@ -8,13 +8,16 @@ import FileManager from '@/components/main-page-components/FileManager.vue'
 import ImageViewer from '@/components/main-page-components/ImageViewer.vue'
 import MusicPlayer from '@/components/main-page-components/MusicPlayer.vue'
 import PdfReader from '@/components/main-page-components/PdfReader.vue'
+import Settings from '@/components/main-page-components/Settings.vue'
 import Terminal from '@/components/main-page-components/Terminal.vue'
-import { useAppStore } from '@/stores'
+import { useAppStore, useSettingsStore } from '@/stores'
 import { useWindowSize } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
 
 const appStore = useAppStore()
+const settingsStore = useSettingsStore()
+const { currentWp } = storeToRefs(settingsStore)
 const { appStatus } = storeToRefs(appStore)
 const terminalRef = ref<InstanceType<typeof Terminal>>()
 
@@ -28,7 +31,14 @@ const onTerminalOpen = () => {
 }
 
 const bgImageVar = computed(() => {
-  return { '--bg-img': `url(${BgImage})` }
+  if (currentWp.value === '') {
+    return { '--bg-img': `url(${BgImage})` }
+  }
+  const formattedImgUrl = new URL(
+    `../assets/img/wallpapers/image/${currentWp.value}`,
+    import.meta.url
+  ).href
+  return { '--bg-img': `url(${formattedImgUrl})` }
 })
 watch(width, (newVal) => {
   appStore.setWindowWidth(newVal)
@@ -101,6 +111,13 @@ onMounted(() => {
         :is-active="appStatus['document-reader'].active"
         @icon-click="appStore.setDocumentReaderOpen"
       />
+      <AppIcon
+        v-if="appStatus.settings.open"
+        icon-type="settings"
+        :is-open="appStatus.settings.open"
+        :is-active="appStatus.settings.active"
+        @icon-click="appStore.setSettingsOpen"
+      />
       <DesktopAppsIcon class="mt-auto mb-2xs" />
     </div>
     <!-- main screen -->
@@ -147,6 +164,12 @@ onMounted(() => {
         :initial-y="80"
         @set-active="appStore.setMusicPlayerActive"
         @close-click="appStore.setMusicPlayerClose"
+      />
+      <Settings
+        :initial-x="200"
+        :initial-y="80"
+        @set-active="appStore.setSettingsActive"
+        @close-click="appStore.setSettingsClose"
       />
     </div>
   </div>

@@ -6,7 +6,7 @@ import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-connected-sy
 import ChevronRight from '@/assets/img/svg-files/pan-end-symbolic.svg'
 import PerformanceSvgIcon from '@/assets/img/svg-files/power-profile-balanced-symbolic.svg'
 import PowerSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
-import { useFileManagerStore, useMusicPlayerStore } from '@/stores'
+import { useAppStore, useFileManagerStore, useMusicPlayerStore } from '@/stores'
 import { Collapse, vCollapse } from '@bobbykim/manguito-theme'
 import { storeToRefs } from 'pinia'
 
@@ -19,6 +19,7 @@ const performanceCollapseVisible = ref<boolean>(false)
 const powerCollapseVisible = ref<boolean>(false)
 const fileManagerStore = useFileManagerStore()
 const musicPlayerStore = useMusicPlayerStore()
+const appStore = useAppStore()
 const router = useRouter()
 
 const { musicVolume } = storeToRefs(musicPlayerStore)
@@ -44,6 +45,10 @@ const handlePerformanceCollapseSubMenuClick = (
 ) => {
   performanceCollapse.value?.close()
   performanceTabText.value = text
+}
+const handleSettingsClick = () => {
+  appStore.setSettingsOpen()
+  closeMenu()
 }
 const handleLockScreenClick = () => {
   closeMenu()
@@ -185,7 +190,7 @@ defineExpose<{
         <!-- settings button -->
         <button
           class="w-full flex justify-between items-center py-2xs px-xs focus:bg-dark-2 rounded-lg transition-colors duration-300 ease-linear"
-          @click="closeMenu"
+          @click="handleSettingsClick"
         >
           <div class="flex gap-4 mr-md">
             <SettingsSvgIcon class="text-lg my-auto" />
