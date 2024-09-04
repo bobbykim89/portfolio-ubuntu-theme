@@ -9,6 +9,7 @@ import { computed, ref } from 'vue'
 
 const config = useRuntimeConfig()
 const currentTime = ref<string>('')
+const dateNumeric = ref<string>('')
 const menuButton = ref<HTMLButtonElement>()
 const systemMenu = ref<InstanceType<typeof SystemMenu>>()
 const route = useRoute()
@@ -20,6 +21,12 @@ const updateCurrentTime = () => {
     day: 'numeric',
   })
 
+  const formattedDateNumeric = time.toLocaleDateString('fr-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+
   const formattedTime = time.toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
@@ -27,6 +34,7 @@ const updateCurrentTime = () => {
   })
 
   currentTime.value = `${formattedDate} ${formattedTime}`
+  dateNumeric.value = formattedDateNumeric
 }
 
 const handleButtonClick = () => {
@@ -41,6 +49,8 @@ const getUserName = computed(() => {
   }
   return config.public.userName
 })
+
+updateCurrentTime()
 
 useIntervalFn(() => {
   updateCurrentTime()
@@ -64,8 +74,18 @@ onClickOutside(
       <div class="hidden md:block text-sm pl-2xs cursor-default">
         {{ getUserName }}
       </div>
-      <div class="col-start-2 text-center text-sm cursor-default">
-        {{ currentTime }}
+      <div class="col-start-2 text-center text-sm cursor-default relative">
+        <label for="date-time">
+          {{ currentTime }}
+        </label>
+        <input
+          class="absolute h-0 w-0 bottom-0 left-1/2"
+          type="date"
+          name="date-time"
+          id="date-time"
+          :value="dateNumeric"
+          onfocus="this.showPicker()"
+        />
       </div>
       <div class="ml-auto pr-3xs flex items-center">
         <button

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CalculatorIcon from '@/assets/img/program-icons/calculator-app.png'
 import FireFoxIcon from '@/assets/img/program-icons/firefox.png'
 import ImageViewerIcon from '@/assets/img/program-icons/image-viewer-app.png'
 import OfficeIcon from '@/assets/img/program-icons/libreoffice-writer.png'
@@ -15,10 +16,13 @@ const props = withDefaults(
     iconType: MainAppIconType
     isOpen: boolean
     isActive: boolean
+    displayText?: boolean
+    text?: string
   }>(),
   {
-    iconType: 'terminal',
     isOpen: false,
+    displayText: false,
+    text: '',
   }
 )
 
@@ -36,6 +40,7 @@ const imageIcons: MainAppIconMap = {
   'image-viewer': { src: ImageViewerIcon, alt: 'image viewer icon' },
   'document-reader': { src: MdIcon, alt: 'markdown file icon' },
   settings: { src: SettingsIcon, alt: 'gearbox icon' },
+  calculator: { src: CalculatorIcon, alt: 'calculator icon' },
 }
 
 const handleIconClick = (e: Event) => {
@@ -45,7 +50,7 @@ const handleIconClick = (e: Event) => {
 
 <template>
   <button
-    class="py-3xs px-2xs focus:bg-dark-2 rounded-md transition-colors duration-150 ease-linear relative"
+    class="flex flex-col items-center justify-center py-3xs px-2xs focus:bg-dark-2 rounded-md transition-colors duration-150 ease-linear relative"
     @click="handleIconClick"
   >
     <img
@@ -60,6 +65,7 @@ const handleIconClick = (e: Event) => {
         'absolute w-3xs h-3xs rounded-full top-1/2 left-[2px]',
       ]"
     ></div>
+    <p v-if="displayText" class="text-light-1 text-sm text-wrap">{{ text }}</p>
   </button>
 </template>
 
