@@ -20,7 +20,6 @@ export const useBlogStore = defineStore('blog', () => {
     if (currentPath.value === '/blog') {
       return
     }
-    console.log(currentPath.value)
     const res = await queryContent()
       .where({ _path: currentPath.value })
       .findOne()

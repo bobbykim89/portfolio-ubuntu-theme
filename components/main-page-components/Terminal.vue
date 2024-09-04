@@ -110,7 +110,7 @@ defineExpose<{
     :class="[
       isActive ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
       isMaximized ? '' : 'md:fixed md:w-1/2',
-      'md:rounded-lg overflow-hidden w-full border-2 drop-shadow-md',
+      'bg-primary md:rounded-lg overflow-hidden w-full border-2 drop-shadow-md',
     ]"
     @click="onTerminalClick"
   >
@@ -158,7 +158,7 @@ defineExpose<{
     <div
       :class="[
         isMaximized ? 'md:h-[92vh]' : 'md:h-96',
-        'relative bg-primary h-[90vh] md:h-96 text-light-1 p-3xs overflow-y-scroll font-vt323 text-lg',
+        'relative h-[90vh] md:h-96 text-light-1 p-3xs overflow-y-scroll font-vt323 text-lg',
       ]"
       @keydown.enter="onEnterKeyDown"
     >

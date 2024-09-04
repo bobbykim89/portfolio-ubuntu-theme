@@ -2,6 +2,7 @@ import { AppType, AppTypeMap, DirectoryType } from '@/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useBlogStore } from './blogStore'
+import { useCalculatorStore } from './calculatorStore'
 import { useFileManagerStore } from './fileManagerStore'
 import { useMusicPlayerStore } from './musicPlayerStore'
 import { usePictureStore } from './picturesStore'
@@ -18,6 +19,7 @@ export const useAppStore = defineStore('app', () => {
   const blogStore = useBlogStore()
   const musicPlayerStore = useMusicPlayerStore()
   const settingsStore = useSettingsStore()
+  const calculatorStore = useCalculatorStore()
   // states
   const appStatus = ref<AppTypeMap>({
     terminal: { open: false, active: false },
@@ -29,6 +31,7 @@ export const useAppStore = defineStore('app', () => {
     'image-viewer': { open: false, active: false },
     'document-reader': { open: false, active: false },
     settings: { open: false, active: false },
+    calculator: { open: false, active: false },
   })
   const windowWidth = ref<number>(0)
   const isMobile = ref<boolean>(false)
@@ -59,6 +62,8 @@ export const useAppStore = defineStore('app', () => {
       textReaderStore.minimizePdfReader()
       blogStore.minimizeBlog()
       musicPlayerStore.minimizeMusicPlayer()
+      settingsStore.minimizeSettings()
+      calculatorStore.minimizeCalculator()
       setOtherAppsInactive('terminal')
     }
   }
@@ -79,6 +84,8 @@ export const useAppStore = defineStore('app', () => {
       textReaderStore.minimizePdfReader()
       blogStore.minimizeBlog()
       musicPlayerStore.minimizeMusicPlayer()
+      settingsStore.minimizeSettings()
+      calculatorStore.minimizeCalculator()
       setOtherAppsInactive('file-manager')
     }
   }
@@ -93,6 +100,8 @@ export const useAppStore = defineStore('app', () => {
       textReaderStore.minimizePdfReader()
       blogStore.minimizeBlog()
       musicPlayerStore.minimizeMusicPlayer()
+      settingsStore.minimizeSettings()
+      calculatorStore.minimizeCalculator()
       setOtherAppsInactive('file-manager')
     }
   }
@@ -116,6 +125,8 @@ export const useAppStore = defineStore('app', () => {
       textReaderStore.minimizeMdReader()
       blogStore.minimizeBlog()
       musicPlayerStore.minimizeMusicPlayer()
+      settingsStore.minimizeSettings()
+      calculatorStore.minimizeCalculator()
       setOtherAppsInactive('office')
     }
   }
@@ -137,6 +148,8 @@ export const useAppStore = defineStore('app', () => {
       textReaderStore.minimizePdfReader()
       textReaderStore.minimizeMdReader()
       musicPlayerStore.minimizeMusicPlayer()
+      settingsStore.minimizeSettings()
+      calculatorStore.minimizeCalculator()
       setOtherAppsInactive('firefox')
     }
   }
@@ -158,6 +171,8 @@ export const useAppStore = defineStore('app', () => {
       textReaderStore.minimizePdfReader()
       textReaderStore.minimizeMdReader()
       blogStore.minimizeBlog()
+      settingsStore.minimizeSettings()
+      calculatorStore.minimizeCalculator()
       setOtherAppsInactive('music')
     }
   }
@@ -178,6 +193,8 @@ export const useAppStore = defineStore('app', () => {
       textReaderStore.minimizeMdReader()
       blogStore.minimizeBlog()
       musicPlayerStore.minimizeMusicPlayer()
+      settingsStore.minimizeSettings()
+      calculatorStore.minimizeCalculator()
       setOtherAppsInactive('trash')
     }
   }
@@ -191,6 +208,8 @@ export const useAppStore = defineStore('app', () => {
       textReaderStore.minimizeMdReader()
       blogStore.minimizeBlog()
       musicPlayerStore.minimizeMusicPlayer()
+      settingsStore.minimizeSettings()
+      calculatorStore.minimizeCalculator()
       setOtherAppsInactive('image-viewer')
     }
   }
@@ -210,6 +229,8 @@ export const useAppStore = defineStore('app', () => {
       textReaderStore.minimizePdfReader()
       blogStore.minimizeBlog()
       musicPlayerStore.minimizeMusicPlayer()
+      settingsStore.minimizeSettings()
+      calculatorStore.minimizeCalculator()
       setOtherAppsInactive('document-reader')
     }
   }
@@ -230,6 +251,7 @@ export const useAppStore = defineStore('app', () => {
       blogStore.minimizeBlog()
       musicPlayerStore.minimizeMusicPlayer()
       textReaderStore.minimizeMdReader()
+      calculatorStore.minimizeCalculator()
       setOtherAppsInactive('settings')
     }
   }
@@ -238,6 +260,27 @@ export const useAppStore = defineStore('app', () => {
   }
   const setSettingsClose = () => {
     setAppStatus('settings', false)
+  }
+  const setCalculatorOpen = () => {
+    setAppStatus('calculator', true)
+    calculatorStore.openCalculator()
+    if (isMobile.value === true) {
+      terminalStore.minimizeTerminal()
+      pictureStore.minimizePhotoViewer()
+      fileManagerStore.minimizeFileManager()
+      textReaderStore.minimizePdfReader()
+      blogStore.minimizeBlog()
+      musicPlayerStore.minimizeMusicPlayer()
+      textReaderStore.minimizeMdReader()
+      settingsStore.minimizeSettings()
+      setOtherAppsInactive('settings')
+    }
+  }
+  const setCalculatorActive = (val: boolean) => {
+    appStatus.value.calculator.active = val
+  }
+  const setCalculatorClose = () => {
+    setAppStatus('calculator', false)
   }
 
   return {
@@ -271,5 +314,8 @@ export const useAppStore = defineStore('app', () => {
     setSettingsOpen,
     setSettingsActive,
     setSettingsClose,
+    setCalculatorOpen,
+    setCalculatorActive,
+    setCalculatorClose,
   }
 })
