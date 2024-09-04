@@ -1,4 +1,4 @@
-import { AppType, AppTypeMap } from '@/types'
+import { AppType, AppTypeMap, DirectoryType } from '@/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useBlogStore } from './blogStore'
@@ -69,6 +69,20 @@ export const useAppStore = defineStore('app', () => {
   const setFileManagerOpen = () => {
     setAppStatus('file-manager', true)
     fileManagerStore.openFileManager()
+    if (isMobile.value === true) {
+      terminalStore.minimizeTerminal()
+      pictureStore.minimizePhotoViewer()
+      textReaderStore.minimizeMdReader()
+      textReaderStore.minimizePdfReader()
+      blogStore.minimizeBlog()
+      musicPlayerStore.minimizeMusicPlayer()
+      setOtherAppsInactive('file-manager')
+    }
+  }
+
+  const setFileManagerOpenFromTerminal = (dir: DirectoryType) => {
+    setAppStatus('file-manager', true)
+    fileManagerStore.openFileManager(dir)
     if (isMobile.value === true) {
       terminalStore.minimizeTerminal()
       pictureStore.minimizePhotoViewer()
@@ -212,6 +226,7 @@ export const useAppStore = defineStore('app', () => {
     setTerminalActive,
     setTerminalClose,
     setFileManagerOpen,
+    setFileManagerOpenFromTerminal,
     setFileManagerActive,
     setFileManagerClose,
     setOfficeOpen,

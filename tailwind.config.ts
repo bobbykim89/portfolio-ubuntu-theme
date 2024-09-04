@@ -11,7 +11,11 @@ export default <Partial<Config>>{
     './node_modules/@bobbykim/**/*.{vue,ts,js,cjs}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        vt323: ['VT323'],
+      },
+    },
   },
   plugins: [
     mclTheme({

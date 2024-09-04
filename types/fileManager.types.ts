@@ -7,7 +7,7 @@ const directoryArray = [
   'documents/projects',
   'documents/skills',
   'music',
-  'picture',
+  'pictures',
   'trash',
 ] as const
 export type DirectoryType = (typeof directoryArray)[number]

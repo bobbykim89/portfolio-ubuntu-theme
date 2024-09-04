@@ -48,7 +48,7 @@ const fileManagerDirectory: DirectoryMap = {
     name: 'Music',
     icon: MusicSvgIcon,
   },
-  picture: {
+  pictures: {
     name: 'Pictures',
     icon: PicturesSvgIcon,
   },
@@ -248,7 +248,7 @@ onClickOutside(draggableRef, () => {
           :files="files!"
         />
         <PicturesDirectory
-          v-else-if="currentSection === 'picture'"
+          v-else-if="currentSection === 'pictures'"
           :maximized="isMaximized"
         />
         <MusicDirectory
