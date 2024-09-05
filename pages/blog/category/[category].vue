@@ -8,15 +8,19 @@ definePageMeta({
   pageTransition: { name: 'blog', mode: 'out-in' },
 })
 
+const route = useRoute()
+
 useHead({
-  title: 'Mango Planner | Blog',
+  title: `Manguito OS | Blog - ${route.params.category}`,
   meta: [
     { name: 'description', content: 'Blog page' },
-    { property: 'og:title', content: 'Manguito OS | Blog' },
+    {
+      property: 'og:title',
+      content: `Manguito OS | Blog - ${route.params.category}`,
+    },
   ],
 })
 
-const route = useRoute()
 const router = useRouter()
 // const searchQuery = ref<string>('')
 
@@ -53,7 +57,7 @@ const handleCardClick = (path: string) => {
       <h3 class="h3-lg">Blog Posts</h3>
       <NuxtLink
         to="/blog"
-        class="btn btn-dark-2 ring-offset-dark-3 flex items-center gap-2"
+        class="btn btn-dark-2 rounded-lg ring-offset-dark-3 flex items-center gap-2"
       >
         <ChevronLeft class="text-xl font-bold !mb-0" />
         <span>Back to blog home</span>

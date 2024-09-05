@@ -75,17 +75,18 @@ onClickOutside(
         {{ getUserName }}
       </div>
       <div class="col-start-2 text-center text-sm cursor-default relative">
-        <label for="date-time">
-          {{ currentTime }}
-        </label>
         <input
-          class="absolute h-0 w-0 bottom-0 left-1/2"
+          class="absolute h-0 w-0 bottom-0 left-1/2 bg-dark-4 text-dark-4"
           type="date"
           name="date-time"
           id="date-time"
           :value="dateNumeric"
           onfocus="this.showPicker()"
+          readonly
         />
+        <label for="date-time" class="relative">
+          {{ currentTime }}
+        </label>
       </div>
       <div class="ml-auto pr-3xs flex items-center">
         <button
