@@ -1,7 +1,7 @@
 ---
 title: 'Use of Vue directies with typescript'
 description: 'Use of Vue directies with typescript description text...'
-category: 'Backend'
+category: 'Frontend'
 image: '/content_img/about/manguito_small.jpg'
 githubUrl: 'https://github.com/bobbykim89'
 linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'

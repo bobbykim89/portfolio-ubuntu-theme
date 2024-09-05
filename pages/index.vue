@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRuntimeConfig } from '#imports'
 import ProfileImage from '@/assets/img/profile/thumbnail_img.jpg'
-import UbuntuLogo from '@/assets/img/ubuntu-logo-dark.png'
+import UbuntuLogo from '@/assets/img/ubuntu/ubuntu-logo-dark.png'
 import { useIntervalFn } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
