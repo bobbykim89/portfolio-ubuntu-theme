@@ -80,7 +80,7 @@ export default defineNuxtConfig({
         {
           src: 'favicon.svg',
           type: 'image/svg+xml',
-          sizes: '128x128',
+          sizes: '150x150',
         },
         {
           src: 'favicon.ico',
@@ -113,25 +113,25 @@ export default defineNuxtConfig({
       screenshots: [
         {
           src: 'screenshot_desktop_1.png',
-          sizes: '1912x851',
+          sizes: '1900x800',
           type: 'image/png',
           form_factor: 'wide',
         },
         {
           src: 'screenshot_desktop_1.png',
-          sizes: '1911x866',
+          sizes: '1900x800',
           type: 'image/png',
           form_factor: 'wide',
         },
         {
           src: 'screenshot_mobile_1.png',
-          sizes: '423x656',
+          sizes: '420x680',
           type: 'image/png',
           form_factor: 'narrow',
         },
         {
           src: 'screenshot_mobile_2.png',
-          sizes: '424x680',
+          sizes: '420x680',
           type: 'image/png',
           form_factor: 'narrow',
         },
