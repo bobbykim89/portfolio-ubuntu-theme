@@ -41,7 +41,7 @@ const formatDate = (date: string): string => {
       :email-address="$config.public.emailAddress"
     >
       <div class="text-center">
-        <h2 class="mb-xs">Manguito Lovebird</h2>
+        <h2 class="mb-xs">{{ $config.public.userName }}</h2>
         <p>Full-stack developer in Phoenix, AZ</p>
       </div>
     </BlogHomeHeader>

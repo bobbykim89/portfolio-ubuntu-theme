@@ -28,7 +28,7 @@ const setEmailAddress = computed<string>(() => {
     <img
       :src="imageUrl"
       alt="a cute bird perching on tree"
-      class="absolute aspect-square object-cover object-center w-40 rounded-full border-8 border-warning mb-md hover:motion-safe:animate-pulse -translate-y-1/2 top-0 left-1/2 -translate-x-1/2"
+      class="absolute aspect-square object-cover object-center w-40 rounded-full border-8 border-warning mb-md -translate-y-1/2 top-0 left-1/2 -translate-x-1/2"
     />
     <div class="my-xs">
       <slot />

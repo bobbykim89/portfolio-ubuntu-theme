@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useRuntimeConfig } from '#imports'
 import Logo from '@/assets/img/ubuntu/ubuntu-logo-48x48.png'
+import BlogHomeHeader from '@/components/main-page-components/blog-parts/BlogHomeHeader.vue'
 import { HeaderHorizontal } from '@bobbykim/manguito-theme'
 import {
-  MclFooterA,
   type MenuItemType,
   type SocialUrl,
+  MclFooterA,
 } from '@bobbykim/mcl-footer'
 import { reactive } from 'vue'
 
@@ -36,7 +37,7 @@ const menuData = reactive<{
   social: SocialUrl
   menu: MenuItemType[]
 }>({
-  title: 'ManguitoOS',
+  title: config.public.siteName,
   logo: Logo,
   logoAlt: 'Ubuntu logo',
   logoLink: '/blog',
@@ -46,9 +47,7 @@ const menuData = reactive<{
   },
   menu: menuItems,
 })
-const handleHeaderLinkClick = (path: string) => {
-  router.push({ path: path })
-}
+
 const handleFooterLogoClick = (e: Event, link: string) => {
   e.preventDefault()
   router.push({ path: link })
@@ -62,34 +61,30 @@ const handleFooterMenuClick = (e: Event, menu: MenuItemType) => {
 <template>
   <div>
     <!-- header -->
-    <HeaderHorizontal bg-color="dark-4" :scroll-distance="100">
+    <HeaderHorizontal
+      bg-color="dark-4"
+      mobile-menu-bg-color="dark-2"
+      :scroll-distance="100"
+    >
       <template #content>
         <div class="flex flex-shrink-0 items-center self-center md:py-3xs">
           <div class="h-md md:h-lg mr-2xs md:mr-sm align-middle">
-            <a
-              :href="menuData.logoLink"
-              target="_self"
-              @click.prevent="handleHeaderLinkClick(menuData.logoLink)"
-            >
+            <NuxtLink :to="menuData.logoLink">
               <img
                 :src="menuData.logo"
                 :alt="menuData.logoAlt"
                 class="h-full inline-block"
               />
-            </a>
+            </NuxtLink>
           </div>
           <div class="flex flex-col justify-center ml-2">
-            <a
-              :href="menuData.logoLink"
-              target="_self"
-              @click.prevent="handleHeaderLinkClick(menuData.logoLink)"
-            >
+            <NuxtLink :to="menuData.logoLink">
               <h2
                 class="inline-block align-middle tracking-wider h2-md text-warning"
               >
                 {{ menuData.title }}
               </h2>
-            </a>
+            </NuxtLink>
           </div>
         </div>
       </template>
@@ -102,8 +97,21 @@ const handleFooterMenuClick = (e: Event, menu: MenuItemType) => {
           >
             <NuxtLink
               :to="item.url"
-              :target="item.target"
               class="hover:text-light-4 focus:text-light-4 transition-colors duration-150 ease-linear"
+              >{{ item.title }}</NuxtLink
+            >
+          </div>
+        </div>
+      </template>
+      <template #mobile-content="{ headerClose }">
+        <div
+          class="flex flex-col justify-center items-center gap-2 text-lg text-light-1 font-bold py-2xs"
+        >
+          <div v-for="(item, idx) in menuData.menu" :key="idx">
+            <NuxtLink
+              :to="item.url"
+              class="hover:text-light-4 focus:text-light-4 transition-colors duration-150 ease-linear"
+              @click="headerClose"
               >{{ item.title }}</NuxtLink
             >
           </div>
@@ -111,8 +119,24 @@ const handleFooterMenuClick = (e: Event, menu: MenuItemType) => {
       </template>
     </HeaderHorizontal>
     <!-- content -->
-    <div class="bg-dark-3 text-light-1">
-      <slot />
+    <div class="bg-dark-3 text-light-1 relative">
+      <div
+        class="absolute top-0 -translate-y-1/2 inset-x-0 h-64 bg-warning"
+      ></div>
+      <div class="relative container -mb-md">
+        <BlogHomeHeader
+          image-url="/content_img/about/manguito_small.jpg"
+          :github-url="$config.public.gitHubUrl"
+          :linkedin-url="$config.public.linkedinUrl"
+          :email-address="$config.public.emailAddress"
+        >
+          <div class="text-center">
+            <h2 class="mb-xs">{{ $config.public.userName }}</h2>
+            <p>Full-stack developer in Phoenix, AZ</p>
+          </div>
+        </BlogHomeHeader>
+        <slot />
+      </div>
     </div>
     <!-- footer -->
     <ClientOnly>

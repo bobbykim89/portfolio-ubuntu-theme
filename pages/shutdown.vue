@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import InfoSvgIcon from '@/assets/img/svg-files/emblem-important-symbolic.svg'
 import DocumentSvgIcon from '@/assets/img/svg-files/folder-documents-symbolic.svg'
-import NetworkSvgIcon from '@/assets/img/svg-files/network-wired-symbolic.svg'
 import PowerSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
 import UbuntuLogo from '@/assets/img/ubuntu/ubuntu-logo-dark.png'
 
@@ -13,6 +13,9 @@ const router = useRouter()
 
 const handleRestart = () => {
   router.push({ path: '/' })
+}
+const handleBlogClick = () => {
+  router.push({ path: '/blog' })
 }
 const handleAboutClick = () => {
   router.push({ path: '/about' })
@@ -46,26 +49,27 @@ setTimeout(() => {
         'flex gap-4 text-light-1 items-center transition-[opacity,visibility] duration-300 delay-300 ease-linear',
       ]"
     >
-      <button
+      <NuxtLink
         class="flex flex-col items-center justify-center gap-1 bg-dark-3 focus:bg-dark-2 rounded-lg py-2xs px-sm transition-colors duration-300 ease-linear drop-shadow-md"
-        @click="handleRestart"
+        to="/"
       >
         <PowerSvgIcon class="w-md h-md" :fontControlled="false" />
         <p>Restart</p>
-      </button>
-      <button
+      </NuxtLink>
+      <NuxtLink
         class="flex flex-col items-center justify-center gap-1 bg-dark-3 focus:bg-dark-2 rounded-lg py-2xs px-sm transition-colors duration-300 delay-100 ease-linear drop-shadow-md"
-        @click="handleAboutClick"
+        to="/blog"
       >
         <DocumentSvgIcon class="w-md h-md" :fontControlled="false" />
-        <p>About</p>
-      </button>
-      <button
+        <p>Blog</p>
+      </NuxtLink>
+      <NuxtLink
         class="flex flex-col items-center justify-center gap-1 bg-dark-3 focus:bg-dark-2 rounded-lg py-2xs px-sm transition-colors duration-300 ease-linear drop-shadow-md"
+        to="/about"
       >
-        <NetworkSvgIcon class="w-md h-md" :fontControlled="false" />
-        <p>Contact</p>
-      </button>
+        <InfoSvgIcon class="w-md h-md" :fontControlled="false" />
+        <p>About</p>
+      </NuxtLink>
     </div>
     <!-- logo -->
     <img
