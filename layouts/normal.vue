@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useRuntimeConfig } from '#imports'
 import Logo from '@/assets/img/ubuntu/ubuntu-logo-48x48.png'
-import BlogHomeHeader from '@/components/main-page-components/blog-parts/BlogHomeHeader.vue'
 import { HeaderHorizontal } from '@bobbykim/manguito-theme'
 import {
   type MenuItemType,
@@ -119,22 +118,8 @@ const handleFooterMenuClick = (e: Event, menu: MenuItemType) => {
       </template>
     </HeaderHorizontal>
     <!-- content -->
-    <div class="bg-dark-3 text-light-1 relative">
-      <div
-        class="absolute top-0 -translate-y-1/2 inset-x-0 h-64 bg-warning"
-      ></div>
-      <div class="relative container -mb-md">
-        <BlogHomeHeader
-          image-url="/content_img/about/manguito_small.jpg"
-          :github-url="$config.public.gitHubUrl"
-          :linkedin-url="$config.public.linkedinUrl"
-          :email-address="$config.public.emailAddress"
-        >
-          <div class="text-center">
-            <h2 class="mb-xs">{{ $config.public.userName }}</h2>
-            <p>Full-stack developer in Phoenix, AZ</p>
-          </div>
-        </BlogHomeHeader>
+    <div class="bg-dark-3 text-light-1">
+      <div class="container">
         <slot />
       </div>
     </div>

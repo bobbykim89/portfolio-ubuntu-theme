@@ -22,6 +22,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      siteName: 'ManguitoOS',
       userName: 'Manguito Lovebird',
       gitHubUrl: 'https://github.com/bobbykim89',
       linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/',

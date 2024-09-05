@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import BlogCard from '@/components/main-page-components/blog-parts/BlogCard.vue'
-import BlogHomeHeader from '@/components/main-page-components/blog-parts/BlogHomeHeader.vue'
 import { MclFormGroup, MclInputText } from '@bobbykim/mcl-forms'
 import { computed, ref } from 'vue'
 
 definePageMeta({
-  layout: false,
+  layout: 'blog',
+  pageTransition: false,
 })
 
 useHead({
@@ -18,6 +18,10 @@ useHead({
 
 const router = useRouter()
 const searchQuery = ref<string>('')
+
+const { data: posts } = await useAsyncData('blog-post-all', () =>
+  queryContent('/blog').sort({ date: -1 }).find()
+)
 
 const formatDate = (date: string): string => {
   const postDate = new Date(date)
@@ -33,17 +37,7 @@ const formatDate = (date: string): string => {
   return `${month}-${day}-${year}`
 }
 
-const { data: posts } = await useAsyncData('blog-post-all', () =>
-  queryContent('/blog').sort({ date: -1 }).find()
-)
-
-const handleCardClick = (path: string) => {
-  const [ph, root, slug] = path.split('/')
-  const newUrl = `/${root}/post/${slug}`
-  router.push({ path: newUrl })
-}
-
-const filteredSearchQuery = computed(() => {
+const filteredPosts = computed(() => {
   if (searchQuery.value === '') {
     return posts.value
   }
@@ -52,63 +46,73 @@ const filteredSearchQuery = computed(() => {
     return item.title?.match(searchTerm) || item.description.match(searchTerm)
   })
 })
+
+const filterCategory = computed(() => {
+  const categoryList = posts.value?.map((item) => item.category as string)
+  return [...new Set(categoryList)]
+})
+
+const handleCardClick = (path: string) => {
+  const slug = path.split('/').pop()
+  router.push({ path: `/blog/post/${slug}` })
+}
 </script>
 
 <template>
-  <NuxtLayout name="blog">
-    <div class="relative">
-      <div
-        class="absolute top-0 -translate-y-1/2 inset-x-0 h-64 bg-warning"
-      ></div>
-      <div class="relative container">
-        <BlogHomeHeader
-          image-url="/content_img/about/manguito_small.jpg"
-          :github-url="$config.public.gitHubUrl"
-          :linkedin-url="$config.public.linkedinUrl"
-          :email-address="$config.public.emailAddress"
+  <div class="relative mx-2xs md:mx-sm mb-md">
+    <h3 class="h3-lg mb-sm">Blog Posts</h3>
+
+    <div
+      :class="[
+        'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6 pb-md',
+      ]"
+    >
+      <div class="md:col-span-2 lg:col-span-1 bg-dark-2 rounded-lg p-xs h-full">
+        <MclFormGroup
+          label-for="search-input"
+          text-color="light-3"
+          class="mb-xs"
         >
-          <div class="text-center">
-            <h2 class="mb-xs">Manguito Lovebird</h2>
-            <p>Full-stack developer in Phoenix, AZ</p>
-          </div>
-        </BlogHomeHeader>
-        <div class="relative mx-2xs md:mx-sm mb-md">
-          <h3 class="h3-lg mb-sm">Blog Posts</h3>
-          <div class="mb-sm bg-dark-2 rounded-lg p-xs">
-            <MclFormGroup
-              label-for="search-input"
-              label="Search:"
-              text-color="light-3"
-            >
-              <MclInputText
-                id="search-input"
-                :rounded="true"
-                highlight-color="warning"
-                v-model="searchQuery"
-              ></MclInputText>
-            </MclFormGroup>
-          </div>
-          <div
-            :class="[
-              'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-6',
-            ]"
+          <template #label>
+            <h3 class="h3-md mb-2xs">Search:</h3>
+          </template>
+          <MclInputText
+            id="search-input"
+            :rounded="true"
+            highlight-color="warning"
+            v-model="searchQuery"
+          ></MclInputText>
+        </MclFormGroup>
+        <div class="flex flex-col items-start">
+          <h3 class="h3-md mb-2xs">Categories:</h3>
+          <ul
+            class="mcl-list mcl-list-warning flex lg:flex-col gap-8 lg:gap-2 items-start pl-2xs"
           >
-            <BlogCard
-              v-for="(item, idx) in filteredSearchQuery"
-              :key="idx"
-              :title="item.title!"
-              :path="item._path!"
-              :category="item.category"
-              :date="formatDate(item.date)"
-              @card-click="handleCardClick"
-            >
-              <div class="text-sm">{{ item.description }}</div>
-            </BlogCard>
-          </div>
+            <li v-for="(item, idx) in filterCategory" :key="idx" class="!mb-0">
+              <NuxtLink :to="`/blog/category/${item}`">
+                <span class="text-md font-bold tracking-wider">{{ item }}</span>
+              </NuxtLink>
+            </li>
+          </ul>
         </div>
       </div>
+      <div
+        class="md:col-span-2 xl:col-span-3 grid md:grid-cols-2 xl:grid-cols-3 gap-6"
+      >
+        <BlogCard
+          v-for="(item, idx) in filteredPosts"
+          :key="idx"
+          :title="item.title!"
+          :path="item._path!"
+          :category="item.category"
+          :date="formatDate(item.date)"
+          @card-click="handleCardClick"
+        >
+          <div class="text-sm">{{ item.description }}</div>
+        </BlogCard>
+      </div>
     </div>
-  </NuxtLayout>
+  </div>
 </template>
 
 <style scoped></style>
