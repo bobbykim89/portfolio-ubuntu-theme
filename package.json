@@ -2,6 +2,16 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
+  "author": {
+    "name": "Bobby Kim",
+    "url": "https://www.devbobbykim.com/"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "repository": {
+    "url": "https://github.com/bobbykim89/portfolio-ubuntu-theme"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -17,6 +27,7 @@
     "@nuxt/fonts": "^0.7.2",
     "@nuxt/image": "^1.7.1",
     "@pinia/nuxt": "^0.5.4",
+    "@vite-pwa/nuxt": "^0.10.5",
     "@vueuse/core": "^11.0.1",
     "nuxt": "^3.13.0",
     "nuxt-svgo": "^4.0.3",
