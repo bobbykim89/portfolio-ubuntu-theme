@@ -4,7 +4,8 @@ import BlogCard from '@/components/main-page-components/blog-parts/BlogCard.vue'
 
 definePageMeta({
   layout: 'blog',
-  pageTransition: false,
+  layoutTransition: { name: 'blog', mode: 'out-in' },
+  pageTransition: { name: 'blog', mode: 'out-in' },
 })
 
 useHead({

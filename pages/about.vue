@@ -2,7 +2,8 @@
 import AboutImage from '@/assets/img/about/about.jpg'
 definePageMeta({
   layout: 'normal',
-  pageTransition: false,
+  layoutTransition: { name: 'blog', mode: 'out-in' },
+  pageTransition: { name: 'blog', mode: 'out-in' },
 })
 
 useHead({

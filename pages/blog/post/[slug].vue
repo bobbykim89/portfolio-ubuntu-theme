@@ -1,7 +1,8 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'normal',
-  pageTransition: false,
+  layoutTransition: { name: 'blog', mode: 'out-in' },
+  pageTransition: { name: 'blog', mode: 'out-in' },
 })
 
 const route = useRoute()
