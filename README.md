@@ -4,7 +4,7 @@
 
 # Portfolio Template (Ubuntu Theme)
 
-> A portfolio template using Ubuntu theme (based on Ubuntu 22.04)
+> A portfolio template inspired from Ubuntu (based on Ubuntu 22.04)
 
 ## Setup
 

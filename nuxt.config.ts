@@ -18,6 +18,21 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en',
       },
+      meta: [
+        {
+          name: 'description',
+          content:
+            'A portfolio template inspired from Ubuntu (based on Ubuntu 22.04)',
+        },
+        {
+          property: 'og:title',
+          content: 'Manguito OS',
+        },
+        {
+          property: 'og:image',
+          content: '/ubuntu_logo-192x192.png',
+        },
+      ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
   },
@@ -49,6 +64,7 @@ export default defineNuxtConfig({
   },
   tailwindcss: {
     configPath: 'tailwind.config.ts',
+    cssPath: '~/assets/css/tailwind.css',
     exposeConfig: false,
     viewer: true,
   },
