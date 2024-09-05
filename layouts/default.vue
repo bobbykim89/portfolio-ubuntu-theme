@@ -12,6 +12,7 @@ const currentTime = ref<string>('')
 const dateNumeric = ref<string>('')
 const menuButton = ref<HTMLButtonElement>()
 const systemMenu = ref<InstanceType<typeof SystemMenu>>()
+const dateMenu = ref<HTMLInputElement>()
 const route = useRoute()
 const updateCurrentTime = () => {
   const time = new Date()
@@ -77,12 +78,12 @@ onClickOutside(
       <div class="col-start-2 text-center text-sm cursor-default relative">
         <input
           class="absolute h-0 w-0 bottom-0 left-1/2 bg-dark-4 text-dark-4"
+          ref="dateMenu"
           type="date"
           name="date-time"
           id="date-time"
           :value="dateNumeric"
           onfocus="this.showPicker()"
-          readonly
         />
         <label for="date-time" class="relative">
           {{ currentTime }}
