@@ -23,6 +23,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       userName: 'Manguito Lovebird',
+      gitHubUrl: 'https://github.com/bobbykim89',
+      linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/',
+      emailAddress: 'bobby.sihun.kim@gmail.com',
       audioExternalSrc: true,
       audioSrcBaseUrl: process.env.AUDIO_SOURCE_BASE_URL,
       pdfPublicUrl:

@@ -36,9 +36,9 @@ const formatDate = (date: string): string => {
     ></div>
     <BlogHomeHeader
       image-url="/content_img/about/manguito_small.jpg"
-      github-url="https://github.com/bobbykim89"
-      linkedin-url="https://www.linkedin.com/in/sihun-kim-9baa17165/"
-      email-address="bobby.sihun.kim@gmail.com"
+      :github-url="$config.public.gitHubUrl"
+      :linkedin-url="$config.public.linkedinUrl"
+      :email-address="$config.public.emailAddress"
     >
       <div class="text-center">
         <h2 class="mb-xs">Manguito Lovebird</h2>

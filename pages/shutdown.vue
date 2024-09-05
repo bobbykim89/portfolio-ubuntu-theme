@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import PowerSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
 import DocumentSvgIcon from '@/assets/img/svg-files/folder-documents-symbolic.svg'
 import NetworkSvgIcon from '@/assets/img/svg-files/network-wired-symbolic.svg'
-import UbuntuLogo from '@/assets/img/ubuntu-logo-dark.png'
+import PowerSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
+import UbuntuLogo from '@/assets/img/ubuntu/ubuntu-logo-dark.png'
 
 definePageMeta({
   layout: false,
@@ -13,6 +13,9 @@ const router = useRouter()
 
 const handleRestart = () => {
   router.push({ path: '/' })
+}
+const handleAboutClick = () => {
+  router.push({ path: '/about' })
 }
 
 setTimeout(() => {
@@ -52,6 +55,7 @@ setTimeout(() => {
       </button>
       <button
         class="flex flex-col items-center justify-center gap-1 bg-dark-3 focus:bg-dark-2 rounded-lg py-2xs px-sm transition-colors duration-300 delay-100 ease-linear drop-shadow-md"
+        @click="handleAboutClick"
       >
         <DocumentSvgIcon class="w-md h-md" :fontControlled="false" />
         <p>About</p>
