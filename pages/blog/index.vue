@@ -5,7 +5,8 @@ import { computed, ref } from 'vue'
 
 definePageMeta({
   layout: 'blog',
-  pageTransition: false,
+  layoutTransition: { name: 'blog', mode: 'out-in' },
+  pageTransition: { name: 'blog', mode: 'out-in' },
 })
 
 useHead({
