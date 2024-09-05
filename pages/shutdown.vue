@@ -8,6 +8,14 @@ definePageMeta({
   layout: false,
 })
 
+useHead({
+  title: 'Manguito OS | Shutdown',
+  meta: [
+    { name: 'description', content: 'Main page' },
+    { property: 'og:title', content: 'Manguito OS | Shutdown' },
+  ],
+})
+
 const displayLoader = ref<boolean>(true)
 const router = useRouter()
 

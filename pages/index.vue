@@ -5,6 +5,14 @@ import UbuntuLogo from '@/assets/img/ubuntu/ubuntu-logo-dark.png'
 import { useIntervalFn } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
+useHead({
+  title: 'Manguito OS | Login',
+  meta: [
+    { name: 'description', content: 'Main page' },
+    { property: 'og:title', content: 'Manguito OS | Login' },
+  ],
+})
+
 const config = useRuntimeConfig()
 const router = useRouter()
 const route = useRoute()

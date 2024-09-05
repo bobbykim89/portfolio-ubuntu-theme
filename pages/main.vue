@@ -17,6 +17,14 @@ import { useWindowSize } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
 
+useHead({
+  title: 'Manguito OS | Main',
+  meta: [
+    { name: 'description', content: 'Main page' },
+    { property: 'og:title', content: 'Manguito OS | Main' },
+  ],
+})
+
 const appStore = useAppStore()
 const settingsStore = useSettingsStore()
 const { currentWp } = storeToRefs(settingsStore)
@@ -87,21 +95,7 @@ onMounted(() => {
         :is-active="appStatus.music.active"
         @icon-click="appStore.setMusicOpen"
       />
-      <AppIcon
-        icon-type="trash"
-        :is-open="appStatus.trash.open"
-        :is-active="appStatus.trash.active"
-        @icon-click="appStore.setTrashOpen"
-      />
-      <div
-        v-if="
-          appStatus['image-viewer'].open ||
-          appStatus['document-reader'].open ||
-          appStatus.settings.open ||
-          appStatus.calculator.open
-        "
-        class="px-2xs py-3xs w-full"
-      >
+      <div class="px-2xs py-3xs w-full">
         <div class="w-full h-[2px] bg-light-3 rounded-sm opacity-50"></div>
       </div>
       <AppIcon
@@ -131,6 +125,12 @@ onMounted(() => {
         :is-open="appStatus.settings.open"
         :is-active="appStatus.settings.active"
         @icon-click="appStore.setSettingsOpen"
+      />
+      <AppIcon
+        icon-type="trash"
+        :is-open="appStatus.trash.open"
+        :is-active="appStatus.trash.active"
+        @icon-click="appStore.setTrashOpen"
       />
       <DesktopAppsIcon class="mt-auto mb-2xs" v-toggle:all-application />
     </div>

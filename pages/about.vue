@@ -7,7 +7,7 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Mango Planner | About',
+  title: 'Manguito OS | About',
   meta: [
     { name: 'description', content: 'About page' },
     { property: 'og:title', content: 'Manguito OS | About' },
