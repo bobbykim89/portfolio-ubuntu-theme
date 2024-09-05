@@ -113,13 +113,13 @@ export default defineNuxtConfig({
       screenshots: [
         {
           src: 'screenshot_desktop_1.png',
-          sizes: '1900x800',
+          sizes: '1460x870',
           type: 'image/png',
           form_factor: 'wide',
         },
         {
           src: 'screenshot_desktop_1.png',
-          sizes: '1900x800',
+          sizes: '1460x870',
           type: 'image/png',
           form_factor: 'wide',
         },
