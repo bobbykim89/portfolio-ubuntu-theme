@@ -6,6 +6,7 @@ import ShutdownSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg
 import SystemMenu from '@/components/layout-components/SystemMenu.vue'
 import { onClickOutside, useIntervalFn } from '@vueuse/core'
 import { computed, ref } from 'vue'
+import PwaNotificationBox from '@/components/pwa/PwaNotificationBox.vue'
 
 const config = useRuntimeConfig()
 const currentTime = ref<string>('')
@@ -67,6 +68,7 @@ onClickOutside(
 </script>
 
 <template>
+  <NuxtPwaManifest />
   <main class="bg-dark-4 relative">
     <!-- top-bar -->
     <div
@@ -103,8 +105,9 @@ onClickOutside(
     </div>
 
     <SystemMenu ref="systemMenu" />
-    <div class="h-[calc(100vh-29px)]">
+    <div class="h-[calc(100vh-29px)] relative">
       <slot />
+      <PwaNotificationBox />
     </div>
   </main>
 </template>

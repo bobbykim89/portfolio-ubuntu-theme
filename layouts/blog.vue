@@ -9,6 +9,7 @@ import {
   MclFooterA,
 } from '@bobbykim/mcl-footer'
 import { reactive } from 'vue'
+import PwaNotificationBox from '@/components/pwa/PwaNotificationBox.vue'
 
 const menuItems: MenuItemType[] = [
   {
@@ -27,6 +28,7 @@ const menuItems: MenuItemType[] = [
     target: '_self',
   },
 ]
+
 const router = useRouter()
 const config = useRuntimeConfig()
 const menuData = reactive<{
@@ -59,6 +61,7 @@ const handleFooterMenuClick = (e: Event, menu: MenuItemType) => {
 </script>
 
 <template>
+  <NuxtPwaManifest />
   <div>
     <!-- header -->
     <HeaderHorizontal
@@ -137,6 +140,7 @@ const handleFooterMenuClick = (e: Event, menu: MenuItemType) => {
         </BlogHomeHeader>
         <slot />
       </div>
+      <PwaNotificationBox />
     </div>
     <!-- footer -->
     <ClientOnly>
