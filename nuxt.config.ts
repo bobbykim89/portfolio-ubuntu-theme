@@ -72,9 +72,10 @@ export default defineNuxtConfig({
   pwa: {
     strategies: 'generateSW',
     manifest: {
-      short_name: 'MangoPlanner',
-      name: 'Mango Planner',
-      description: 'Simple planner app for daily use',
+      short_name: 'Manguito OS',
+      name: 'Manguito OS',
+      description:
+        'A portfolio template inspired from Ubuntu (based on Ubuntu 22.04)',
       icons: [
         {
           src: 'favicon.svg',
@@ -96,12 +97,6 @@ export default defineNuxtConfig({
           sizes: '512x512',
           type: 'image/png',
           purpose: 'any',
-        },
-        {
-          src: 'ubuntu_logo_maskable_192.png',
-          sizes: '192x192',
-          type: 'image/png',
-          purpose: 'maskable',
         },
         {
           src: 'ubuntu_logo_maskable_512.png',
