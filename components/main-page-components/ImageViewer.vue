@@ -85,7 +85,8 @@ const setImageViewerActive = (val: boolean) => {
       >
         <ChevronRight class="text-md" />
       </button>
-      <img
+      <NuxtImg
+        provider="cloudinary"
         :src="currentImage?.imageUrl"
         alt="a picture of bird"
         class="object-contain h-full object-center mx-auto"

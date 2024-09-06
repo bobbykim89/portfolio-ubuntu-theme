@@ -18,7 +18,8 @@ const onFolderClick = () => {
     class="flex flex-col items-center w-24 justify-center gap-1 py-3xs rounded-lg focus:bg-dark-4 transition-colors duration-150 ease-linear"
     @click="onFolderClick"
   >
-    <img
+    <NuxtImg
+      provider="cloudinary"
       :src="thumb"
       alt="a thumbnail of an image file"
       class="h-lg aspect-square object-cover rounded-md select-none"

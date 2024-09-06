@@ -1,9 +1,11 @@
-import { useFetch } from '#imports'
+import { useFetch, useRuntimeConfig } from '#imports'
 import { FormattedPictureType } from '@/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const usePictureStore = defineStore('pictures', () => {
+  const config = useRuntimeConfig()
+  // states
   const imageData = ref<FormattedPictureType[]>([])
   const isActive = ref<boolean>(false)
   const isVisible = ref<boolean>(false)
@@ -22,8 +24,8 @@ export const usePictureStore = defineStore('pictures', () => {
       return {
         _id: item._id,
         imageId: item.imageId,
-        thumbnail: `https://res.cloudinary.com/dwgni1x3t/image/upload/c_scale,w_48/f_auto/v1700694621/${item.imageId}.jpg`,
-        imageUrl: `https://res.cloudinary.com/dwgni1x3t/image/upload/c_scale,w_1200/f_auto/v1700694621/${item.imageId}.jpg`,
+        thumbnail: `/c_scale,w_48/f_auto/v1700694621/${item.imageId}`,
+        imageUrl: `/c_scale,w_1200/f_auto/v1700694621/${item.imageId}`,
         fileName: `img-${idx}.jpg`,
       }
     })

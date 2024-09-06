@@ -79,6 +79,7 @@ runtimeConfig: {
     emailAddress: 'bobby.sihun.kim@gmail.com', // email address on contact buttons
     audioExternalSrc: true, // whether to have audio mp3 files from external source
     audioSrcBaseUrl: process.env.AUDIO_SOURCE_BASE_URL, // source url for external api source (leave as '' if using local mp3 files)
+    imageSourceApiUrl: process.env.CLOUDINARY_API_URL, // source api url for images (i.e. cloudinary)
   },
   photoApiUrl: process.env.PHOTO_API_URL, // photo api url
 },
