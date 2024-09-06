@@ -110,14 +110,8 @@ const calculate = () => {
     <div class="bg-dark-3 h-full text-light-1 pt-3xs pb-3xs px-3xs relative">
       <div>
         <div class="grid grid-cols-4 gap-1 justify-items-center text-xl">
-          <!-- <input
-            type="text"
-            :value="calcResult"
-            readonly
-            class="bg-transparent col-span-4"
-          /> -->
-          <div class="col-span-4 py-xs text-[2rem]">
-            &nbsp;{{ calcResult }}&nbsp;
+          <div class="col-span-4 w-full py-xs text-[2rem] text-end">
+            &nbsp;{{ calcResult ? calcResult : 0 }}&nbsp;
           </div>
           <!-- 1st row -->
           <button

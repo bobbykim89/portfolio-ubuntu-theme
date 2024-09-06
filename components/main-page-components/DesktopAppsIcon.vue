@@ -14,6 +14,7 @@ const handleButtonClick = (e: Event): void => {
   <button
     class="p-3xs focus:bg-dark-2 rounded-md transition-colors duration-150 ease-linear"
     @click="handleButtonClick"
+    title="All desktop applications"
   >
     <DesktopAppsSvgIcon
       class="w-[42px] lg:w-lg aspect-square text-light-1"

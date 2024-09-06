@@ -73,7 +73,7 @@ onClickOutside(
     <div
       class="grid grid-cols-3 py-3xs text-light-1 w-full tracking-wide z-[50]"
     >
-      <div class="hidden md:block text-sm pl-2xs cursor-default">
+      <div class="hidden md:block text-sm pl-2xs cursor-default select-none">
         {{ getUserName }}
       </div>
       <div class="col-start-2 text-center text-sm cursor-default relative">
@@ -86,7 +86,7 @@ onClickOutside(
           :value="dateNumeric"
           onfocus="this.showPicker()"
         />
-        <label for="date-time" class="relative">
+        <label for="date-time" class="relative select-none">
           {{ currentTime }}
         </label>
       </div>
@@ -95,6 +95,7 @@ onClickOutside(
           class="px-2xs rounded-2xl hover:bg-dark-2 transition-colors duration-200 flex items-center gap-4"
           @click="handleButtonClick"
           ref="menuButton"
+          aria-label="open systems menu"
         >
           <NetworkSvgIcon class="text-md !mb-0" />
           <SpeakerSvgIcon class="text-md !mb-0" />

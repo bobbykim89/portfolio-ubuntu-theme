@@ -48,6 +48,7 @@ export const useAppStore = defineStore('app', () => {
       }
     })
   }
+
   const setWindowWidth = (val: number) => {
     windowWidth.value = val
     isMobile.value = val < 768 ? true : false
@@ -282,7 +283,25 @@ export const useAppStore = defineStore('app', () => {
   const setCalculatorClose = () => {
     setAppStatus('calculator', false)
   }
-
+  const closeAllApps = () => {
+    setAppStatus('calculator', false)
+    setAppStatus('document-reader', false)
+    setAppStatus('file-manager', false)
+    setAppStatus('firefox', false)
+    setAppStatus('image-viewer', false)
+    setAppStatus('music', false)
+    setAppStatus('office', false)
+    setAppStatus('settings', false)
+    setAppStatus('terminal', false)
+    setAppStatus('trash', false)
+    calculatorStore.resetStates()
+    textReaderStore.resetStates()
+    fileManagerStore.resetStates()
+    blogStore.resetStates()
+    pictureStore.resetStates()
+    settingsStore.resetStates()
+    terminalStore.resetStates()
+  }
   return {
     appStatus,
     windowWidth,
@@ -317,5 +336,6 @@ export const useAppStore = defineStore('app', () => {
     setCalculatorOpen,
     setCalculatorActive,
     setCalculatorClose,
+    closeAllApps,
   }
 })

@@ -2,9 +2,8 @@ import { defineStore } from 'pinia'
 
 export const useSettingsStore = defineStore('settings', () => {
   // states
-  const isActive = ref<boolean>(true)
+  const isActive = ref<boolean>(false)
   const isVisible = ref<boolean>(false)
-  const isMaximized = ref<boolean>(false)
   const currentWp = ref<string>('')
 
   // actions
@@ -27,25 +26,24 @@ export const useSettingsStore = defineStore('settings', () => {
   const setSettingsActive = (val: boolean) => {
     isActive.value = val
   }
-  const setSettingsMaximize = () => {
-    isActive.value = true
-    isMaximized.value = !isMaximized.value
-  }
   const setWallpaper = (arg: string) => {
     currentWp.value = arg
+  }
+  const resetStates = () => {
+    isActive.value = false
+    isVisible.value = false
   }
 
   return {
     isActive,
     isVisible,
-    isMaximized,
     currentWp,
     openSettings,
     setSettingsVisible,
     closeSettings,
     minimizeSettings,
     setSettingsActive,
-    setSettingsMaximize,
     setWallpaper,
+    resetStates,
   }
 })

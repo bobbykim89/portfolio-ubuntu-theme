@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRuntimeConfig } from '#imports'
 import PdfFile from '@/assets/pdf/resume.pdf'
 import { useTextReaderStore } from '@/stores'
 import { storeToRefs } from 'pinia'
@@ -22,9 +21,7 @@ const emit = defineEmits<{
   (e: 'set-active', active: boolean): void
 }>()
 
-const config = useRuntimeConfig()
 const pdfUrl = ref<string>(PdfFile)
-const pdfRemoteUrl = ref<string>(config.public.pdfPublicUrl)
 const textReaderStore = useTextReaderStore()
 const { isPdfActive, isPdfMaximized, isPdfVisible } =
   storeToRefs(textReaderStore)
@@ -64,7 +61,17 @@ const setPdfReaderActive = (val: boolean) => {
       ]"
     >
       <object :data="pdfUrl" type="application/pdf" width="100%" height="100%">
-        <embed :src="pdfRemoteUrl" width="100%" height="100%" />
+        <div class="flex flex-col justify-center items-center gap-6 py-md">
+          <p class="text-md font-bold text-light-1 text-center tracking-wider">
+            Embedded PDF reader is not available in mobile devices.
+          </p>
+          <a
+            class="btn btn-warning ring-offset-dark-3"
+            :href="PdfFile"
+            target="_blank"
+            >Open PDF in new tab</a
+          >
+        </div>
       </object>
     </div>
   </AppContainerGeneric>

@@ -5,7 +5,7 @@ import { ref } from 'vue'
 
 export const usePictureStore = defineStore('pictures', () => {
   const imageData = ref<FormattedPictureType[]>([])
-  const isActive = ref<boolean>(true)
+  const isActive = ref<boolean>(false)
   const isVisible = ref<boolean>(false)
   const isMaximized = ref<boolean>(false)
   const currentImage = ref<FormattedPictureType | null>(null)
@@ -84,6 +84,15 @@ export const usePictureStore = defineStore('pictures', () => {
     isActive.value = true
     isMaximized.value = !isMaximized.value
   }
+  const resetStates = () => {
+    isActive.value = false
+    isVisible.value = false
+    isMaximized.value = false
+    currentImage.value = null
+    imageIdx.value = 0
+    isFirstImage.value = true
+    isLastImage.value = false
+  }
   return {
     imageData,
     isActive,
@@ -103,5 +112,6 @@ export const usePictureStore = defineStore('pictures', () => {
     minimizePhotoViewer,
     setPhotoViewerActive,
     setPhotoViewerMaximize,
+    resetStates,
   }
 })

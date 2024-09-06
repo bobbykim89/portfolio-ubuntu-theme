@@ -35,8 +35,8 @@ const onFolderClick = () => {
     class="flex flex-col items-center w-24 justify-center gap-1 py-3xs mb-auto rounded-lg focus:bg-dark-4 transition-colors duration-150 ease-linear"
     @click="onFolderClick"
   >
-    <img :src="folderData[type]" :alt="type" class="h-lg" />
-    <p class="text-light-1 text-sm text-wrap">{{ text }}</p>
+    <img :src="folderData[type]" :alt="type" class="h-lg select-none" />
+    <p class="text-light-1 text-sm text-wrap select-none">{{ text }}</p>
   </button>
 </template>
 

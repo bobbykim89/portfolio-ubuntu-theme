@@ -67,30 +67,35 @@ onMounted(() => {
       <AppIcon
         icon-type="terminal"
         ref="terminalRef"
+        text="Terminal"
         :is-open="appStatus.terminal.open"
         :is-active="appStatus.terminal.active"
         @icon-click="onTerminalOpen"
       />
       <AppIcon
         icon-type="file-manager"
+        text="File Manager"
         :is-open="appStatus['file-manager'].open"
         :is-active="appStatus['file-manager'].active"
         @icon-click="appStore.setFileManagerOpen"
       />
       <AppIcon
         icon-type="office"
+        text="PDF Reader"
         :is-open="appStatus.office.open"
         :is-active="appStatus.office.active"
         @icon-click="appStore.setOfficeOpen"
       />
       <AppIcon
         icon-type="firefox"
+        text="FireFox"
         :is-open="appStatus.firefox.open"
         :is-active="appStatus.firefox.active"
         @icon-click="appStore.setFirefoxOpen"
       />
       <AppIcon
         icon-type="music"
+        text="Music Player"
         :is-open="appStatus.music.open"
         :is-active="appStatus.music.active"
         @icon-click="appStore.setMusicOpen"
@@ -101,6 +106,7 @@ onMounted(() => {
       <AppIcon
         v-if="appStatus['image-viewer'].open"
         icon-type="image-viewer"
+        text="Image Viewer"
         :is-open="appStatus['image-viewer'].open"
         :is-active="appStatus['image-viewer'].active"
         @icon-click="appStore.setImageViewerOpen"
@@ -108,6 +114,7 @@ onMounted(() => {
       <AppIcon
         v-if="appStatus['document-reader'].open"
         icon-type="document-reader"
+        text="Document Reader"
         :is-open="appStatus['document-reader'].open"
         :is-active="appStatus['document-reader'].active"
         @icon-click="appStore.setDocumentReaderOpen"
@@ -115,6 +122,7 @@ onMounted(() => {
       <AppIcon
         v-if="appStatus.calculator.open"
         icon-type="calculator"
+        text="Calculator"
         :is-open="appStatus.calculator.open"
         :is-active="appStatus.calculator.active"
         @icon-click="appStore.setCalculatorOpen()"
@@ -122,12 +130,14 @@ onMounted(() => {
       <AppIcon
         v-if="appStatus.settings.open"
         icon-type="settings"
+        text="Settings"
         :is-open="appStatus.settings.open"
         :is-active="appStatus.settings.active"
         @icon-click="appStore.setSettingsOpen"
       />
       <AppIcon
         icon-type="trash"
+        text="Trash"
         :is-open="appStatus.trash.open"
         :is-active="appStatus.trash.active"
         @icon-click="appStore.setTrashOpen"

@@ -25,6 +25,10 @@ export const useCalculatorStore = defineStore('calculator', () => {
   const setCalculatorActive = (val: boolean) => {
     isActive.value = val
   }
+  const resetStates = () => {
+    isActive.value = false
+    isVisible.value = false
+  }
   return {
     isActive,
     isVisible,
@@ -33,5 +37,6 @@ export const useCalculatorStore = defineStore('calculator', () => {
     minimizeCalculator,
     setCalculatorVisible,
     setCalculatorActive,
+    resetStates,
   }
 })

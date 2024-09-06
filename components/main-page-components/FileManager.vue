@@ -158,6 +158,7 @@ onClickOutside(draggableRef, () => {
           ]"
           :disabled="isRootDir"
           @click="fileManagerStore.onPrevClick"
+          aria-label="previous"
         >
           <ChevronLeft class="h-[18px]" :fontControlled="false" />
         </button>
@@ -169,6 +170,7 @@ onClickOutside(draggableRef, () => {
           ]"
           :disabled="currentLocationIdx <= 1"
           @click="fileManagerStore.onNextClick"
+          aria-label="next"
         >
           <ChevronRight class="h-[18px]" :fontControlled="false" />
         </button>
@@ -190,6 +192,7 @@ onClickOutside(draggableRef, () => {
         <button
           class="rounded-full p-[2px] bg-dark-2"
           @click="minimizeFileManager"
+          aria-label="minimize"
         >
           <MinimizeSvgIcon
             class="aspect-square w-[14px]"
@@ -199,6 +202,7 @@ onClickOutside(draggableRef, () => {
         <button
           class="rounded-full p-[2px] bg-dark-2"
           @click="fileManagerStore.setFileManagerMaximize"
+          aria-label="maximize/restore-default"
         >
           <RestoreSvgIcon
             v-if="isMaximized"
@@ -214,6 +218,7 @@ onClickOutside(draggableRef, () => {
         <button
           class="rounded-full p-[2px] bg-dark-2"
           @click="closeFileManager"
+          aria-label="close"
         >
           <CloseSvgIcon class="aspect-square w-xs" :fontControlled="false" />
         </button>
