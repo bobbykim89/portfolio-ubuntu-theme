@@ -296,6 +296,7 @@ export const useAppStore = defineStore('app', () => {
     setAppStatus('trash', false)
     calculatorStore.resetStates()
     textReaderStore.resetStates()
+    musicPlayerStore.resetStates()
     fileManagerStore.resetStates()
     blogStore.resetStates()
     pictureStore.resetStates()
