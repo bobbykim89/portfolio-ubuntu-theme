@@ -2,6 +2,7 @@
 import { useRuntimeConfig } from '#imports'
 import Logo from '@/assets/img/ubuntu/ubuntu-logo-48x48.png'
 import BlogHomeHeader from '@/components/main-page-components/blog-parts/BlogHomeHeader.vue'
+import PwaNotificationBox from '@/components/pwa/PwaNotificationBox.vue'
 import { HeaderHorizontal } from '@bobbykim/manguito-theme'
 import {
   type MenuItemType,
@@ -9,7 +10,6 @@ import {
   MclFooterA,
 } from '@bobbykim/mcl-footer'
 import { reactive } from 'vue'
-import PwaNotificationBox from '@/components/pwa/PwaNotificationBox.vue'
 
 const menuItems: MenuItemType[] = [
   {
@@ -61,7 +61,6 @@ const handleFooterMenuClick = (e: Event, menu: MenuItemType) => {
 </script>
 
 <template>
-  <NuxtPwaManifest />
   <div>
     <!-- header -->
     <HeaderHorizontal
