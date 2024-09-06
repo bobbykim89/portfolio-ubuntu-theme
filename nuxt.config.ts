@@ -45,6 +45,7 @@ export default defineNuxtConfig({
       emailAddress: 'bobby.sihun.kim@gmail.com',
       audioExternalSrc: true,
       audioSrcBaseUrl: process.env.AUDIO_SOURCE_BASE_URL,
+      imageSourceApiUrl: process.env.CLOUDINARY_API_URL,
     },
     photoApiUrl: process.env.PHOTO_API_URL,
   },
@@ -67,6 +68,11 @@ export default defineNuxtConfig({
     viewer: true,
   },
   css: ['~/assets/css/page_transition.css'],
+  image: {
+    cloudinary: {
+      baseURL: process.env.CLOUDINARY_API_URL,
+    },
+  },
   pwa: {
     strategies: 'generateSW',
     manifest: {
