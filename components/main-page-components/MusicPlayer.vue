@@ -66,6 +66,10 @@ const setCurrentMusic = () => {
   if (typeof musicPlayer.value === 'undefined') {
     return
   }
+  if (!musicPlayer.value.paused) {
+    musicPlayer.value.pause()
+    musicPlayer.value.currentTime = 0
+  }
   musicPlayer.value.src = playList.value[currentTrackNumber.value].fileSrc
   coverImageRef.value = playList.value[currentTrackNumber.value].coverSrc
   musicTitle.value = playList.value[currentTrackNumber.value].title
@@ -143,17 +147,42 @@ onMounted(() => {
   musicPlayer.value = new Audio()
   setCurrentMusic()
 })
-watch(musicVolume, (newVal) => {
-  if (typeof musicPlayer.value !== 'undefined') {
-    musicPlayer.value.volume = newVal / 100
+// watch(musicVolume, (newVal) => {
+//   if (typeof musicPlayer.value !== 'undefined') {
+//     musicPlayer.value.volume = newVal / 100
+//   }
+// })
+// watch(currentTrackNumber, () => {
+//   setCurrentMusic()
+//   if (isMusicPlaying.value === true) {
+//     musicPlayer.value?.play()
+//   }
+// })
+// watch(isMusicPlaying, (newVal) => {
+//   if (newVal === false) {
+//     musicPlayer.value?.pause()
+//   }
+// })
+watch(
+  [musicVolume, currentTrackNumber, isMusicPlaying],
+  (
+    [newMusicVolume, newTrackNumber, newMusicPlaying],
+    [_, oldTrackNumber, __]
+  ) => {
+    if (newMusicVolume && typeof musicPlayer.value !== 'undefined') {
+      musicPlayer.value.volume = newMusicVolume / 100
+    }
+    if (newTrackNumber !== oldTrackNumber) {
+      setCurrentMusic()
+      if (isMusicPlaying.value === true) {
+        musicPlayer.value?.play()
+      }
+    }
+    if (newMusicPlaying === false) {
+      musicPlayer.value?.pause()
+    }
   }
-})
-watch(currentTrackNumber, () => {
-  setCurrentMusic()
-  if (isMusicPlaying.value === true) {
-    musicPlayer.value?.play()
-  }
-})
+)
 </script>
 
 <template>
