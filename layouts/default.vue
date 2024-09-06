@@ -4,9 +4,9 @@ import SpeakerSvgIcon from '@/assets/img/svg-files/audio-speakers-symbolic.svg'
 import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-connected-symbolic.svg'
 import ShutdownSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
 import SystemMenu from '@/components/layout-components/SystemMenu.vue'
+import PwaNotificationBox from '@/components/pwa/PwaNotificationBox.vue'
 import { onClickOutside, useIntervalFn } from '@vueuse/core'
 import { computed, ref } from 'vue'
-import PwaNotificationBox from '@/components/pwa/PwaNotificationBox.vue'
 
 const config = useRuntimeConfig()
 const currentTime = ref<string>('')
@@ -68,7 +68,6 @@ onClickOutside(
 </script>
 
 <template>
-  <NuxtPwaManifest />
   <main class="bg-dark-4 relative">
     <!-- top-bar -->
     <div

@@ -5,7 +5,7 @@ const { $pwa } = useNuxtApp()
 <template>
   <div
     v-if="$pwa?.needRefresh"
-    class="fixed bottom-0 left-0 ml-3xs mb-3xs md:ml-md md:mb-md bg-dark-4 p-md rounded-md drop-shadow-md text-light-3 max-w-[90vw]"
+    class="fixed bottom-0 left-0 ml-3xs mb-3xs md:ml-md md:mb-md bg-dark-4 p-md rounded-md drop-shadow-md text-light-3 max-w-[90vw] z-[50]"
   >
     <div class="flex justify-center items-center gap-xs">
       <svg
@@ -22,7 +22,7 @@ const { $pwa } = useNuxtApp()
       <span>New version of SW available, please reload</span>
       <button
         @click="$pwa?.updateServiceWorker()"
-        class="p-[6px] bg-warning rounded-md hover:bg-warning/75 transition-all duration-300 ease-linear"
+        class="p-[6px] bg-warning rounded-md hover:bg-warning/75 transition-colors duration-300 ease-linear"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
