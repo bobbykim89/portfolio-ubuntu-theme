@@ -17,7 +17,7 @@ const props = withDefaults(
     isOpen: boolean
     isActive: boolean
     displayText?: boolean
-    text?: string
+    text: string
   }>(),
   {
     isOpen: false,
@@ -51,6 +51,7 @@ const handleIconClick = (e: Event) => {
 <template>
   <button
     class="flex flex-col items-center justify-center py-3xs px-2xs focus:bg-dark-2 rounded-md transition-colors duration-150 ease-linear relative"
+    :aria-label="text"
     @click="handleIconClick"
   >
     <img
@@ -65,7 +66,9 @@ const handleIconClick = (e: Event) => {
         'absolute w-3xs h-3xs rounded-full top-1/2 left-[2px]',
       ]"
     ></div>
-    <p v-if="displayText" class="text-light-1 text-sm text-wrap">{{ text }}</p>
+    <p v-if="displayText" class="text-light-1 text-sm text-wrap select-none">
+      {{ text }}
+    </p>
   </button>
 </template>
 

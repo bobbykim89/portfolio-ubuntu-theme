@@ -84,7 +84,11 @@ onClickOutside(draggableRef, () => {
       </p>
       <!-- minimize/maximize/close buttons -->
       <div class="flex gap-2 items-center justify-self-end" @click.stop>
-        <button class="rounded-full p-[2px] bg-dark-2" @click="onMinimize">
+        <button
+          class="rounded-full p-[2px] bg-dark-2"
+          @click="onMinimize"
+          aria-label="minimize"
+        >
           <MinimizeSvgIcon
             class="aspect-square w-[14px]"
             :fontControlled="false"
@@ -94,6 +98,7 @@ onClickOutside(draggableRef, () => {
           v-if="disableMaximize === false"
           class="rounded-full p-[2px] bg-dark-2"
           @click="onMaximize"
+          aria-label="maximize/restore-default"
         >
           <RestoreSvgIcon
             v-if="maximized"
@@ -106,7 +111,11 @@ onClickOutside(draggableRef, () => {
             :fontControlled="false"
           />
         </button>
-        <button class="rounded-full p-[2px] bg-dark-2" @click="onClose">
+        <button
+          class="rounded-full p-[2px] bg-dark-2"
+          @click="onClose"
+          aria-label="close"
+        >
           <CloseSvgIcon class="aspect-square w-xs" :fontControlled="false" />
         </button>
       </div>

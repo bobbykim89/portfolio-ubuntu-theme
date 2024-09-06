@@ -3,11 +3,11 @@ import { ref } from 'vue'
 
 export const useTextReaderStore = defineStore('text-reader', () => {
   // states: PDF reader
-  const isPdfActive = ref<boolean>(true)
+  const isPdfActive = ref<boolean>(false)
   const isPdfVisible = ref<boolean>(false)
   const isPdfMaximized = ref<boolean>(false)
   // states: MD reader
-  const isMdActive = ref<boolean>(true)
+  const isMdActive = ref<boolean>(false)
   const isMdVisible = ref<boolean>(false)
   const isMdMaximized = ref<boolean>(false)
   const currentMdPath = ref<string | null>(null)
@@ -63,6 +63,15 @@ export const useTextReaderStore = defineStore('text-reader', () => {
     isMdActive.value = true
     isMdMaximized.value = !isMdMaximized.value
   }
+  const resetStates = () => {
+    isPdfActive.value = false
+    isPdfVisible.value = false
+    isPdfMaximized.value = false
+    isMdActive.value = false
+    isMdVisible.value = false
+    isMdMaximized.value = false
+    currentMdPath.value = null
+  }
 
   return {
     // pdf
@@ -85,5 +94,6 @@ export const useTextReaderStore = defineStore('text-reader', () => {
     setMdReaderVisible,
     setMdReaderActive,
     setMdReaderMaximize,
+    resetStates,
   }
 })

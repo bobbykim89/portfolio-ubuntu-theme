@@ -23,8 +23,7 @@ const emit = defineEmits<{
 }>()
 
 const settingsStore = useSettingsStore()
-const { isActive, isMaximized, isVisible, currentWp } =
-  storeToRefs(settingsStore)
+const { isActive, isVisible } = storeToRefs(settingsStore)
 
 const closeSettings = () => {
   settingsStore.closeSettings()
@@ -61,19 +60,14 @@ const formattedWpThumb = computed<WallpaperThumbType[]>(() => {
     :initial-y="initialY"
     :visible="isVisible"
     :active="isActive"
-    :maximized="isMaximized"
     container-size="30"
     :disable-maximize="true"
     @close-click="closeSettings"
     @minimize-click="minimizeSettings"
-    @maximize-click="settingsStore.setSettingsMaximize"
     @set-active="setSettingsActive"
   >
     <div
-      :class="[
-        isMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
-        'bg-dark-3 h-full text-light-1 pt-3xs pb-lg md:pb-3xs px-sm relative overflow-y-scroll',
-      ]"
+      class="'bg-dark-3 h-full md:h-[80vh] text-light-1 pt-3xs pb-lg md:pb-3xs px-sm relative overflow-y-scroll',"
     >
       <div class="pt-sm">
         <h3 class="h3-md mb-sm">Change Wallpaper</h3>

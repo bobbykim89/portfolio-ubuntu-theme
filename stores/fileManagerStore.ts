@@ -5,13 +5,14 @@ import { ref } from 'vue'
 export const useFileManagerStore = defineStore('file-manager', () => {
   // states
   const isOpen = ref<boolean>(false)
-  const isActive = ref<boolean>(true)
+  const isActive = ref<boolean>(false)
   const isVisible = ref<boolean>(false)
   const isMaximized = ref<boolean>(false)
   const isRootDir = ref<boolean>(true)
   const currentSection = ref<DirectoryType>('home')
   const historyRef = ref<DirectoryType[]>([])
   const currentLocationIdx = ref<number>(1)
+
   // actions
   const openFileManager = (dir?: DirectoryType) => {
     if (dir) {
@@ -83,7 +84,16 @@ export const useFileManagerStore = defineStore('file-manager', () => {
       isRootDir.value = false
     }
   }
-  const setFileOpen = () => {}
+  const resetStates = () => {
+    isOpen.value = false
+    isActive.value = false
+    isVisible.value = false
+    isMaximized.value = false
+    isRootDir.value = true
+    currentSection.value = 'home'
+    historyRef.value = []
+    currentLocationIdx.value = 1
+  }
   return {
     isOpen,
     isActive,
@@ -101,5 +111,6 @@ export const useFileManagerStore = defineStore('file-manager', () => {
     setCurrentDirectory,
     onPrevClick,
     onNextClick,
+    resetStates,
   }
 })

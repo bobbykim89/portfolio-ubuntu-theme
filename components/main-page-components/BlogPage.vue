@@ -104,7 +104,11 @@ onClickOutside(draggableRef, () => {
       </p>
       <!-- minimize/maximize/close buttons -->
       <div class="flex gap-2 items-center justify-self-end" @click.stop>
-        <button class="rounded-full p-[2px] bg-dark-2" @click="minimizeBlog">
+        <button
+          class="rounded-full p-[2px] bg-dark-2"
+          @click="minimizeBlog"
+          aria-label="minimize"
+        >
           <MinimizeSvgIcon
             class="aspect-square w-[14px]"
             :fontControlled="false"
@@ -112,6 +116,7 @@ onClickOutside(draggableRef, () => {
         </button>
         <button
           class="rounded-full p-[2px] bg-dark-2"
+          aria-label="maximize/restore-default"
           @click="blogStore.setBlogMaximize"
         >
           <RestoreSvgIcon
@@ -125,7 +130,11 @@ onClickOutside(draggableRef, () => {
             :fontControlled="false"
           />
         </button>
-        <button class="rounded-full p-[2px] bg-dark-2" @click="closeBlog">
+        <button
+          class="rounded-full p-[2px] bg-dark-2"
+          @click="closeBlog"
+          aria-label="close"
+        >
           <CloseSvgIcon class="aspect-square w-xs" :fontControlled="false" />
         </button>
       </div>
@@ -140,6 +149,7 @@ onClickOutside(draggableRef, () => {
             ]"
             :disabled="isRootDir"
             @click="blogStore.onPrevClick"
+            aria-label="Previous"
           >
             <ChevronLeft class="h-[18px]" :fontControlled="false" />
           </button>
@@ -151,6 +161,7 @@ onClickOutside(draggableRef, () => {
             ]"
             :disabled="currentPathIdx <= 1"
             @click="blogStore.onNextClick"
+            aria-label="Next"
           >
             <ChevronRight class="h-[18px]" :fontControlled="false" />
           </button>

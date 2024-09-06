@@ -6,7 +6,7 @@ import NetworkSvgIcon from '@/assets/img/svg-files/network-wireless-connected-sy
 import ChevronRight from '@/assets/img/svg-files/pan-end-symbolic.svg'
 import PerformanceSvgIcon from '@/assets/img/svg-files/power-profile-balanced-symbolic.svg'
 import PowerSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
-import { useAppStore, useFileManagerStore, useMusicPlayerStore } from '@/stores'
+import { useAppStore, useMusicPlayerStore } from '@/stores'
 import { Collapse, vCollapse } from '@bobbykim/manguito-theme'
 import { storeToRefs } from 'pinia'
 
@@ -17,7 +17,6 @@ const performanceCollapse = ref<InstanceType<typeof Collapse>>()
 const performanceTabText = ref<'Balanced' | 'Power Saver'>('Balanced')
 const performanceCollapseVisible = ref<boolean>(false)
 const powerCollapseVisible = ref<boolean>(false)
-const fileManagerStore = useFileManagerStore()
 const musicPlayerStore = useMusicPlayerStore()
 const appStore = useAppStore()
 const router = useRouter()
@@ -56,12 +55,12 @@ const handleLockScreenClick = () => {
 }
 const handleRestartClick = () => {
   closeMenu()
-  fileManagerStore.closeFileManager()
+  appStore.closeAllApps()
   router.push({ path: '/' })
 }
 const handlePowerOffClick = () => {
   closeMenu()
-  fileManagerStore.closeFileManager()
+  appStore.closeAllApps()
   router.push({ path: '/shutdown' })
 }
 const handlePowerButtonClick = (visible: boolean) => {

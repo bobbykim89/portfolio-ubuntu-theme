@@ -25,9 +25,6 @@ type PossibleInputOptionsType = (typeof possibleInputOptions)[number]
 type PossiblePathsType = DirectoryType
 const documentsSubDirectoryOptions = ['about', 'projects', 'skills'] as const
 type DocumentsSubdirectoryTypes = (typeof documentsSubDirectoryOptions)[number]
-type DocumentsSubDirectoryPathsType = {
-  [K in DocumentsSubdirectoryTypes]: Partial<PossiblePathsType>
-}
 const documentSubDirectoryFullPath: Record<
   DocumentsSubdirectoryTypes,
   PossiblePathsType
@@ -41,12 +38,13 @@ export const useTerminalStore = defineStore('terminal', () => {
   const picturestore = usePictureStore()
   const appStore = useAppStore()
   // states
-  const isActive = ref<boolean>(true)
+  const isActive = ref<boolean>(false)
   const isVisible = ref<boolean>(false)
   const isMaximized = ref<boolean>(false)
   const inputText = ref<string>('')
   const currentPath = ref<PossiblePathsType>('home')
   const terminalMessage = ref<string>('')
+
   // actions
   const openTerminal = () => {
     isVisible.value = true
@@ -192,6 +190,14 @@ export const useTerminalStore = defineStore('terminal', () => {
   const clearTerminalMsg = () => {
     terminalMessage.value = ''
   }
+  const resetStates = () => {
+    isActive.value = false
+    isVisible.value = false
+    isMaximized.value = false
+    inputText.value = ''
+    currentPath.value = 'home'
+    terminalMessage.value = ''
+  }
   return {
     isActive,
     isVisible,
@@ -206,5 +212,6 @@ export const useTerminalStore = defineStore('terminal', () => {
     setTerminalMaximize,
     onTerminalEnter,
     clearTerminalMsg,
+    resetStates,
   }
 })

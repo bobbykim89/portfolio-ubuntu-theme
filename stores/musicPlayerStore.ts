@@ -53,6 +53,13 @@ export const useMusicPlayerStore = defineStore('music', () => {
         ? musicPlayerData.length - 1
         : currentTrackNumber.value - 1
   }
+  const resetStates = () => {
+    isActive.value = false
+    isVisible.value = false
+    isMusicPlaying.value = false
+    currentTrackNumber.value = 0
+    musicVolume.value = 50
+  }
   return {
     isActive,
     isVisible,
@@ -69,5 +76,6 @@ export const useMusicPlayerStore = defineStore('music', () => {
     setVolume,
     setNextMusic,
     setPrevMusic,
+    resetStates,
   }
 })

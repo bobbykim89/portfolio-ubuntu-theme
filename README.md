@@ -79,8 +79,6 @@ runtimeConfig: {
     emailAddress: 'bobby.sihun.kim@gmail.com', // email address on contact buttons
     audioExternalSrc: true, // whether to have audio mp3 files from external source
     audioSrcBaseUrl: process.env.AUDIO_SOURCE_BASE_URL, // source url for external api source (leave as '' if using local mp3 files)
-    pdfPublicUrl:
-      'https://drive.google.com/file/d/1BFqAufQaxf9PGZCLVq8swfsNU4x4A6n2/view?usp=sharing', // pdf file url to be used on mobile screen
   },
   photoApiUrl: process.env.PHOTO_API_URL, // photo api url
 },

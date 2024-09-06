@@ -21,9 +21,9 @@ const onFolderClick = () => {
     <img
       :src="thumb"
       alt="a thumbnail of an image file"
-      class="h-lg aspect-square object-cover rounded-md"
+      class="h-lg aspect-square object-cover rounded-md select-none"
     />
-    <p class="text-light-1 text-sm text-wrap">{{ text }}</p>
+    <p class="text-light-1 text-sm text-wrap select-none">{{ text }}</p>
   </button>
 </template>
 

@@ -5,7 +5,7 @@ import { ref } from 'vue'
 
 export const useBlogStore = defineStore('blog', () => {
   // states
-  const isActive = ref<boolean>(true)
+  const isActive = ref<boolean>(false)
   const isVisible = ref<boolean>(false)
   const isMaximized = ref<boolean>(false)
   const isRootDir = ref<boolean>(true)
@@ -103,6 +103,17 @@ export const useBlogStore = defineStore('blog', () => {
       isRootDir.value = false
     }
   }
+  const resetStates = () => {
+    isActive.value = false
+    isVisible.value = false
+    isMaximized.value = false
+    isRootDir.value = true
+    currentPathIdx.value = 1
+    currentPath.value = '/blog'
+    historyRef.value = []
+    currentContent.value = null
+    searchQuery.value = ''
+  }
   return {
     isActive,
     isMaximized,
@@ -122,5 +133,6 @@ export const useBlogStore = defineStore('blog', () => {
     setCurrentPath,
     onPrevClick,
     onNextClick,
+    resetStates,
   }
 })

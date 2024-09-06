@@ -1,7 +1,9 @@
 {
-  "name": "nuxt-app",
+  "name": "portfolio-template-ubuntu-theme",
+  "description": "A portfolio template inspired from Ubuntu (based on Ubuntu 22.04)",
   "private": true,
   "type": "module",
+  "license": "MIT",
   "author": {
     "name": "Bobby Kim",
     "url": "https://www.devbobbykim.com/"

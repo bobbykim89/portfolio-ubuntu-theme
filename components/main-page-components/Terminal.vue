@@ -129,6 +129,7 @@ defineExpose<{
         <button
           class="rounded-full p-[2px] bg-dark-2"
           @click="minimizeTerminal"
+          aria-label="minimize"
         >
           <MinimizeSvgIcon
             class="aspect-square w-[14px]"
@@ -138,6 +139,7 @@ defineExpose<{
         <button
           class="rounded-full p-[2px] bg-dark-2"
           @click="terminalStore.setTerminalMaximize"
+          aria-label="maximize/restore-default"
         >
           <RestoreSvgIcon
             v-if="isMaximized"
@@ -150,7 +152,11 @@ defineExpose<{
             :fontControlled="false"
           />
         </button>
-        <button class="rounded-full p-[2px] bg-dark-2" @click="closeTerminal">
+        <button
+          class="rounded-full p-[2px] bg-dark-2"
+          @click="closeTerminal"
+          aria-label="close"
+        >
           <CloseSvgIcon class="aspect-square w-xs" :fontControlled="false" />
         </button>
       </div>
