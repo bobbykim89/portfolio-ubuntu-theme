@@ -57,11 +57,13 @@ const setPdfReaderActive = (val: boolean) => {
     <div
       :class="[
         isPdfMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
-        'bg-dark-3 h-full md:h-96 text-light-1 py-3xs px-xs md:px-lg relative',
+        'bg-dark-3 h-full md:h-96 text-light-1 pt-3xs pb-md md:pb-3xs px-xs md:px-lg relative',
       ]"
     >
       <object :data="pdfUrl" type="application/pdf" width="100%" height="100%">
-        <div class="flex flex-col justify-center items-center gap-6 py-md">
+        <div
+          class="flex flex-col justify-center items-center gap-6 pb-md h-full"
+        >
           <p class="text-md font-bold text-light-1 text-center tracking-wider">
             Embedded PDF reader is not available in mobile devices.
           </p>
