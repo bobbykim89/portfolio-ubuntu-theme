@@ -23,6 +23,7 @@ export type FileMap = {
 }
 
 const skillsTypeList = [
+  'astro',
   'aws',
   'bitbucket',
   'bootstrap',
@@ -38,6 +39,8 @@ const skillsTypeList = [
   'html',
   'javascript',
   'jira',
+  'kubernetes',
+  'langchain',
   'matlab',
   'mongodb',
   'mongoose',
@@ -56,8 +59,10 @@ const skillsTypeList = [
   'rust',
   'sass',
   'scikit-learn',
+  'serverless',
   'svelte',
   'tailwindcss',
+  'terraform',
   'typescript',
   'vercel',
   'vue',

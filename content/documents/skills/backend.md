@@ -14,7 +14,7 @@ emailAddress: 'bobby.sihun.kim@gmail.com'
 
 ::
 
-::skill-block{:icons='["aws", "nodejs", "nestjs", "express", "fastify", "fastapi", "mongoose", "prisma", "postgres", "mongodb"]'}
+::skill-block{:icons='["aws", "nodejs", "nestjs", "express", "fastify", "fastapi", "django", "serverless", "mongoose", "prisma", "postgres", "mongodb"]'}
 ::
 
 ::contact-buttons{:github-url="githubUrl" :linkedinUrl="linkedinUrl" :email-address="emailAddress"}

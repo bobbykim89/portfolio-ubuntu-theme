@@ -8,7 +8,7 @@ const props = withDefaults(
     url: string
   }>(),
   {
-    color: 'secondary',
+    color: 'warning',
   }
 )
 
