@@ -170,3 +170,83 @@ emailAddress: 'your email address'
 date: 2024-08-25
 ---
 ```
+
+### Components: Content
+
+#### CodeBlock
+
+> **props**:
+>
+> 1. type: string
+> 2. path: string
+
+#### SkillBlock
+
+> **props**:
+>
+> 1. icons: SkillType[]
+>
+> SkillType options: 'astro', 'aws', 'bitbucket', 'bootstrap', 'csharp', 'css', 'django', 'docker', 'express', 'fastapi', 'fastify', 'flask', 'git', 'html', 'javascript', 'jira', 'kubernetes', 'langchain', 'matlab', 'mongodb', 'mongoose', 'nestjs', 'nodejs', 'numpy', 'nuxt', 'pandas', 'pinia', 'postgres', 'prisma', 'python', 'pytorch', 'react', 'redux', 'rust', 'sass', 'scikit-learn', 'serverless', 'svelte', 'tailwindcss', 'terraform', 'typescript', 'vercel', 'vue'
+
+#### Hero
+
+> **props**:
+>
+> 1. imageSrc: string
+> 2. rounded?: boolean
+> 3. gradient?: boolean
+
+#### HeroSmall
+
+> **props**:
+>
+> 1. color: ColorPalette
+>
+> ColorPalette options: primary, secondary, success, info, warning, danger, 'light-1', 'light-2', 'light-3', 'light-4', 'dark-1', 'dark-2', 'dark-3', 'dark-4', black, white, transparent,
+
+#### InfoHeader
+
+> **props**:
+>
+> 1. imageUrl: string
+> 2. imageAlt: string
+
+#### TextBox
+
+> **props**:
+>
+> 1. bgColor?: ColorPalette
+> 2. displayBorder?: boolean
+> 3. borderColor?: ColorPalette
+> 4. rounded?: boolean
+> 5. title: string
+
+#### Abstract
+
+> **props**:
+>
+> 1. color: ColorPalette
+
+#### ButtonLink
+
+> **props**:
+>
+> 1. color?: ColorPalette
+> 2. url: string
+
+#### ContactButtons
+
+> **props**:
+>
+> 1. githubUrl: string
+> 2. linkedinUrl: string
+> 3. emailAddress: string
+
+#### GitButton
+
+> **props**:
+>
+> 1. color?: ColorPalette
+> 2. url: string
+
+#### FlexContainer
