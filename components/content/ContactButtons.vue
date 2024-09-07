@@ -20,6 +20,7 @@ const setEmailAddress = computed<string>(() => {
       :href="githubUrl"
       target="_blank"
       class="p-2xs rounded-md bg-dark-4 text-light-1 focus:bg-opacity-70 transition-colors duration-150 ease-linear"
+      aria-label="github link"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -37,6 +38,7 @@ const setEmailAddress = computed<string>(() => {
       :href="linkedinUrl"
       target="_blank"
       class="p-2xs rounded-md bg-dark-4 text-light-1 focus:bg-opacity-70 transition-colors duration-150 ease-linear"
+      aria-label="linkedin link"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -54,6 +56,7 @@ const setEmailAddress = computed<string>(() => {
       :href="setEmailAddress"
       target="_self"
       class="p-2xs rounded-md bg-dark-4 text-light-1 focus:bg-opacity-70 transition-colors duration-150 ease-linear"
+      aria-label="email address link"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -69,5 +72,3 @@ const setEmailAddress = computed<string>(() => {
     </a>
   </div>
 </template>
-
-<style scoped></style>

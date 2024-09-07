@@ -4,6 +4,7 @@ import ManguitoPicture from '@/assets/img/profile/manguito_small.jpg'
 const props = withDefaults(
   defineProps<{
     imageUrl: string
+    imageAlt: string
   }>(),
   {
     imageUrl: ManguitoPicture,
@@ -15,11 +16,9 @@ const props = withDefaults(
   <div class="flex flex-col items-center justify-center py-md">
     <img
       :src="imageUrl"
-      alt="a cute bird perching on tree"
+      :alt="imageAlt"
       class="aspect-square object-cover object-center w-40 rounded-full mb-md hover:motion-safe:animate-pulse"
     />
     <slot />
   </div>
 </template>
-
-<style scoped></style>

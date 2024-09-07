@@ -5,7 +5,7 @@ import MaximizeSvgIcon from '@/assets/img/svg-files/window-maximize-symbolic.svg
 import MinimizeSvgIcon from '@/assets/img/svg-files/window-minimize-symbolic.svg'
 import RestoreSvgIcon from '@/assets/img/svg-files/window-restore-symbolic.svg'
 import { useTerminalStore } from '@/stores'
-import { onClickOutside, useDraggable } from '@vueuse/core'
+import { onClickOutside, useDraggable, useEventListener } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 
@@ -94,6 +94,10 @@ const onEnterKeyDown = async () => {
 onClickOutside(draggableRef, () => {
   terminalStore.setTerminalActive(false)
   emit('set-active', false)
+})
+useEventListener(textInput, 'input', () => {
+  const inputLen = textInput.value!.value.length
+  textInput.value?.setSelectionRange(inputLen, inputLen)
 })
 defineExpose<{
   focus: () => void

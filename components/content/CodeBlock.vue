@@ -1,7 +1,22 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = withDefaults(
+  defineProps<{
+    type?: string
+    path?: string
+  }>(),
+  {
+    type: '',
+    path: '',
+  }
+)
+</script>
 
 <template>
-  <div class="bg-dark-2 px-xs py-sm rounded-lg my-md">
+  <div class="bg-dark-2 px-xs pt-2xs pb-sm rounded-lg my-md">
+    <div class="flex flex-wrap justify-between items-center text-light-4 mb-xs">
+      <span>{{ path }}</span>
+      <span>{{ type }}</span>
+    </div>
     <slot />
   </div>
 </template>
