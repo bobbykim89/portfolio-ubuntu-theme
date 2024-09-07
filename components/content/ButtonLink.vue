@@ -21,6 +21,7 @@ const getBtnColor = computed(() => generateClass('BTNCOLOR', props.color))
     target="_blank"
     class="btn btn-progress btn-round"
     :class="getBtnColor"
+    aria-label="button link"
   >
     <slot />
   </a>

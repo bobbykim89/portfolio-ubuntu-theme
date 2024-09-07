@@ -9,7 +9,7 @@ linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'
 emailAddress: 'bobby.sihun.kim@gmail.com'
 ---
 
-::info-card{:image-url="imageUrl"}
+::info-header{:image-url="imageUrl" image-alt="a cute bird perching on a tree"}
 
 ## About Manguito
 

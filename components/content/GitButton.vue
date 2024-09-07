@@ -27,6 +27,7 @@ const getBtnColor = computed<string>(() =>
     target="_blank"
     class="btn btn-progress btn-round px-2xs flex justify-center items-center gap-2"
     :class="getBtnColor"
+    aria-label="github repository link"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -44,5 +45,3 @@ const getBtnColor = computed<string>(() =>
     </span>
   </a>
 </template>
-
-<style scoped></style>

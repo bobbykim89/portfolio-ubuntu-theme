@@ -90,5 +90,3 @@ const setEmailAddress = computed<string>(() => {
     </div>
   </div>
 </template>
-
-<style scoped></style>
