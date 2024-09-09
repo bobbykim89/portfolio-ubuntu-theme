@@ -199,7 +199,7 @@ watch(
     @set-active="setMusicPlayerActive"
   >
     <div
-      class="bg-dark-3 h-full md:h-[65vh] text-light-1 pt-3xs pb-sm md:pb-3xs px-xs lg:px-sm relative overflow-y-scroll"
+      class="bg-dark-3 h-full md:h-[65vh] text-light-1 pt-3xs pb-sm md:pb-3xs px-xs lg:px-sm relative overflow-y-auto"
       :style="currentMusicStatus"
     >
       <!-- music player -->

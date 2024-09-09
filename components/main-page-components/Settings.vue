@@ -67,7 +67,7 @@ const formattedWpThumb = computed<WallpaperThumbType[]>(() => {
     @set-active="setSettingsActive"
   >
     <div
-      class="bg-dark-3 h-full md:h-[80vh] text-light-1 pt-3xs pb-lg md:pb-xs px-sm relative overflow-y-scroll"
+      class="bg-dark-3 h-full md:h-[80vh] text-light-1 pt-3xs pb-lg md:pb-xs px-sm relative overflow-y-auto"
     >
       <div class="pt-sm">
         <h3 class="h3-md mb-sm">Change Wallpaper</h3>

@@ -177,18 +177,16 @@ onClickOutside(draggableRef, () => {
     <div
       :class="[
         isMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
-        'bg-dark-3 h-full text-light-1 pt-3xs pb-lg md:pb-3xs relative overflow-y-scroll',
+        'bg-dark-3 h-full w-full text-light-1 pt-3xs pb-lg md:pb-3xs relative overflow-y-auto',
       ]"
     >
       <!-- folders section -->
-      <div class="w-full h-full relative overflow-y-scroll">
-        <BlogHome
-          v-if="currentPath === '/blog'"
-          :posts="filteredSearchQuery!"
-          :maximized="isMaximized"
-        />
-        <BlogPost v-else />
-      </div>
+      <BlogHome
+        v-if="currentPath === '/blog'"
+        :posts="filteredSearchQuery!"
+        :maximized="isMaximized"
+      />
+      <BlogPost v-else />
     </div>
   </div>
 </template>
