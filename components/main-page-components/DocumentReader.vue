@@ -71,7 +71,7 @@ const setMdReaderActive = (val: boolean) => {
     <div
       :class="[
         isMdMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
-        'bg-dark-3 h-full text-light-1 pt-3xs pb-xs md:pb-3xs px-sm relative overflow-y-scroll',
+        'bg-dark-3 h-full text-light-1 pt-3xs pb-xs md:pb-3xs px-sm relative overflow-y-auto',
       ]"
     >
       <ContentRenderer v-if="data?._path === currentMdPath" :value="data">

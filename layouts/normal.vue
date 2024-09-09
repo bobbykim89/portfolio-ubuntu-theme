@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRuntimeConfig } from '#imports'
 import Logo from '@/assets/img/ubuntu/ubuntu-logo-48x48.png'
+import ScrollToTop from '@/components/layout-components/ScrollToTop.vue'
 import PwaNotificationBox from '@/components/pwa/PwaNotificationBox.vue'
 import { HeaderHorizontal } from '@bobbykim/manguito-theme'
 import {
@@ -8,6 +9,7 @@ import {
   type SocialUrl,
   MclFooterA,
 } from '@bobbykim/mcl-footer'
+import { useWindowScroll } from '@vueuse/core'
 import { reactive } from 'vue'
 
 const menuItems: MenuItemType[] = [
@@ -29,6 +31,7 @@ const menuItems: MenuItemType[] = [
 ]
 const router = useRouter()
 const config = useRuntimeConfig()
+const { y } = useWindowScroll({ behavior: 'smooth' })
 const menuData = reactive<{
   title: string
   logo: string
@@ -56,10 +59,13 @@ const handleFooterMenuClick = (e: Event, menu: MenuItemType) => {
   e.preventDefault()
   router.push({ path: menu.url })
 }
+const handleScrollClick = () => {
+  y.value = 0
+}
 </script>
 
 <template>
-  <div>
+  <div class="relative">
     <!-- header -->
     <HeaderHorizontal
       bg-color="dark-4"
@@ -149,6 +155,7 @@ const handleFooterMenuClick = (e: Event, menu: MenuItemType) => {
         </div>
       </MclFooterA>
     </ClientOnly>
+    <ScrollToTop @scroll-click="handleScrollClick" />
   </div>
 </template>
 

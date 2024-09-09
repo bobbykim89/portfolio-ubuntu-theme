@@ -237,7 +237,7 @@ onClickOutside(draggableRef, () => {
       />
       <!-- folders section -->
       <div
-        class="w-full h-full pb-xl md:pb-0 bg-dark-2 relative overflow-y-scroll"
+        class="w-full h-full pb-xl md:pb-0 bg-dark-2 relative overflow-y-auto"
       >
         <HomeDirectory
           v-if="currentSection === 'home'"

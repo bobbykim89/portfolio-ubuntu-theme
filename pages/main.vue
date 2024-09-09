@@ -62,7 +62,7 @@ onMounted(() => {
   <div class="h-full w-full flex bg-img" :style="bgImageVar">
     <!-- menu bar -->
     <div
-      class="flex flex-col gap-1 bg-dark-4/90 items-center overflow-y-scroll z-[25]"
+      class="flex flex-col gap-1 bg-dark-4/90 items-center overflow-y-auto z-[25]"
     >
       <AppIcon
         icon-type="terminal"
