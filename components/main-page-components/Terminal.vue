@@ -113,7 +113,7 @@ defineExpose<{
     :style="style"
     :class="[
       isActive ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
-      isMaximized ? '' : 'md:fixed md:w-1/2',
+      isMaximized ? '' : 'md:fixed md:w-2/3 lg:w-1/2 xl:w-2/5 2xl:w-1/3',
       'bg-primary md:rounded-lg overflow-hidden w-full border-2 drop-shadow-md',
     ]"
     @click="onTerminalClick"

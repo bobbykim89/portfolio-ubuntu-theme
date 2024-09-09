@@ -137,7 +137,7 @@ onClickOutside(draggableRef, () => {
     :style="style"
     :class="[
       isActive ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
-      isMaximized ? '' : 'md:fixed md:w-2/3 lg:w-2/3 xl:w-1/2',
+      isMaximized ? '' : 'md:fixed md:w-2/3 lg:w-2/3 xl:w-1/2 2xl:w-2/5',
       'md:rounded-lg overflow-hidden w-full border-2 drop-shadow-md',
     ]"
     @click="onFileManagerClick"
