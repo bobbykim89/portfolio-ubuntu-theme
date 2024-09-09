@@ -26,7 +26,7 @@ const handleCardClick = () => {
     >
       {{ category }}
     </div>
-    <div>
+    <div class="w-full">
       <h3 class="h3-md mb-2xs">{{ title }}</h3>
       <div class="text-light-4 text-sm mb-xs text-end mr-2xs">{{ date }}</div>
       <slot />
