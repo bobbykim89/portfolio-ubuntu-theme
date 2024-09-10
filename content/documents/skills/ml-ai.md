@@ -14,7 +14,7 @@ emailAddress: 'bobby.sihun.kim@gmail.com'
 
 ::
 
-::skill-block{:icons='["langchain", "numpy", "pandas", "pytorch", "scikit-learn"]'}
+::skill-block{:icons='["langchain", "numpy", "pandas", "pytorch", "scikit-learn", "scipy", "seaborn", "xgboost"]'}
 ::
 
 ::contact-buttons{:github-url="githubUrl" :linkedinUrl="linkedinUrl" :email-address="emailAddress"}

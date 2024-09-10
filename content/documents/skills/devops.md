@@ -14,7 +14,7 @@ emailAddress: 'bobby.sihun.kim@gmail.com'
 
 ::
 
-::skill-block{:icons='["git", "docker", "kubernetes", "bitbucket", "jira", "terraform", "vercel"]'}
+::skill-block{:icons='["git", "docker", "kubernetes", "bitbucket", "jira", "terraform", "vercel", "conda", "mlflow", "prefect", "pylint", "pypi", "pytest", "venv", "evidently", "grafana"]'}
 ::
 
 ::contact-buttons{:github-url="githubUrl" :linkedinUrl="linkedinUrl" :email-address="emailAddress"}
