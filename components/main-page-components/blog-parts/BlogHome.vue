@@ -42,7 +42,7 @@ const formatDate = (date: string): string => {
     >
       <div class="text-center">
         <h2 class="mb-xs">{{ $config.public.userName }}</h2>
-        <p>Full-stack developer in Phoenix, AZ</p>
+        <p>{{ $config.public.userTitle }}</p>
       </div>
     </BlogHomeHeader>
 

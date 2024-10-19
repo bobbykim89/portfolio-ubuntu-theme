@@ -56,7 +56,7 @@ const setPdfReaderActive = (val: boolean) => {
   >
     <div
       :class="[
-        isPdfMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
+        isPdfMaximized ? 'md:h-[calc(100vh-65px)]' : 'md:h-[80vh]',
         'bg-dark-3 h-full md:h-96 text-light-1 pt-3xs pb-md md:pb-3xs px-xs md:px-lg relative',
       ]"
     >

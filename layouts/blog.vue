@@ -164,11 +164,10 @@ const handleScrollClick = () => {
         @logo-click="handleFooterLogoClick"
         @menu-click="handleFooterMenuClick"
       >
-        <div>
-          <span class="text-light-1"
-            >&copy; ManguitoOS {{ new Date().getFullYear() }}</span
-          >
-        </div>
+        <span class="text-light-1"
+          >&copy; {{ $config.public.siteName }}
+          {{ new Date().getFullYear() }}</span
+        >
       </MclFooterA>
     </ClientOnly>
     <ScrollToTop @scroll-click="handleScrollClick" />
