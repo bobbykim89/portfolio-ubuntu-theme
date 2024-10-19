@@ -61,7 +61,7 @@ const setImageViewerActive = (val: boolean) => {
   >
     <div
       :class="[
-        isMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
+        isMaximized ? 'md:h-[calc(100vh-65px)]' : 'md:h-[80vh]',
         'bg-dark-3 h-[90vh] md:h-96 text-light-1 py-3xs px-lg relative',
       ]"
     >

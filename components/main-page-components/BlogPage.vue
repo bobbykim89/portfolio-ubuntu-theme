@@ -176,7 +176,7 @@ onClickOutside(draggableRef, () => {
     <!-- content section -->
     <div
       :class="[
-        isMaximized ? 'md:h-[92vh]' : 'md:h-[80vh]',
+        isMaximized ? 'md:h-[calc(100vh-97px)]' : 'md:h-[80vh]',
         'bg-dark-3 h-full w-full text-light-1 pt-3xs pb-lg md:pb-3xs relative overflow-y-auto',
       ]"
     >

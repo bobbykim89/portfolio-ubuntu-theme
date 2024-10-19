@@ -23,10 +23,10 @@
   },
   "dependencies": {
     "@bobbykim/manguito-theme": "^0.22.1",
-    "@bobbykim/mcl-footer": "^0.6.4",
+    "@bobbykim/mcl-footer": "0.8.0",
     "@bobbykim/mcl-forms": "^0.8.2",
     "@nuxt/content": "^2.13.2",
-    "@nuxt/fonts": "^0.7.2",
+    "@nuxt/fonts": "0.10.0",
     "@nuxt/image": "^1.7.1",
     "@pinia/nuxt": "^0.5.4",
     "@vite-pwa/nuxt": "^0.10.5",

@@ -40,6 +40,7 @@ export default defineNuxtConfig({
     public: {
       siteName: 'ManguitoOS',
       userName: 'Manguito Lovebird',
+      userTitle: 'Software Engineer in Phoenix, AZ',
       gitHubUrl: 'https://github.com/bobbykim89',
       linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/',
       emailAddress: 'bobby.sihun.kim@gmail.com',

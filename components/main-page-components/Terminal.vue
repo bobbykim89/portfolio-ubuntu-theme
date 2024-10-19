@@ -167,7 +167,7 @@ defineExpose<{
     </div>
     <div
       :class="[
-        isMaximized ? 'md:h-[92vh]' : 'md:h-96',
+        isMaximized ? 'md:h-[calc(100vh-65px)]' : 'md:h-96',
         'relative h-[90vh] md:h-96 text-light-1 p-3xs overflow-y-auto font-vt323 text-lg',
       ]"
       @keydown.enter="onEnterKeyDown"
