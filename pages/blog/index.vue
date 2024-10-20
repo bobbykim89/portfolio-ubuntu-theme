@@ -3,6 +3,9 @@ import BlogCard from '@/components/main-page-components/blog-parts/BlogCard.vue'
 import { MclFormGroup, MclInputText } from '@bobbykim/mcl-forms'
 import { computed, ref } from 'vue'
 
+const config = useRuntimeConfig()
+const url = useRequestURL()
+
 definePageMeta({
   layout: 'blog',
   layoutTransition: { name: 'blog', mode: 'out-in' },
@@ -10,10 +13,16 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Manguito OS | Blog',
+  title: `${config.public.siteName} | Blog`,
   meta: [
-    { name: 'description', content: 'Blog page' },
-    { property: 'og:title', content: 'Manguito OS | Blog' },
+    { property: 'og:title', content: `${config.public.siteName} | Blog` },
+    { property: 'og:url', content: url.href },
+    { property: 'twitter:domain', content: url.host },
+    { property: 'twitter:url', content: url.href },
+    {
+      name: 'twitter:title',
+      content: `${config.public.siteName} | Blog`,
+    },
   ],
 })
 

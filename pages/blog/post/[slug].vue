@@ -8,6 +8,8 @@ definePageMeta({
 })
 
 const route = useRoute()
+const config = useRuntimeConfig()
+const url = useRequestURL()
 
 const { data: post } = await useAsyncData('post-data', () =>
   queryContent()
@@ -16,10 +18,19 @@ const { data: post } = await useAsyncData('post-data', () =>
 )
 
 useHead({
-  title: `Manguito OS | ${post.value?.title}`,
+  title: `${config.public.siteName} | ${post.value?.title}`,
   meta: [
-    { name: 'description', content: 'Blog page' },
-    { property: 'og:title', content: `Manguito OS | ${post.value?.title}` },
+    {
+      property: 'og:title',
+      content: `${config.public.siteName} | ${post.value?.title}`,
+    },
+    { property: 'og:url', content: url.href },
+    { property: 'twitter:domain', content: url.host },
+    { property: 'twitter:url', content: url.href },
+    {
+      name: 'twitter:title',
+      content: `${config.public.siteName} | ${post.value?.title}`,
+    },
   ],
 })
 </script>

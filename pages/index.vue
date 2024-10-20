@@ -5,15 +5,23 @@ import UbuntuLogo from '@/assets/img/ubuntu/ubuntu-logo-dark.png'
 import { useIntervalFn } from '@vueuse/core'
 import { computed, ref } from 'vue'
 
+const config = useRuntimeConfig()
+const url = useRequestURL()
+
 useHead({
-  title: 'Manguito OS | Login',
+  title: `${config.public.siteName} | Login`,
   meta: [
-    { name: 'description', content: 'Main page' },
-    { property: 'og:title', content: 'Manguito OS | Login' },
+    { property: 'og:title', content: `${config.public.siteName} | Login` },
+    { property: 'og:url', content: url.href },
+    { property: 'twitter:domain', content: url.host },
+    { property: 'twitter:url', content: url.href },
+    {
+      name: 'twitter:title',
+      content: `${config.public.siteName} | Login`,
+    },
   ],
 })
 
-const config = useRuntimeConfig()
 const router = useRouter()
 const route = useRoute()
 const profileName = ref<string>(config.public.userName)
