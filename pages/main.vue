@@ -17,11 +17,20 @@ import { useWindowSize } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
 
+const config = useRuntimeConfig()
+const url = useRequestURL()
+
 useHead({
-  title: 'Manguito OS | Main',
+  title: `${config.public.siteName} | Main`,
   meta: [
-    { name: 'description', content: 'Main page' },
-    { property: 'og:title', content: 'Manguito OS | Main' },
+    { property: 'og:title', content: `${config.public.siteName} | Main` },
+    { property: 'og:url', content: url.href },
+    { property: 'twitter:domain', content: url.host },
+    { property: 'twitter:url', content: url.href },
+    {
+      name: 'twitter:title',
+      content: `${config.public.siteName} | Main`,
+    },
   ],
 })
 

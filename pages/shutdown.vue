@@ -4,15 +4,24 @@ import DocumentSvgIcon from '@/assets/img/svg-files/folder-documents-symbolic.sv
 import PowerSvgIcon from '@/assets/img/svg-files/system-shutdown-symbolic.svg'
 import UbuntuLogo from '@/assets/img/ubuntu/ubuntu-logo-dark.png'
 
+const config = useRuntimeConfig()
+const url = useRequestURL()
+
 definePageMeta({
   layout: false,
 })
 
 useHead({
-  title: 'Manguito OS | Shutdown',
+  title: `${config.public.siteName} | Shutdown`,
   meta: [
-    { name: 'description', content: 'Main page' },
-    { property: 'og:title', content: 'Manguito OS | Shutdown' },
+    { property: 'og:title', content: `${config.public.siteName} | Shutdown` },
+    { property: 'og:url', content: url.href },
+    { property: 'twitter:domain', content: url.host },
+    { property: 'twitter:url', content: url.href },
+    {
+      name: 'twitter:title',
+      content: `${config.public.siteName} | Shutdown`,
+    },
   ],
 })
 

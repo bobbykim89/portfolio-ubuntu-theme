@@ -9,20 +9,27 @@ definePageMeta({
 })
 
 const route = useRoute()
+const config = useRuntimeConfig()
+const url = useRequestURL()
 
 useHead({
-  title: `Manguito OS | Blog - ${route.params.category}`,
+  title: `${config.public.siteName} | Blog - ${route.params.category}`,
   meta: [
-    { name: 'description', content: 'Blog page' },
     {
       property: 'og:title',
-      content: `Manguito OS | Blog - ${route.params.category}`,
+      content: `${config.public.siteName} | Blog - ${route.params.category}`,
+    },
+    { property: 'og:url', content: url.href },
+    { property: 'twitter:domain', content: url.host },
+    { property: 'twitter:url', content: url.href },
+    {
+      name: 'twitter:title',
+      content: `${config.public.siteName} | Blog - ${route.params.category}`,
     },
   ],
 })
 
 const router = useRouter()
-// const searchQuery = ref<string>('')
 
 const { data: posts } = await useAsyncData('blog-post-all', () =>
   queryContent('/blog')

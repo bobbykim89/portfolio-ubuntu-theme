@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import AboutImage from '@/assets/img/about/about.jpg'
+
+const config = useRuntimeConfig()
+const url = useRequestURL()
+
 definePageMeta({
   layout: 'normal',
   layoutTransition: { name: 'blog', mode: 'out-in' },
@@ -7,10 +11,16 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Manguito OS | About',
+  title: `${config.public.siteName} | About`,
   meta: [
-    { name: 'description', content: 'About page' },
-    { property: 'og:title', content: 'Manguito OS | About' },
+    { property: 'og:title', content: `${config.public.siteName} | About` },
+    { property: 'og:url', content: url.href },
+    { property: 'twitter:domain', content: url.host },
+    { property: 'twitter:url', content: url.href },
+    {
+      name: 'twitter:title',
+      content: `${config.public.siteName} | About`,
+    },
   ],
 })
 </script>

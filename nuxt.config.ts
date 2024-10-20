@@ -22,15 +22,35 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'A portfolio template inspired from Ubuntu (based on Ubuntu 22.04)',
+            'A portfolio template designed with inspiration from Ubuntu, particularly based on the style and features of Ubuntu 22.04.',
         },
+        { property: 'og:type', content: 'website' },
         {
           property: 'og:title',
           content: 'Manguito OS',
         },
         {
           property: 'og:image',
-          content: '/ubuntu_logo-192x192.png',
+          content:
+            'https://res.cloudinary.com/dwgni1x3t/image/upload/v1729412486/assets/ubuntu_logo-512x512_xsw9jy.png',
+        },
+        {
+          name: 'twitter:card',
+          content: 'summary_large_image',
+        },
+        {
+          name: 'twitter:title',
+          content: 'Manguito OS',
+        },
+        {
+          name: 'twitter:description',
+          content:
+            'A portfolio template designed with inspiration from Ubuntu, particularly based on the style and features of Ubuntu 22.04.',
+        },
+        {
+          name: 'twitter:image',
+          content:
+            'https://res.cloudinary.com/dwgni1x3t/image/upload/v1729412486/assets/ubuntu_logo-512x512_xsw9jy.png',
         },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
