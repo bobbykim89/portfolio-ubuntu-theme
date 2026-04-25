@@ -103,12 +103,12 @@ const { data: files } = await useAsyncData(
     let res: PagesCollectionItem[] = []
     if (subDirectoryPath.value.includes(currentSection.value)) {
       res = await queryCollection('pages')
-        .where('path', 'LIKE', `/${currentSection.value}`)
+        .where('path', 'LIKE', `/${currentSection.value}%`)
         .order('order', 'ASC')
         .all()
       // res = await queryContent(currentSection.value).sort({ order: 1 }).find()
+      console.log(res)
     }
-    console.log(res)
     return res
   },
   {
