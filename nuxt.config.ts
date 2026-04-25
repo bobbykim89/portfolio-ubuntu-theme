@@ -1,9 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import { defineNuxtConfig } from 'nuxt/config'
+
 export default defineNuxtConfig({
-  compatibilityDate: '2024-04-03',
+  future: {
+    compatibilityVersion: 4,
+  },
+  compatibilityDate: '2026-04-25',
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/tailwindcss',
     'nuxt-svgo',
     '@pinia/nuxt',
     '@nuxt/content',
@@ -70,6 +75,17 @@ export default defineNuxtConfig({
     },
     photoApiUrl: process.env.PHOTO_API_URL,
   },
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@vueuse/core',
+        '@bobbykim/manguito-theme',
+        '@bobbykim/manguito-theme/directives',
+        '@bobbykim/mcl-footer',
+        '@bobbykim/mcl-forms',
+      ],
+    },
+  },
   typescript: {
     typeCheck: true,
     strict: true,
@@ -82,13 +98,12 @@ export default defineNuxtConfig({
       },
     },
   },
-  tailwindcss: {
-    configPath: 'tailwind.config.ts',
-    cssPath: '~/assets/css/tailwind.css',
-    exposeConfig: false,
-    viewer: true,
+  css: ['~/assets/css/page_transition.css', '~/assets/css/styles.css'],
+  postcss: {
+    plugins: {
+      '@tailwindcss/postcss': {},
+    },
   },
-  css: ['~/assets/css/page_transition.css'],
   image: {
     cloudinary: {
       baseURL: process.env.CLOUDINARY_API_URL,
