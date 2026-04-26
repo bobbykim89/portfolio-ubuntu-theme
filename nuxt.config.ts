@@ -74,6 +74,8 @@ export default defineNuxtConfig({
       imageSourceApiUrl: process.env.CLOUDINARY_API_URL,
     },
     photoApiUrl: process.env.PHOTO_API_URL,
+    mailerEmailAddress: process.env.MAILER_EMAIL_ADDRESS,
+    mailerAppPassword: process.env.MAILER_APP_PASSWORD,
   },
   vite: {
     optimizeDeps: {
