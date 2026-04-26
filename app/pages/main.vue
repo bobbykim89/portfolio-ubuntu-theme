@@ -72,7 +72,7 @@ onMounted(() => {
   <div class="h-full w-full flex bg-img" :style="bgImageVar">
     <!-- menu bar -->
     <div
-      class="flex flex-col gap-1 bg-dark-4/90 items-center overflow-y-auto z-[25]"
+      class="flex flex-col gap-1 bg-dark-4/90 items-center overflow-y-auto z-25"
     >
       <AppIcon
         icon-type="terminal"
@@ -111,7 +111,7 @@ onMounted(() => {
         @icon-click="appStore.setMusicOpen"
       />
       <div class="px-2xs py-3xs w-full">
-        <div class="w-full h-[2px] bg-light-3 rounded-sm opacity-50"></div>
+        <div class="w-full h-0.5 bg-light-3 rounded-sm opacity-50"></div>
       </div>
       <AppIcon
         v-if="appStatus['image-viewer'].open"
