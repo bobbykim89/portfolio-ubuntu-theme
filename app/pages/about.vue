@@ -31,7 +31,7 @@ useHead({
       <div class="flex flex-col md:flex-row gap-lg items-center justify-center">
         <div>
           <img
-            class="aspect-square rounded-full border-4 border-light-4 max-h-[384px]"
+            class="aspect-square rounded-full border-4 border-light-4 max-h-96"
             :src="AboutImage"
             alt="manguito sitting on monitor"
           />
@@ -40,7 +40,7 @@ useHead({
           <h2 class="h2-md mb-xs">About Manguito OS</h2>
           <div class="font-bold text-lg mb-xs">
             <p>A portfolio template with Ubuntu theme.</p>
-            <p>Version: 0.1.0</p>
+            <p>Version: 0.2.0</p>
             <p>Maintainer: Bobby Kim</p>
           </div>
           <div class="flex items-center justify-center gap-xs">
@@ -93,7 +93,7 @@ useHead({
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
                 fill="currentColor"
-                class="h-[40px] aspect-square"
+                class="h-10 aspect-square"
               >
                 <!-- !Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                 <path
