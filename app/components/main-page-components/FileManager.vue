@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DirectoryMap } from '#shared/types'
+import type { DirectoryMap, ResizeDirection } from '#shared/types'
 import TrashSvgIcon from '@/assets/img/svg-files/edit-delete-symbolic.svg'
 import DocumentSvgIcon from '@/assets/img/svg-files/folder-documents-symbolic.svg'
 import MusicSvgIcon from '@/assets/img/svg-files/folder-music-symbolic.svg'
@@ -12,7 +12,13 @@ import MaximizeSvgIcon from '@/assets/img/svg-files/window-maximize-symbolic.svg
 import MinimizeSvgIcon from '@/assets/img/svg-files/window-minimize-symbolic.svg'
 import RestoreSvgIcon from '@/assets/img/svg-files/window-restore-symbolic.svg'
 import { PagesCollectionItem } from '@nuxt/content'
-import { onClickOutside, useDraggable } from '@vueuse/core'
+import {
+  onClickOutside,
+  useBreakpoints,
+  useDraggable,
+  useEventListener,
+  useWindowSize,
+} from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { useFileManagerStore } from '~/stores'
 import DocumentsRootDirectory from './file-manager-parts/documents-directory/DocumentsRootDirectory.vue'
@@ -74,6 +80,12 @@ const emit = defineEmits<{
   (e: 'set-active', active: boolean): void
 }>()
 
+const initialWidth = 720
+const initialHeight = 360
+const MAX_W_RATIO = 0.95
+const MIN_W = 512
+const MIN_H = 360
+
 const draggableRef = ref<HTMLDivElement>()
 const dragHandle = ref<HTMLDivElement>()
 const subDirectoryPath = ref<string[]>([
@@ -81,6 +93,9 @@ const subDirectoryPath = ref<string[]>([
   'documents/projects',
   'documents/skills',
 ])
+const breakpoints = useBreakpoints({ mobile: 768 })
+const isMobile = breakpoints.smaller('mobile')
+const { width: windowWidth } = useWindowSize()
 
 const fileManagerStore = useFileManagerStore()
 const {
@@ -92,9 +107,10 @@ const {
   currentLocationIdx,
 } = storeToRefs(fileManagerStore)
 
-const { style } = useDraggable(draggableRef, {
+const { style, x, y } = useDraggable(draggableRef, {
   handle: dragHandle,
   initialValue: { x: props.initialX, y: props.initialY },
+  disabled: isMobile,
 })
 
 const { data: files } = await useAsyncData(
@@ -116,6 +132,41 @@ const { data: files } = await useAsyncData(
   },
 )
 
+// resizable
+const width = ref(
+  Math.min(initialWidth, Math.floor(windowWidth.value * MAX_W_RATIO)),
+)
+const height = ref(initialHeight)
+
+const isResizing = ref(false)
+const resizeDir = ref<ResizeDirection>('se')
+const startPointer = ref({ x: 0, y: 0 })
+const startSize = ref({ w: 0, h: 0 })
+const startPos = ref({ x: 0, y: 0 })
+const resizeDirection: ResizeDirection[] = ['se', 'sw', 'ne', 'nw']
+
+const onResizeStart = (e: PointerEvent, dir: ResizeDirection) => {
+  if (isMobile.value) return
+  isResizing.value = true
+  resizeDir.value = dir
+  startPointer.value = { x: e.clientX, y: e.clientY }
+  startSize.value = { w: width.value, h: height.value }
+  startPos.value = { x: x.value, y: y.value }
+  e.preventDefault()
+  e.stopPropagation()
+}
+
+const windowStyle = computed(() => {
+  if (isMaximized.value) return {}
+  if (isMobile.value) return {}
+  return {
+    left: `${x.value}px`,
+    top: `${y.value}px`,
+    width: `${width.value}px`,
+    height: `${height.value}px`,
+  }
+})
+
 const closeFileManager = () => {
   fileManagerStore.closeFileManager()
   emit('close-click')
@@ -133,20 +184,70 @@ onClickOutside(draggableRef, () => {
   fileManagerStore.setFileManagerActive(false)
   emit('set-active', false)
 })
+
+useEventListener('pointermove', (e: PointerEvent) => {
+  if (!isResizing.value || isMobile.value) return
+
+  const maxW = Math.floor(windowWidth.value * MAX_W_RATIO)
+  const dx = e.clientX - startPointer.value.x
+  const dy = e.clientY - startPointer.value.y
+
+  // width
+  if (resizeDir.value.includes('e')) {
+    width.value = Math.min(maxW, Math.max(MIN_W, startSize.value.w + dx))
+  } else if (resizeDir.value.includes('w')) {
+    const newW = Math.min(maxW, Math.max(MIN_W, startSize.value.w - dx))
+    x.value = startPos.value.x + (startSize.value.w - newW)
+    width.value = newW
+  }
+
+  // height
+  if (resizeDir.value.includes('s')) {
+    height.value = Math.max(MIN_H, startSize.value.h + dy)
+  } else if (resizeDir.value.includes('n')) {
+    const newH = Math.max(MIN_H, startSize.value.h - dy)
+    y.value = startPos.value.y + (startSize.value.h - newH)
+    height.value = newH
+  }
+})
+
+useEventListener('pointerup', () => {
+  isResizing.value = false
+})
+
+watch(
+  () => [props.initialX, props.initialY],
+  ([newX, newY]) => {
+    x.value = newX!
+    y.value = newY!
+  },
+)
+
+watch(windowWidth, (newW) => {
+  const maxW = Math.floor(newW * MAX_W_RATIO)
+  if (width.value > maxW) {
+    width.value = maxW
+  }
+})
+
+const containerClass = computed(() => {
+  return [
+    isActive.value ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
+    isMaximized.value ? 'block' : 'md:fixed',
+    'md:rounded-lg overflow-hidden border-2 drop-shadow-md flex flex-col',
+  ]
+})
 </script>
 
 <template>
   <div
     v-if="isVisible"
     ref="draggableRef"
-    :style="style"
-    :class="[
-      isActive ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
-      isMaximized ? '' : 'md:fixed md:w-2/3 lg:w-2/3 xl:w-1/2 2xl:w-2/5',
-      'md:rounded-lg overflow-hidden w-full border-2 drop-shadow-md',
-    ]"
+    :style="windowStyle"
+    :class="[containerClass]"
     @click="onFileManagerClick"
   >
+    <!-- title bar -->
     <div
       ref="dragHandle"
       :class="[
@@ -232,8 +333,8 @@ onClickOutside(draggableRef, () => {
     <!-- content section -->
     <div
       :class="[
-        isMaximized ? 'md:h-[calc(100vh-73px)]' : 'md:h-96',
-        'h-full text-light-1 flex flex-col md:flex-row',
+        isMaximized ? 'md:h-[calc(100vh-73px)]' : 'flex-1',
+        'min-h-0 text-light-1 flex flex-col md:flex-row',
       ]"
     >
       <FileManagerLeftSection
@@ -244,30 +345,33 @@ onClickOutside(draggableRef, () => {
       <div
         class="w-full h-full pb-xl md:pb-0 bg-dark-2 relative overflow-y-auto"
       >
-        <HomeDirectory
-          v-if="currentSection === 'home'"
-          :maximized="isMaximized"
-        />
-        <DocumentsRootDirectory
-          v-else-if="currentSection === 'documents'"
-          :maximized="isMaximized"
-        />
+        <HomeDirectory v-if="currentSection === 'home'" />
+        <DocumentsRootDirectory v-else-if="currentSection === 'documents'" />
         <DocumentsSubDirectory
           v-else-if="subDirectoryPath.includes(currentSection)"
-          :maximized="isMaximized"
           :files="files!"
         />
-        <PicturesDirectory
-          v-else-if="currentSection === 'pictures'"
-          :maximized="isMaximized"
-        />
-        <MusicDirectory
-          v-else-if="currentSection === 'music'"
-          :maximized="isMaximized"
-        />
+        <PicturesDirectory v-else-if="currentSection === 'pictures'" />
+        <MusicDirectory v-else-if="currentSection === 'music'" />
         <TrashDirectory v-else />
       </div>
     </div>
+
+    <!-- resize handles (desktop only) -->
+    <template v-if="!isMobile && !isMaximized">
+      <div
+        v-for="dir in resizeDirection"
+        :key="dir"
+        :class="[
+          'absolute w-3 h-3 z-20',
+          dir === 'se' ? 'bottom-0 right-0 cursor-se-resize' : '',
+          dir === 'sw' ? 'bottom-0 left-0 cursor-sw-resize' : '',
+          dir === 'ne' ? 'top-0 right-0 cursor-ne-resize' : '',
+          dir === 'nw' ? 'top-0 left-0 cursor-nw-resize' : '',
+        ]"
+        @pointerdown="(e) => onResizeStart(e, dir)"
+      />
+    </template>
   </div>
 </template>
 

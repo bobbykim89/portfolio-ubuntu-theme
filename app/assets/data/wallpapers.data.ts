@@ -2,42 +2,42 @@ import { WallpaperDataType } from '#shared/types'
 
 export const wallpaperData: WallpaperDataType[] = [
   {
-    fileName: 'wallpaper-custom.jpg',
+    fileName: 'manguito-banner.webp',
   },
   {
-    fileName: 'clouds.jpg',
+    fileName: 'clouds.webp',
   },
   {
-    fileName: 'crown-dark-2.png',
+    fileName: 'crown-dark-2.webp',
   },
   {
-    fileName: 'crown-dark.png',
+    fileName: 'crown-dark.webp',
   },
   {
-    fileName: 'crown-light-2.png',
+    fileName: 'crown-light-2.webp',
   },
   {
-    fileName: 'crown-light.png',
+    fileName: 'crown-light.webp',
   },
   {
-    fileName: 'lightbulb.png',
+    fileName: 'lightbulb.webp',
   },
   {
-    fileName: 'mountain.png',
+    fileName: 'mountain.webp',
   },
   {
-    fileName: 'numbat-dark.png',
+    fileName: 'numbat-dark.webp',
   },
   {
-    fileName: 'numbat-light.png',
+    fileName: 'numbat-light.webp',
   },
   {
-    fileName: 'numbat.png',
+    fileName: 'numbat.webp',
   },
   {
-    fileName: 'south-france.jpg',
+    fileName: 'south-france.webp',
   },
   {
-    fileName: 'valley.jpg',
+    fileName: 'valley.webp',
   },
 ]

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BgImage from '@/assets/img/wallpapers/image/wallpaper-custom.jpg'
+import BgImage from '@/assets/img/wallpapers/image/manguito-banner.webp'
 import AppIcon from '@/components/main-page-components/AppIcon.vue'
 import BlogPage from '@/components/main-page-components/BlogPage.vue'
 import Calculator from '@/components/main-page-components/Calculator.vue'

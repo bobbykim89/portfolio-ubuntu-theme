@@ -3,10 +3,6 @@ import type { FolderType } from '#shared/types'
 import { useFileManagerStore } from '~/stores'
 import Folder from './Folder.vue'
 
-defineProps<{
-  maximized: boolean
-}>()
-
 const fileManagerStore = useFileManagerStore()
 
 type HomeFoldersType = {
@@ -35,14 +31,7 @@ const folders: HomeFoldersType[] = [
 </script>
 
 <template>
-  <div
-    :class="[
-      maximized
-        ? 'md:grid-cols-4 lg:grid-cols-8'
-        : 'md:grid-cols-3 lg:grid-cols-5',
-      'p-xs gap-3 grid grid-cols-2 justify-items-center',
-    ]"
-  >
+  <div class="p-xs gap-3 flex flex-wrap content-start">
     <Folder
       v-for="(item, idx) in folders"
       :key="idx"
