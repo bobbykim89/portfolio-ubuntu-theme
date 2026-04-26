@@ -9,6 +9,7 @@ import {
   useBreakpoints,
   useDraggable,
   useEventListener,
+  useWindowSize,
 } from '@vueuse/core'
 
 const props = withDefaults(defineProps<AppContainerPropTypes>(), {
@@ -21,7 +22,6 @@ const props = withDefaults(defineProps<AppContainerPropTypes>(), {
   maximized: false,
   containerSize: '30',
   disableMaximize: false,
-  resizable: true,
 })
 
 const emit = defineEmits<{
@@ -31,10 +31,15 @@ const emit = defineEmits<{
   (e: 'set-active', active: boolean): void
 }>()
 
+const MAX_W_RATIO = 0.95
+const MIN_W = 300
+const MIN_H = 440
+
 const draggableRef = ref<HTMLDivElement>()
 const dragHandle = ref<HTMLDivElement>()
 const breakpoints = useBreakpoints({ mobile: 768 })
 const isMobile = breakpoints.smaller('mobile')
+const { width: windowWidth } = useWindowSize()
 
 // draggable
 const { x, y } = useDraggable(draggableRef, {
@@ -44,7 +49,9 @@ const { x, y } = useDraggable(draggableRef, {
 })
 
 // resizable
-const width = ref(props.initialWidth)
+const width = ref(
+  Math.min(props.initialWidth, Math.floor(windowWidth.value * MAX_W_RATIO)),
+)
 const height = ref(props.initialHeight)
 
 const isResizing = ref(false)
@@ -52,8 +59,6 @@ const resizeDir = ref<ResizeDirection>('se')
 const startPointer = ref({ x: 0, y: 0 })
 const startSize = ref({ w: 0, h: 0 })
 const startPos = ref({ x: 0, y: 0 })
-const MIN_W = 300
-const MIN_H = 440
 const resizeDirection: ResizeDirection[] = ['se', 'sw', 'ne', 'nw']
 
 const onResizeStart = (e: PointerEvent, dir: ResizeDirection) => {
@@ -66,35 +71,6 @@ const onResizeStart = (e: PointerEvent, dir: ResizeDirection) => {
   e.preventDefault()
   e.stopPropagation()
 }
-
-useEventListener('pointermove', (e: PointerEvent) => {
-  if (!isResizing.value || isMobile.value) return
-
-  const dx = e.clientX - startPointer.value.x
-  const dy = e.clientY - startPointer.value.y
-
-  // width
-  if (resizeDir.value.includes('e')) {
-    width.value = Math.max(MIN_W, startSize.value.w + dx)
-  } else if (resizeDir.value.includes('w')) {
-    const newW = Math.max(MIN_W, startSize.value.w - dx)
-    x.value = startPos.value.x + (startSize.value.w - newW)
-    width.value = newW
-  }
-
-  // height
-  if (resizeDir.value.includes('s')) {
-    height.value = Math.max(MIN_H, startSize.value.h + dy)
-  } else if (resizeDir.value.includes('n')) {
-    const newH = Math.max(MIN_H, startSize.value.h - dy)
-    y.value = startPos.value.y + (startSize.value.h - newH)
-    height.value = newH
-  }
-})
-
-useEventListener('pointerup', () => {
-  isResizing.value = false
-})
 
 const windowStyle = computed(() => {
   if (props.maximized) return {}
@@ -133,6 +109,36 @@ onClickOutside(draggableRef, () => {
   emit('set-active', false)
 })
 
+useEventListener('pointermove', (e: PointerEvent) => {
+  if (!isResizing.value || isMobile.value) return
+
+  const maxW = Math.floor(windowWidth.value * MAX_W_RATIO)
+  const dx = e.clientX - startPointer.value.x
+  const dy = e.clientY - startPointer.value.y
+
+  // width
+  if (resizeDir.value.includes('e')) {
+    width.value = Math.min(maxW, Math.max(MIN_W, startSize.value.w + dx))
+  } else if (resizeDir.value.includes('w')) {
+    const newW = Math.min(maxW, Math.max(MIN_W, startSize.value.w - dx))
+    x.value = startPos.value.x + (startSize.value.w - newW)
+    width.value = newW
+  }
+
+  // height
+  if (resizeDir.value.includes('s')) {
+    height.value = Math.max(MIN_H, startSize.value.h + dy)
+  } else if (resizeDir.value.includes('n')) {
+    const newH = Math.max(MIN_H, startSize.value.h - dy)
+    y.value = startPos.value.y + (startSize.value.h - newH)
+    height.value = newH
+  }
+})
+
+useEventListener('pointerup', () => {
+  isResizing.value = false
+})
+
 watch(
   () => [props.initialX, props.initialY],
   ([newX, newY]) => {
@@ -140,6 +146,13 @@ watch(
     y.value = newY!
   },
 )
+
+watch(windowWidth, (newW) => {
+  const maxW = Math.floor(newW * MAX_W_RATIO)
+  if (width.value > maxW) {
+    width.value = maxW
+  }
+})
 </script>
 
 <template>

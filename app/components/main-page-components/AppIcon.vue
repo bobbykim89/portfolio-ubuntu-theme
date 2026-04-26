@@ -63,7 +63,7 @@ const handleIconClick = (e: Event) => {
       v-if="isOpen"
       :class="[
         isActive ? 'bg-warning' : 'bg-light-1',
-        'absolute w-3xs h-3xs rounded-full top-1/2 left-[2px]',
+        'absolute w-3xs h-3xs rounded-full top-1/2 left-0.5',
       ]"
     ></div>
     <p v-if="displayText" class="text-light-1 text-sm text-wrap select-none">

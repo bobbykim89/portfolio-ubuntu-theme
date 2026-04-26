@@ -159,29 +159,29 @@ onClickOutside(draggableRef, () => {
         <button
           :class="[
             isRootDir ? 'bg-dark-3' : 'bg-dark-2',
-            'px-3xs py-[5px] rounded-l-md border-2 border-dark-4 h-full',
+            'px-3xs py-1.25 rounded-l-md border-2 border-dark-4 h-full',
           ]"
           :disabled="isRootDir"
           @click="fileManagerStore.onPrevClick"
           aria-label="previous"
         >
-          <ChevronLeft class="h-[18px]" :fontControlled="false" />
+          <ChevronLeft class="h-4.5" :fontControlled="false" />
         </button>
         <!-- next button -->
         <button
           :class="[
             currentLocationIdx > 1 ? 'bg-dark-2' : 'bg-dark-3',
-            'px-3xs py-[5px] rounded-r-md h-full border-y-2 border-r-2 border-dark-4',
+            'px-3xs py-1.25 rounded-r-md h-full border-y-2 border-r-2 border-dark-4',
           ]"
           :disabled="currentLocationIdx <= 1"
           @click="fileManagerStore.onNextClick"
           aria-label="next"
         >
-          <ChevronRight class="h-[18px]" :fontControlled="false" />
+          <ChevronRight class="h-4.5" :fontControlled="false" />
         </button>
       </div>
       <div
-        class="order-5 md:order-2 grow flex gap-2 justify-start items-center border-2 border-dark-4 h-md md:mr-3xl px-3xs py-[2px] bg-dark-2 rounded-md"
+        class="order-5 md:order-2 grow flex gap-2 justify-start items-center border-2 border-dark-4 h-md md:mr-3xl px-3xs py-0.5 bg-dark-2 rounded-md"
       >
         <component
           :is="fileManagerDirectory[currentSection].icon"
@@ -195,33 +195,33 @@ onClickOutside(draggableRef, () => {
         @click.stop
       >
         <button
-          class="rounded-full p-[2px] bg-dark-2"
+          class="rounded-full p-0.5 bg-dark-2"
           @click="minimizeFileManager"
           aria-label="minimize"
         >
           <MinimizeSvgIcon
-            class="aspect-square w-[14px]"
+            class="aspect-square w-3.5"
             :fontControlled="false"
           />
         </button>
         <button
-          class="rounded-full p-[2px] bg-dark-2"
+          class="rounded-full p-0.5 bg-dark-2"
           @click="fileManagerStore.setFileManagerMaximize"
           aria-label="maximize/restore-default"
         >
           <RestoreSvgIcon
             v-if="isMaximized"
-            class="aspect-square w-[14px]"
+            class="aspect-square w-3.5"
             :fontControlled="false"
           />
           <MaximizeSvgIcon
             v-else
-            class="aspect-square w-[14px]"
+            class="aspect-square w-3.5"
             :fontControlled="false"
           />
         </button>
         <button
-          class="rounded-full p-[2px] bg-dark-2"
+          class="rounded-full p-0.5 bg-dark-2"
           @click="closeFileManager"
           aria-label="close"
         >
