@@ -233,7 +233,7 @@ watch(windowWidth, (newW) => {
 const containerClass = computed(() => {
   return [
     isActive.value ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
-    isMaximized.value ? 'block' : 'md:fixed',
+    isMaximized.value ? 'absolute inset-0' : 'md:fixed',
     'md:rounded-lg overflow-hidden border-2 drop-shadow-md flex flex-col',
   ]
 })
@@ -252,6 +252,7 @@ const containerClass = computed(() => {
       ref="dragHandle"
       :class="[
         isActive ? 'bg-dark-3' : 'bg-dark-2',
+        isMobile ? 'cursor-default' : 'cursor-grab active:cursor-grabbing',
         'flex flex-wrap items-center gap-2 text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear ',
       ]"
     >

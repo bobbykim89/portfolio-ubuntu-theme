@@ -12,5 +12,5 @@
 }
 
 @theme {
-  --font-family-vt323: VT323;
+  --font-vt323: 'VT323', monospace;
 }

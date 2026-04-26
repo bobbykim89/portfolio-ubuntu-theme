@@ -62,25 +62,22 @@ const formatDate = (date: string): string => {
           ></MclInputText>
         </MclFormGroup>
       </div>
-      <div
-        :class="[
-          maximized
-            ? 'md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-            : 'lg:grid-cols-2',
-          'grid grid-cols-1  gap-6',
-        ]"
-      >
-        <BlogCard
-          v-for="(item, idx) in posts"
-          :key="idx"
-          :title="item.title"
-          :path="item.path"
-          :category="item.category"
-          :date="formatDate(item.date)"
-          @card-click="blogStore.setCurrentPath"
+      <div class="@container w-full h-full">
+        <div
+          class="grid grid-cols-1 @[425px]:grid-cols-2 @[650px]:grid-cols-3 @[950px]:grid-cols-4 gap-6"
         >
-          <div class="text-sm">{{ item.description }}</div>
-        </BlogCard>
+          <BlogCard
+            v-for="(item, idx) in posts"
+            :key="idx"
+            :title="item.title"
+            :path="item.path"
+            :category="item.category"
+            :date="formatDate(item.date)"
+            @card-click="blogStore.setCurrentPath"
+          >
+            <div class="text-sm">{{ item.description }}</div>
+          </BlogCard>
+        </div>
       </div>
     </div>
   </div>

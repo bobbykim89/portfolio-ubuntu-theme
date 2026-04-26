@@ -10,7 +10,7 @@ const props = withDefaults(
   {
     rounded: false,
     gradient: false,
-  }
+  },
 )
 
 const setBgVar = computed(() => {
@@ -27,7 +27,7 @@ const setBgVar = computed(() => {
   >
     <div
       v-if="gradient"
-      class="absolute inset-0 bg-gradient-to-b from-transparent from-50% to-dark-3"
+      class="absolute inset-0 bg-linear-to-b from-transparent from-50% to-dark-3"
     ></div>
     <div class="relative px-xs md:px-sm py-sm md:py-md">
       <slot />
