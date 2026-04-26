@@ -45,6 +45,8 @@ const setPdfReaderActive = (val: boolean) => {
     app-name="PDF Reader"
     :initial-x="initialX"
     :initial-y="initialY"
+    :initial-width="768"
+    :initial-height="800"
     :visible="isPdfVisible"
     :active="isPdfActive"
     :maximized="isPdfMaximized"
@@ -56,8 +58,8 @@ const setPdfReaderActive = (val: boolean) => {
   >
     <div
       :class="[
-        isPdfMaximized ? 'md:h-[calc(100vh-65px)]' : 'md:h-[80vh]',
-        'bg-dark-3 h-full md:h-96 text-light-1 pt-3xs pb-md md:pb-3xs px-xs md:px-lg relative',
+        isPdfMaximized && 'md:h-[calc(100vh-65px)]',
+        'bg-dark-3 h-full text-light-1 pt-3xs pb-md md:pb-3xs px-xs md:px-lg relative',
       ]"
     >
       <object :data="pdfUrl" type="application/pdf" width="100%" height="100%">

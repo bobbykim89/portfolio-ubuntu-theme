@@ -33,6 +33,8 @@ export type MainAppIconMap = {
 export type AppContainerPropTypes = {
   initialX: number
   initialY: number
+  initialWidth: number
+  initialHeight: number
   visible: boolean
   maximized?: boolean
   active: boolean
@@ -45,3 +47,5 @@ export type CoordinatesType = {
   x: number
   y: number
 }
+
+export type ResizeDirection = 'se' | 'sw' | 'ne' | 'nw'

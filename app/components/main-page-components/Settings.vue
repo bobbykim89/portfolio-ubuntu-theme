@@ -58,6 +58,8 @@ const formattedWpThumb = computed<WallpaperThumbType[]>(() => {
     app-name="Settings"
     :initial-x="initialX"
     :initial-y="initialY"
+    :initial-width="512"
+    :initial-height="660"
     :visible="isVisible"
     :active="isActive"
     container-size="30"
@@ -67,9 +69,9 @@ const formattedWpThumb = computed<WallpaperThumbType[]>(() => {
     @set-active="setSettingsActive"
   >
     <div
-      class="bg-dark-3 h-full md:h-[80vh] text-light-1 pt-3xs pb-lg md:pb-xs px-sm relative overflow-y-auto"
+      class="bg-dark-3 h-full text-light-1 pt-3xs pb-lg md:pb-xs px-sm relative overflow-y-auto"
     >
-      <div class="pt-sm">
+      <div class="py-sm">
         <h3 class="h3-md mb-sm">Change Wallpaper</h3>
         <div class="grid grid-cols-2 gap-4 place-items-center">
           <button

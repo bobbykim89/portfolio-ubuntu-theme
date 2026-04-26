@@ -62,6 +62,8 @@ const setMdReaderActive = (val: boolean) => {
     app-name="Document Reader"
     :initial-x="initialX"
     :initial-y="initialY"
+    :initial-width="480"
+    :initial-height="720"
     :visible="isMdVisible"
     :active="isMdActive"
     :maximized="isMdMaximized"
@@ -73,7 +75,7 @@ const setMdReaderActive = (val: boolean) => {
   >
     <div
       :class="[
-        isMdMaximized ? 'md:h-[calc(100vh-65px)]' : 'md:h-[80vh]',
+        isMdMaximized && 'md:h-[calc(100vh-65px)]',
         'bg-dark-3 h-full text-light-1 pt-3xs pb-xs md:pb-3xs px-sm relative overflow-y-auto',
       ]"
     >

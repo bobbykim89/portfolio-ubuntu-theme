@@ -26,7 +26,6 @@ const {
   isActive,
   isVisible,
   isMaximized,
-  imageIdx,
   isFirstImage,
   isLastImage,
 } = storeToRefs(pictureStore)
@@ -50,6 +49,8 @@ const setImageViewerActive = (val: boolean) => {
     app-name="Image Viewer"
     :initial-x="initialX"
     :initial-y="initialY"
+    :initial-width="512"
+    :initial-height="720"
     :visible="isVisible"
     :active="isActive"
     :maximized="isMaximized"
@@ -61,8 +62,8 @@ const setImageViewerActive = (val: boolean) => {
   >
     <div
       :class="[
-        isMaximized ? 'md:h-[calc(100vh-65px)]' : 'md:h-[80vh]',
-        'bg-dark-3 h-[90vh] md:h-96 text-light-1 py-3xs px-lg relative',
+        isMaximized && 'md:h-[calc(100vh-65px)]',
+        'bg-dark-3 h-full text-light-1 py-3xs px-lg relative',
       ]"
     >
       <button
