@@ -99,6 +99,8 @@ const calculate = () => {
     app-name="Calculator"
     :initial-x="initialX"
     :initial-y="initialY"
+    :initial-height="440"
+    :initial-width="300"
     :visible="isVisible"
     :active="isActive"
     :disable-maximize="true"

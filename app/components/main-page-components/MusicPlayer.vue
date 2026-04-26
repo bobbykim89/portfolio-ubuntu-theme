@@ -191,6 +191,8 @@ watch(
     app-name="Music Player"
     :initial-x="initialX"
     :initial-y="initialY"
+    :initial-width="512"
+    :initial-height="650"
     :visible="isVisible"
     :active="isActive"
     :disable-maximize="true"
@@ -200,7 +202,7 @@ watch(
     @set-active="setMusicPlayerActive"
   >
     <div
-      class="bg-dark-3 h-full md:h-[65vh] text-light-1 pt-3xs pb-sm md:pb-3xs px-xs lg:px-sm relative overflow-y-auto"
+      class="bg-dark-3 h-full text-light-1 py-3xs px-xs lg:px-sm relative overflow-y-auto"
       :style="currentMusicStatus"
     >
       <!-- music player -->
@@ -218,7 +220,7 @@ watch(
             class="flex gap-2 items-center relative before:absolute before:w-full before:h-3/5 before:bg-dark-3 before:rounded-2xl"
           >
             <!-- prev -->
-            <button @click="onPrevClick" class="relative ml-2xs md:ml-[12px]">
+            <button @click="onPrevClick" class="relative ml-2xs md:ml-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -262,7 +264,7 @@ watch(
               </svg>
             </button>
             <!-- next -->
-            <button @click="onNextClick" class="relative mr-2xs md:mr-[12px]">
+            <button @click="onNextClick" class="relative mr-2xs md:mr-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -281,12 +283,12 @@ watch(
           class="w-full col-span-3 bg-dark-3 rounded-md overflow-hidden music-progress relative before:bg-warning before:absolute before:left-0 before:h-full h-2xs"
         ></div>
         <div
-          class="w-full col-span-3 text-xs whitespace-pre-line break-words bg-dark-3 rounded-lg px-2xs py-3xs"
+          class="w-full col-span-3 text-xs whitespace-pre-line wrap-break-word bg-dark-3 rounded-lg px-2xs py-3xs"
           v-html="currentCopyText"
         ></div>
       </div>
       <!-- play-list -->
-      <div class="bg-dark-2 p-xs rounded-lg mb-sm">
+      <div class="bg-dark-2 p-xs rounded-lg">
         <PlayerListCards
           v-for="(card, idx) in playList"
           :key="idx"
