@@ -199,6 +199,7 @@ watch(windowWidth, (newW) => {
       ref="dragHandle"
       :class="[
         isActive ? 'bg-dark-3' : 'bg-dark-2',
+        isMobile ? 'cursor-default' : 'cursor-grab active:cursor-grabbing',
         'flex-none grid grid-cols-2 xl:grid-cols-3 text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
       ]"
     >

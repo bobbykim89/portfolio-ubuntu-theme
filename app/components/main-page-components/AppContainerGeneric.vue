@@ -83,15 +83,6 @@ const windowStyle = computed(() => {
   }
 })
 
-const containerClass = computed(() => {
-  const { active, maximized } = props
-  return [
-    active ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
-    maximized ? 'block' : 'md:fixed',
-    'md:rounded-lg overflow-hidden border-2 drop-shadow-md',
-  ]
-})
-
 const onClose = () => {
   emit('close-click')
 }
@@ -160,7 +151,11 @@ watch(windowWidth, (newW) => {
     v-if="visible"
     ref="draggableRef"
     :style="windowStyle"
-    :class="[containerClass, 'flex flex-col']"
+    :class="[
+      active ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
+      maximized ? 'absolute inset-0' : 'md:fixed',
+      'md:rounded-lg overflow-hidden border-2 drop-shadow-md flex flex-col',
+    ]"
     @click="onAppClick"
   >
     <!-- title bar -->
@@ -168,6 +163,7 @@ watch(windowWidth, (newW) => {
       ref="dragHandle"
       :class="[
         active ? 'bg-dark-3' : 'bg-dark-2',
+        isMobile ? 'cursor-default' : 'cursor-grab active:cursor-grabbing',
         'flex-none grid grid-cols-2 xl:grid-cols-3 content-center text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
       ]"
     >

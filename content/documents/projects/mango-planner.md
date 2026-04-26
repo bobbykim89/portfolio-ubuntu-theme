@@ -2,13 +2,13 @@
 title: 'Mango Planner'
 fileName: 'Mango Planner.md'
 type: 'js'
-image: '/content_img/about/manguito_small.jpg'
+imageUrl: '/content_img/about/manguito_small.jpg'
 gitUrl: 'https://github.com/bobbykim89/mango-planner-v2'
 gitUrlOld: 'https://github.com/bobbykim89/mango-planner'
 pageUrl: 'https://mango-planner.vercel.app/'
 ---
 
-::hero{:image-src="image" :rounded="false" :gradient="true"}
+::hero{:image-src="imageUrl" :rounded="false" :gradient="true"}
 
 ## Mango Planner
 

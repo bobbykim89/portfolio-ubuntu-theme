@@ -39,12 +39,13 @@ const emit = defineEmits<{
 }>()
 
 const initialText =
-  '##########################\n#&nbsp;Welcome to Terminal!&nbsp;&nbsp;&nbsp;#\n#&nbsp;Available commands are:&nbsp;&nbsp;#\n#&nbsp;cd, ls, clear, open .&nbsp;&nbsp;#\n#&nbsp;Thank you!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#\n##########################'
+  '##########################\n#&nbsp;Welcome to Terminal!&nbsp;&nbsp;&nbsp;#\n#&nbsp;Available commands are:#\n#&nbsp;cd, ls, clear, open .&nbsp;&nbsp;#\n#&nbsp;Thank you!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#\n##########################'
 
 const config = useRuntimeConfig()
 const draggableRef = ref<HTMLDivElement>()
 const dragHandle = ref<HTMLDivElement>()
 const textInput = ref<HTMLInputElement>()
+const terminalBody = ref<HTMLDivElement>()
 const textInputHistory = ref<string[]>([initialText])
 const breakpoints = useBreakpoints({ mobile: 768 })
 const isMobile = breakpoints.smaller('mobile')
@@ -131,6 +132,13 @@ const getTextInputHistory = computed(() => {
   return textInputHistory.value
 })
 
+const scrollToBottom = async () => {
+  await nextTick()
+  if (terminalBody.value) {
+    terminalBody.value.scrollTop = terminalBody.value.scrollHeight
+  }
+}
+
 const onEnterKeyDown = async () => {
   const firstTextLine = `${getUserName.value} ${inputText.value}`
   textInputHistory.value?.push(firstTextLine)
@@ -142,6 +150,7 @@ const onEnterKeyDown = async () => {
   }
   inputText.value = ''
   terminalStore.clearTerminalMsg()
+  await scrollToBottom()
 }
 
 onClickOutside(draggableRef, () => {
@@ -152,7 +161,7 @@ onClickOutside(draggableRef, () => {
 const containerClass = computed(() => {
   return [
     isActive.value ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
-    isMaximized.value ? 'block' : 'md:fixed',
+    isMaximized.value ? 'absolute inset-0' : 'md:fixed',
     'md:rounded-lg overflow-hidden border-2 drop-shadow-md',
   ]
 })
@@ -276,9 +285,9 @@ defineExpose<{
     </div>
     <!-- content section -->
     <div
+      ref="terminalBody"
       :class="[
-        isMaximized ? 'md:h-[calc(100vh-65px)]' : 'flex-1',
-        'min-h-0 relative text-light-1 p-3xs overflow-y-auto font-vt323 text-lg',
+        'flex-1 min-h-0 relative text-light-1 p-3xs overflow-y-auto font-vt323 text-lg whitespace-pre-line',
       ]"
       @keydown.enter="onEnterKeyDown"
     >
@@ -292,7 +301,7 @@ defineExpose<{
       </div>
       <p>
         {{ getUserName }} {{ inputText }}
-        <span class="bg-light-1 blink">&nbsp;&nbsp;</span>
+        <span class="bg-light-1 blink">&nbsp;</span>
       </p>
       <input
         ref="textInput"

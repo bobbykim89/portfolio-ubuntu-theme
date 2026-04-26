@@ -2,7 +2,7 @@ import { WallpaperDataType } from '#shared/types'
 
 export const wallpaperData: WallpaperDataType[] = [
   {
-    fileName: 'manguito-banner.webp',
+    fileName: 'manguito_purple.webp',
   },
   {
     fileName: 'clouds.webp',
