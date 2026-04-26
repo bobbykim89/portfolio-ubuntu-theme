@@ -148,6 +148,15 @@ onClickOutside(draggableRef, () => {
   terminalStore.setTerminalActive(false)
   emit('set-active', false)
 })
+
+const containerClass = computed(() => {
+  return [
+    isActive.value ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
+    isMaximized.value ? 'block' : 'md:fixed',
+    'md:rounded-lg overflow-hidden border-2 drop-shadow-md',
+  ]
+})
+
 useEventListener(textInput, 'input', () => {
   const inputLen = textInput.value!.value.length
   textInput.value?.setSelectionRange(inputLen, inputLen)
@@ -202,14 +211,6 @@ defineExpose<{
   focus: () => void
 }>({
   focus: terminalFocus,
-})
-
-const containerClass = computed(() => {
-  return [
-    isActive.value ? 'z-10 border-dark-3' : 'z-0 border-dark-2',
-    isMaximized.value ? 'block' : 'md:fixed',
-    'md:rounded-lg overflow-hidden border-2 drop-shadow-md',
-  ]
 })
 </script>
 
