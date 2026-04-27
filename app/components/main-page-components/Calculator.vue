@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { evaluate } from 'mathjs'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { useCalculatorStore } from '~/stores'
@@ -72,7 +73,7 @@ const onOperatorClick = (operator: string) => {
 }
 const calculate = () => {
   try {
-    let evaluatedResult = eval(
+    let evaluatedResult = evaluate(
       calcResult.value.replace(/(^|[^0-9])0+(\d+)/g, '$1$2'),
     )
     if (evaluatedResult === Infinity || evaluatedResult === -Infinity) {

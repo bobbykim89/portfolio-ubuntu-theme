@@ -32,6 +32,7 @@
     "@vite-pwa/nuxt": "^1.1.1",
     "@vueuse/core": "^14.2.1",
     "better-sqlite3": "^12.9.0",
+    "mathjs": "^15.2.0",
     "nodemailer": "^8.0.6",
     "nuxt": "^4.4.2",
     "nuxt-svgo": "^4.0.3",
