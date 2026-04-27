@@ -50,6 +50,11 @@ const textInputHistory = ref<string[]>([initialText])
 const breakpoints = useBreakpoints({ mobile: 768 })
 const isMobile = breakpoints.smaller('mobile')
 const { width: windowWidth } = useWindowSize()
+const cursorPos = ref<number>(0)
+
+const updateCursorPos = () => {
+  cursorPos.value = textInput.value?.selectionStart ?? inputText.value.length
+}
 
 const terminalStore = useTerminalStore()
 const {
@@ -132,6 +137,16 @@ const getTextInputHistory = computed(() => {
   return textInputHistory.value
 })
 
+const textBeforeCursor = computed(() =>
+  inputText.value.slice(0, cursorPos.value),
+)
+const textAtCursor = computed(
+  () => inputText.value[cursorPos.value] ?? '\u00A0',
+)
+const textAfterCursor = computed(() =>
+  inputText.value.slice(cursorPos.value + 1),
+)
+
 const scrollToBottom = async () => {
   await nextTick()
   if (terminalBody.value) {
@@ -149,6 +164,7 @@ const onEnterKeyDown = async () => {
     textInputHistory.value = []
   }
   inputText.value = ''
+  cursorPos.value = 0
   terminalStore.clearTerminalMsg()
   await scrollToBottom()
 }
@@ -164,11 +180,6 @@ const containerClass = computed(() => {
     isMaximized.value ? 'absolute inset-0' : 'md:fixed',
     'md:rounded-lg overflow-hidden border-2 drop-shadow-md',
   ]
-})
-
-useEventListener(textInput, 'input', () => {
-  const inputLen = textInput.value!.value.length
-  textInput.value?.setSelectionRange(inputLen, inputLen)
 })
 
 useEventListener('pointermove', (e: PointerEvent) => {
@@ -201,6 +212,11 @@ useEventListener('pointerup', () => {
   isResizing.value = false
 })
 
+useEventListener(textInput, 'input', updateCursorPos)
+useEventListener(textInput, 'keyup', updateCursorPos)
+useEventListener(textInput, 'click', updateCursorPos)
+useEventListener(textInput, 'selectionchange', updateCursorPos)
+
 watch(
   () => [props.initialX, props.initialY],
   ([newX, newY]) => {
@@ -228,11 +244,7 @@ defineExpose<{
     v-if="isVisible"
     ref="draggableRef"
     :style="windowStyle"
-    :class="[
-      containerClass,
-      'flex flex-col bg-primary',
-      // 'bg-primary md:rounded-lg overflow-hidden w-full border-2 drop-shadow-md',
-    ]"
+    :class="[containerClass, 'flex flex-col bg-primary']"
     @click="onTerminalClick"
   >
     <!-- title bar -->
@@ -240,6 +252,7 @@ defineExpose<{
       ref="dragHandle"
       :class="[
         isActive ? 'bg-dark-3' : 'bg-dark-2',
+        isMobile ? 'cursor-default' : 'cursor-grab active:cursor-grabbing',
         'flex-none grid grid-cols-2 xl:grid-cols-3 content-center text-light-1 px-2xs py-3xs transition-colors duration-150 ease-linear',
       ]"
     >
@@ -300,8 +313,9 @@ defineExpose<{
         ></p>
       </div>
       <p>
-        {{ getUserName }} {{ inputText }}
-        <span class="bg-light-1 blink">&nbsp;</span>
+        {{ getUserName }} {{ textBeforeCursor
+        }}<span class="bg-light-1 text-primary blink">{{ textAtCursor }}</span
+        >{{ textAfterCursor }}
       </p>
       <input
         ref="textInput"
@@ -333,7 +347,10 @@ defineExpose<{
   0% {
     opacity: 1;
   }
-  50% {
+  70% {
+    opacity: 1;
+  }
+  90% {
     opacity: 0;
   }
   100% {
@@ -344,7 +361,10 @@ defineExpose<{
   0% {
     opacity: 1;
   }
-  50% {
+  70% {
+    opacity: 1;
+  }
+  90% {
     opacity: 0;
   }
   100% {
@@ -352,6 +372,6 @@ defineExpose<{
   }
 }
 .blink {
-  animation: blink-animation 1s infinite;
+  animation: blink-animation 2s infinite;
 }
 </style>
