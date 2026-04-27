@@ -1,9 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import { defineNuxtConfig } from 'nuxt/config'
+
 export default defineNuxtConfig({
-  compatibilityDate: '2024-04-03',
+  future: {
+    compatibilityVersion: 4,
+  },
+  compatibilityDate: '2026-04-25',
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/tailwindcss',
     'nuxt-svgo',
     '@pinia/nuxt',
     '@nuxt/content',
@@ -62,13 +67,26 @@ export default defineNuxtConfig({
       userName: 'Manguito Lovebird',
       userTitle: 'Software Engineer in Phoenix, AZ',
       gitHubUrl: 'https://github.com/bobbykim89',
-      linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/',
+      linkedinUrl: 'https://www.linkedin.com/in/bobbykim89/',
       emailAddress: 'bobby.sihun.kim@gmail.com',
       audioExternalSrc: true,
       audioSrcBaseUrl: process.env.AUDIO_SOURCE_BASE_URL,
       imageSourceApiUrl: process.env.CLOUDINARY_API_URL,
     },
     photoApiUrl: process.env.PHOTO_API_URL,
+    mailerEmailAddress: process.env.MAILER_EMAIL_ADDRESS,
+    mailerAppPassword: process.env.MAILER_APP_PASSWORD,
+  },
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@vueuse/core',
+        '@bobbykim/manguito-theme',
+        '@bobbykim/manguito-theme/directives',
+        '@bobbykim/mcl-footer',
+        '@bobbykim/mcl-forms',
+      ],
+    },
   },
   typescript: {
     typeCheck: true,
@@ -82,13 +100,21 @@ export default defineNuxtConfig({
       },
     },
   },
-  tailwindcss: {
-    configPath: 'tailwind.config.ts',
-    cssPath: '~/assets/css/tailwind.css',
-    exposeConfig: false,
-    viewer: true,
+  content: {
+    build: {
+      markdown: {
+        highlight: {
+          theme: 'github-dark',
+        },
+      },
+    },
   },
-  css: ['~/assets/css/page_transition.css'],
+  css: ['~/assets/css/page_transition.css', '~/assets/css/styles.css'],
+  postcss: {
+    plugins: {
+      '@tailwindcss/postcss': {},
+    },
+  },
   image: {
     cloudinary: {
       baseURL: process.env.CLOUDINARY_API_URL,
