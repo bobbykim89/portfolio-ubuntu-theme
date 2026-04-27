@@ -100,6 +100,15 @@ export default defineNuxtConfig({
       },
     },
   },
+  content: {
+    build: {
+      markdown: {
+        highlight: {
+          theme: 'github-dark',
+        },
+      },
+    },
+  },
   css: ['~/assets/css/page_transition.css', '~/assets/css/styles.css'],
   postcss: {
     plugins: {

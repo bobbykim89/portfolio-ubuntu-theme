@@ -82,6 +82,8 @@ runtimeConfig: {
     imageSourceApiUrl: process.env.CLOUDINARY_API_URL, // source api url for images (i.e. cloudinary)
   },
   photoApiUrl: process.env.PHOTO_API_URL, // photo api url
+  mailerEmailAddress: process.env.MAILER_EMAIL_ADDRESS, // gmail address used for mailer
+  mailerAppPassword: process.env.MAILER_APP_PASSWORD // mailer app password you can get from google
 },
 ```
 
@@ -91,16 +93,19 @@ runtimeConfig: {
 // /assets/data/wallpapers.data.ts
 export const wallpaperData: WallpaperDataType[] = [
   {
-    fileName: 'wallpaper-custom.jpg',
+    fileName: 'manguito_purple.webp',
   },
   {
-    fileName: 'clouds.jpg',
+    fileName: 'clouds.webp',
   },
   {
-    fileName: 'crown-dark-2.png',
+    fileName: 'crown-dark-2.webp',
   },
   {
-    fileName: 'crown-dark.png',
+    fileName: 'crown-dark.webp',
+  },
+  {
+    fileName: 'crown-light-2.webp',
   },
   ...
 ]

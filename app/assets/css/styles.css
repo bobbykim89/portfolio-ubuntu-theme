@@ -14,3 +14,7 @@
 @theme {
   --font-vt323: 'VT323', monospace;
 }
+
+.markdown-body pre {
+  @apply bg-dark-2 px-xs py-sm rounded-lg my-md overflow-x-auto whitespace-pre-wrap wrap-break-word;
+}

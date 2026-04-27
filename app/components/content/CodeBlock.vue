@@ -7,7 +7,7 @@ const props = withDefaults(
   {
     type: '',
     path: '',
-  }
+  },
 )
 </script>
 

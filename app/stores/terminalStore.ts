@@ -76,7 +76,7 @@ export const useTerminalStore = defineStore('terminal', () => {
     terminalMessage.value = `cd: no such file or directory: ${path}`
   }
   const onCd = (path: PossibleInputOptionsType) => {
-    if (path === undefined) {
+    if (!path) {
       return
     }
     if (!possibleInputOptions.includes(path)) {
@@ -88,71 +88,107 @@ export const useTerminalStore = defineStore('terminal', () => {
       return
     }
     if (path === '..') {
-      if (
-        currentPath.value === 'documents/about' ||
-        currentPath.value === 'documents/projects' ||
-        currentPath.value === 'documents/skills'
-      ) {
-        currentPath.value = 'documents'
-        return
+      const parentMap: Partial<Record<PossiblePathsType, PossiblePathsType>> = {
+        'documents/about': 'documents',
+        'documents/projects': 'documents',
+        'documents/skills': 'documents',
+        documents: 'home',
+        music: 'home',
+        pictures: 'home',
+        trash: 'home',
       }
-      if (
-        currentPath.value === 'documents' ||
-        currentPath.value === 'music' ||
-        currentPath.value === 'pictures'
-      ) {
-        currentPath.value = 'home'
-        return
-      }
+      currentPath.value = parentMap[currentPath.value] ?? currentPath.value
+      return
     }
-    if (
-      path === 'documents' ||
-      path === 'music' ||
-      path === 'pictures' ||
-      path === 'trash'
-    ) {
-      if (currentPath.value !== 'home') {
-        cdErrorMessage(path)
-        return
-      }
-      if (currentPath.value === 'home') {
-        currentPath.value = path
-        return
-      }
+    // valid transitions: which paths are reachable from which parent
+    const validTransitions: Partial<
+      Record<PossiblePathsType, PossibleInputOptionsType[]>
+    > = {
+      home: [
+        'documents',
+        'music',
+        'pictures',
+        'trash',
+        'documents/about',
+        'documents/projects',
+        'documents/skills',
+      ],
+      documents: ['about', 'projects', 'skills'],
     }
-    if (
-      path === 'documents/about' ||
-      path === 'documents/projects' ||
-      path === 'documents/skills'
-    ) {
-      if (currentPath.value !== 'home') {
-        cdErrorMessage(path)
-        return
-      }
-      if (currentPath.value === 'home') {
-        currentPath.value = path
-        return
-      }
+
+    const allowed = validTransitions[currentPath.value] ?? []
+    if (!allowed.includes(path)) {
+      cdErrorMessage(path)
+      return
     }
-    if (path === 'projects' || path === 'about' || path === 'skills') {
-      if (currentPath.value !== 'documents') {
-        cdErrorMessage(path)
-        return
-      }
-      if (currentPath.value === 'documents') {
-        currentPath.value = documentSubDirectoryFullPath[path]
-        return
-      }
-    }
+    currentPath.value =
+      documentSubDirectoryFullPath[path as DocumentsSubdirectoryTypes] ??
+      (path as PossiblePathsType)
+    // if (path === '..') {
+    //   if (
+    //     currentPath.value === 'documents/about' ||
+    //     currentPath.value === 'documents/projects' ||
+    //     currentPath.value === 'documents/skills'
+    //   ) {
+    //     currentPath.value = 'documents'
+    //     return
+    //   }
+    //   if (
+    //     currentPath.value === 'documents' ||
+    //     currentPath.value === 'music' ||
+    //     currentPath.value === 'pictures'
+    //   ) {
+    //     currentPath.value = 'home'
+    //     return
+    //   }
+    // }
+    // if (
+    //   path === 'documents' ||
+    //   path === 'music' ||
+    //   path === 'pictures' ||
+    //   path === 'trash'
+    // ) {
+    //   if (currentPath.value !== 'home') {
+    //     cdErrorMessage(path)
+    //     return
+    //   }
+    //   if (currentPath.value === 'home') {
+    //     currentPath.value = path
+    //     return
+    //   }
+    // }
+    // if (
+    //   path === 'documents/about' ||
+    //   path === 'documents/projects' ||
+    //   path === 'documents/skills'
+    // ) {
+    //   if (currentPath.value !== 'home') {
+    //     cdErrorMessage(path)
+    //     return
+    //   }
+    //   if (currentPath.value === 'home') {
+    //     currentPath.value = path
+    //     return
+    //   }
+    // }
+    // if (path === 'projects' || path === 'about' || path === 'skills') {
+    //   if (currentPath.value !== 'documents') {
+    //     cdErrorMessage(path)
+    //     return
+    //   }
+    //   if (currentPath.value === 'documents') {
+    //     currentPath.value = documentSubDirectoryFullPath[path]
+    //     return
+    //   }
+    // }
   }
   const formatImgData = () => {
     const { imageData } = storeToRefs(picturestore)
     return imageData.value.map((item) => item.fileName).join('\n')
   }
   const formatFilesData = async () => {
-    // const res = await queryContent(currentPath.value).sort({ order: 1 }).find()
     const res = await queryCollection('pages')
-      .where('path', 'LIKE', `${currentPath.value}`)
+      .where('path', 'LIKE', `/${currentPath.value}%`)
       .order('order', 'ASC')
       .all()
     return res.length > 0 ? res.map((item) => item.fileName).join('\n') : ''
@@ -161,38 +197,60 @@ export const useTerminalStore = defineStore('terminal', () => {
     return musicPlayerData.map((item) => item.filename + '.mp3').join('\n')
   }
   const listDirectoryContents = async () => {
-    const pathContent: Record<PossiblePathsType, string> = {
+    const staticPaths: Partial<Record<PossiblePathsType, string>> = {
       home: 'Documents\nMusic\nPictures',
       documents: 'About\nProjects\nSkills',
       pictures: formatImgData(),
       music: formatMusicPlayerFilesData(),
-      'documents/about': await formatFilesData(),
-      'documents/projects': await formatFilesData(),
-      'documents/skills': await formatFilesData(),
       trash: '',
     }
+    const dynamicPaths: PossiblePathsType[] = [
+      'documents/about',
+      'documents/projects',
+      'documents/skills',
+    ]
 
-    terminalMessage.value = pathContent[currentPath.value] || ''
+    if (currentPath.value in staticPaths) {
+      terminalMessage.value = staticPaths[currentPath.value] ?? ''
+      return
+    }
+
+    if (dynamicPaths.includes(currentPath.value)) {
+      terminalMessage.value = await formatFilesData()
+      return
+    }
+    terminalMessage.value = ''
   }
 
   const onOpen = (arg: string) => {
     if (arg === '.') {
       appStore.setFileManagerOpenFromTerminal(currentPath.value)
+      return
     }
+    if (possibleInputOptions.includes(arg as PossibleInputOptionsType)) {
+      appStore.setFileManagerOpenFromTerminal(arg as PossiblePathsType)
+      return
+    }
+    terminalMessage.value = `open: no such file or directory: ${arg}`
   }
   const onTerminalEnter = async () => {
-    const [command, arg] = inputText.value.toLowerCase().split(' ')
+    const [command, arg = ''] = inputText.value.toLowerCase().split(' ')
 
     if (!command) return
 
+    const normalizedArg = normalizePath(arg)
+
     const commands: Record<string, Function> = {
-      cd: () => onCd(arg as PossibleInputOptionsType),
+      cd: () => onCd(normalizedArg as PossibleInputOptionsType),
       ls: listDirectoryContents,
       clear: () => (terminalMessage.value = ''),
-      open: () => onOpen(arg ?? ''),
+      open: () => onOpen(normalizedArg ?? ''),
     }
 
     await commands[command]?.()
+  }
+  const normalizePath = (path: string): string => {
+    return path.replace(/^\.\//, '')
   }
   const clearTerminalMsg = () => {
     terminalMessage.value = ''

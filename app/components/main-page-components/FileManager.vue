@@ -375,5 +375,3 @@ const containerClass = computed(() => {
     </template>
   </div>
 </template>
-
-<style scoped></style>

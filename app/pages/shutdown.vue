@@ -54,17 +54,14 @@ const onFormSubmit = async () => {
     },
   })
   if (res.ok) {
-    console.info('Successfully sent email.')
+    console.info(`[${res.status_code}] ${res.message}`)
   }
-  console.log({
-    email: contactEmailRef.value,
-    subject: contactTitleRef.value,
-    text: contactTextRef.value,
-  })
+
   contactStatus.value = 1
   contactEmailRef.value = ''
   contactTitleRef.value = ''
   contactTextRef.value = ''
+
   setTimeout(() => {
     modalRef.value?.close()
     contactStatus.value = 0
@@ -230,5 +227,3 @@ setTimeout(() => {
     </Modal>
   </div>
 </template>
-
-<style scoped></style>
