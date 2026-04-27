@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+@import '@bobbykim/manguito-theme/mcl-theme-v4.css';
+@source "../../../node_modules/@bobbykim";
+
+:root {
+  --mcl-primary: #380c2a;
+  --mcl-info: #14532d;
+  --mcl-warning: #e95420;
+  --mcl-dark-2: #383838;
+  --mcl-dark-3: #1d1d1d;
+  --mcl-dark-4: #222222;
+}
+
+@theme {
+  --font-vt323: 'VT323', monospace;
+}
+
+.markdown-body pre {
+  @apply bg-dark-2 px-xs py-sm rounded-lg my-md overflow-x-auto whitespace-pre-wrap wrap-break-word;
+}

@@ -2,12 +2,12 @@
 title: 'Cookbook'
 fileName: 'Cookbook.md'
 type: 'js'
-image: '/content_img/about/manguito_small.jpg'
+imageUrl: '/content_img/about/manguito_small.jpg'
 gitUrl: 'https://github.com/bobbykim89/poc-cookbook-frontend'
 pageUrl: 'https://cookbook-4-all.vercel.app/'
 ---
 
-::hero{:image-src="image" :rounded="true" :gradient="false"}
+::hero{:image-src="imageUrl" :rounded="true" :gradient="false"}
 
 ## Cookbook
 

@@ -2,12 +2,12 @@
 title: 'Manguito Page'
 fileName: 'Manguito Page.md'
 type: 'js'
-image: '/content_img/about/manguito_small.jpg'
+imageUrl: '/content_img/about/manguito_small.jpg'
 gitUrl: 'https://github.com/bobbykim89/manguito-page-v2'
 pageUrl: 'https://manguito-page.vercel.app/'
 ---
 
-::hero{:image-src="image" :rounded="false" :gradient="false"}
+::hero{:image-src="imageUrl" :rounded="false" :gradient="false"}
 
 ## Manguito Page
 
