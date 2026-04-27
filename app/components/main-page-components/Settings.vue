@@ -91,5 +91,3 @@ const formattedWpThumb = computed<WallpaperThumbType[]>(() => {
     </div>
   </AppContainerGeneric>
 </template>
-
-<style scoped></style>

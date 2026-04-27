@@ -126,5 +126,3 @@ const handleCardClick = (path: string) => {
     </div>
   </div>
 </template>
-
-<style scoped></style>

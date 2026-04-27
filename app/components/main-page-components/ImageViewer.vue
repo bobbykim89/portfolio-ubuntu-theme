@@ -95,5 +95,3 @@ const setImageViewerActive = (val: boolean) => {
     </div>
   </AppContainerGeneric>
 </template>
-
-<style scoped></style>

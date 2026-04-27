@@ -11,15 +11,10 @@ const route = useRoute()
 const config = useRuntimeConfig()
 const url = useRequestURL()
 
-const { data: post } = await useAsyncData(
-  'post-data',
-  () =>
-    queryCollection('blog')
-      .where('path', '=', `/blog/${route.params.slug}`)
-      .first(),
-  // queryContent()
-  //   .where({ _path: `/blog/${route.params.slug}` })
-  //   .findOne()
+const { data: post } = await useAsyncData('post-data', () =>
+  queryCollection('blog')
+    .where('path', '=', `/blog/${route.params.slug}`)
+    .first(),
 )
 
 useHead({
@@ -42,9 +37,9 @@ useHead({
 
 <template>
   <div class="container pb-md px-xs md:px-md lg:px-lg">
-    <ContentRenderer v-if="post" :value="post">
-      <!-- <ContentRendererMarkdown :value="post"></ContentRendererMarkdown> -->
-    </ContentRenderer>
+    <div class="markdown-body">
+      <ContentRenderer v-if="post" :value="post"></ContentRenderer>
+    </div>
     <div class="flex justify-start items-center">
       <NuxtLink
         to="/blog"

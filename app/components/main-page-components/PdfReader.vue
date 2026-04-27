@@ -80,5 +80,3 @@ const setPdfReaderActive = (val: boolean) => {
     </div>
   </AppContainerGeneric>
 </template>
-
-<style lang="scss" scoped></style>
