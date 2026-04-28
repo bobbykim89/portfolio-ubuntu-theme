@@ -22,9 +22,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@bobbykim/manguito-theme": "^0.28.2",
-    "@bobbykim/mcl-footer": "0.9.8",
-    "@bobbykim/mcl-forms": "^0.9.9",
+    "@bobbykim/manguito-theme": "^0.28.3",
+    "@bobbykim/mcl-footer": "0.9.9",
+    "@bobbykim/mcl-forms": "^0.9.10",
     "@nuxt/content": "^3.13.0",
     "@nuxt/fonts": "0.14.0",
     "@nuxt/image": "^2.0.0",

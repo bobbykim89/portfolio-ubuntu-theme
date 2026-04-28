@@ -2,27 +2,39 @@
 title: 'Manguito Component Library (MCL)'
 fileName: 'MCL.md'
 type: 'js'
-image: '/content_img/about/manguito_small.jpg'
+imageUrl: '/content_img/projects/mcl.webp'
 gitUrl: 'https://github.com/bobbykim89/manguito-component-library'
 pageUrl: 'https://manguito-component-library.vercel.app'
 ---
 
-::hero{:image-src="image" :rounded="true" :gradient="true"}
+::hero{:image-src="imageUrl" :rounded="true" :gradient="true" alt="manguito component library logo"}
 
 ## Manguito Component Library (MCL)
 
 ::
 
-::text-box{title="Tech Stacks" :display-border="false" :rounded="true" border-color="light-1"}
+::abstract
 
-- Vue
-- Vite
-- Lerna
-- TailwindCSS
+Reusable design system used for rapid prototyping foundation for multiple POC projects.
 
 ::
 
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa voluptatibus nam facilis nisi, alias quae aliquid quam nobis, dolor cumque tenetur adipisci eos tempore reprehenderit dolores molestias quisquam! Hic, dignissimos. Aut veniam molestias architecto quia rerum nihil sapiente a ab voluptates blanditiis inventore cum tempora, eveniet ipsa in id aliquam.
+::text-box{title="Tech Stacks" :display-border="false" :rounded="true" border-color="light-1"}
+
+<div class="grid grid-cols-2 gap-1">
+<p>Vue</p>
+<p>Vite</p>
+<p>Lerna</p>
+<p>TailwindCSS</p>
+<p>Storybook</p>
+<p>Vueuse</p>
+</div>
+
+::
+
+- Built modular component architecture supporting SSR environments such as Nuxt.
+- Designed scalable theming system using Tailwind-based design tokens.
+- Published reusable packages to npm and documented components with Storybook.
 
 ::flex-container
 

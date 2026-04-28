@@ -6,6 +6,7 @@ const props = withDefaults(
     imageSrc: string
     rounded?: boolean
     gradient?: boolean
+    alt: string
   }>(),
   {
     rounded: false,
@@ -21,6 +22,7 @@ const setBgVar = computed(() => {
 
 <template>
   <div
+    :aria-label="alt"
     class="relative bg-image bg-cover bg-no-repeat bg-center h-[30vh] md:h-64 flex flex-col justify-end items-start mb-md overflow-hidden"
     :class="{ 'rounded-b-xl': rounded }"
     :style="setBgVar"
