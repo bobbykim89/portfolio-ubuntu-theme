@@ -1,6 +1,6 @@
 ---
 title: 'Mango Planner'
-fileName: 'Mango Planner.md'
+fileName: 'mango planner.ts'
 type: 'js'
 imageUrl: '/content_img/projects/mango_planner.webp'
 githubUrl: 'https://github.com/bobbykim89/mango-planner-v2'
@@ -23,10 +23,15 @@ Productivity app designed around real-world user feedback and offline reliabilit
 ::text-box{title="Tech Stacks" :display-border="false" :rounded="true" border-color="light-1"}
 
 <div class="grid grid-cols-2 gap-1">
-<p>Vue</p>
+<p>Vue 3</p>
 <p>Nuxt</p>
+<p>Typescript</p>
 <p>MongoDB</p>
+<p>Mongoose</p>
 <p>TailwindCSS</p>
+<p>JWT</p>
+<p>Bcrypt</p>
+<p>Cloudinary</p>
 <p>Workbox</p>
 </div>
 
