@@ -1,6 +1,6 @@
 ---
 title: 'Manguito Component Library (MCL)'
-fileName: 'MCL.md'
+fileName: 'mcl.ts'
 type: 'js'
 imageUrl: '/content_img/projects/mcl.webp'
 gitUrl: 'https://github.com/bobbykim89/manguito-component-library'

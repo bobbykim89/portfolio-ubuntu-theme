@@ -57,7 +57,7 @@ const progressWtsVar = computed(() => {
       ]"
     >
       <button
-        class="pl-2xs py-2xs pr-md rounded-lg flex items-center gap-xs hover:bg-dark-2 duration-200 ease-linear transition-colors"
+        class="pl-2xs py-2xs pr-md rounded-lg flex items-center gap-xs hover:bg-dark-2 duration-200 ease-linear transition-colors cursor-pointer"
         @click="router.push({ path: '/main' })"
       >
         <img
