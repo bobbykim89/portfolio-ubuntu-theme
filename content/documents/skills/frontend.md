@@ -14,7 +14,7 @@ emailAddress: 'bobby.sihun.kim@gmail.com'
 
 ::
 
-::skill-block{:icons='["nuxt", "vue", "react", "svelte", "astro", "pinia", "redux", "sass", "tailwindcss", "bootstrap"]'}
+::skill-block{:icons='["nuxt", "vue", "react", "svelte", "astro", "pinia", "sass", "tailwindcss", "bootstrap"]'}
 ::
 
 ::contact-buttons{:github-url="githubUrl" :linkedinUrl="linkedinUrl" :email-address="emailAddress"}

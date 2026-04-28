@@ -76,11 +76,10 @@ const setMdReaderActive = (val: boolean) => {
     <div
       :class="[
         isMdMaximized && 'md:h-[calc(100vh-65px)]',
-        'bg-dark-3 h-full text-light-1 pt-3xs pb-xs md:pb-3xs px-sm relative overflow-y-auto',
+        'bg-dark-3 h-full text-light-1 pt-3xs pb-xs md:pb-3xs px-sm relative overflow-y-auto markdown-body',
       ]"
     >
       <ContentRenderer v-if="data?.path === currentMdPath" :value="data">
-        <!-- <ContentRendererMarkdown :value="data"></ContentRendererMarkdown> -->
       </ContentRenderer>
     </div>
   </AppContainerGeneric>
