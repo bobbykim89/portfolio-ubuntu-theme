@@ -19,20 +19,19 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
-      title: 'Manguito OS',
+      title: 'SihunKim OS',
       htmlAttrs: {
         lang: 'en',
       },
       meta: [
         {
           name: 'description',
-          content:
-            'A portfolio template designed with inspiration from Ubuntu, particularly based on the style and features of Ubuntu 22.04.',
+          content: 'A portfolio page of Sihun Kim a Sr. Software Engineer',
         },
         { property: 'og:type', content: 'website' },
         {
           property: 'og:title',
-          content: 'Manguito OS',
+          content: 'SihunKim OS',
         },
         {
           property: 'og:image',
@@ -45,12 +44,11 @@ export default defineNuxtConfig({
         },
         {
           name: 'twitter:title',
-          content: 'Manguito OS',
+          content: 'SihunKim OS',
         },
         {
           name: 'twitter:description',
-          content:
-            'A portfolio template designed with inspiration from Ubuntu, particularly based on the style and features of Ubuntu 22.04.',
+          content: 'A portfolio page of Sihun Kim a Sr. Software Engineer',
         },
         {
           name: 'twitter:image',
@@ -63,9 +61,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      siteName: 'ManguitoOS',
-      userName: 'Manguito Lovebird',
-      userTitle: 'Software Engineer in Phoenix, AZ',
+      siteName: 'SihunKim OS',
+      userName: 'Sihun Kim',
+      userTitle: 'Sr. Software Engineer in Phoenix, AZ',
       gitHubUrl: 'https://github.com/bobbykim89',
       linkedinUrl: 'https://www.linkedin.com/in/bobbykim89/',
       emailAddress: 'bobby.sihun.kim@gmail.com',

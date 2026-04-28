@@ -80,22 +80,37 @@ const playMusic = () => {
   musicPlayer.value?.play()
   musicPlayerStore.setPlay(true)
 }
+const safePlay = async () => {
+  try {
+    await musicPlayer.value?.play()
+  } catch (e) {
+    // AbortError is expected during track transitions, ignore it
+    if (e instanceof DOMException && e.name === 'AbortError') return
+    throw e
+  }
+}
 const pauseMusic = () => {
   musicPlayer.value?.pause()
   musicPlayerStore.setPlay(false)
 }
 const onNextClick = () => {
   musicPlayerStore.setNextMusic()
-  musicPlayer.value?.pause()
+  if (!musicPlayer.value?.paused) {
+    musicPlayer.value?.pause()
+  }
   if (isMusicPlaying.value === true) {
-    musicPlayer.value?.play()
+    // musicPlayer.value?.play()
+    safePlay()
   }
 }
 const onPrevClick = () => {
   musicPlayerStore.setPrevMusic()
-  musicPlayer.value?.pause()
+  if (!musicPlayer.value?.paused) {
+    musicPlayer.value?.pause()
+  }
   if (isMusicPlaying.value === true) {
-    musicPlayer.value?.play()
+    // musicPlayer.value?.play()
+    safePlay()
   }
 }
 const onPlayButtonClick = () => {
@@ -119,7 +134,8 @@ const setMusicPlayerActive = (val: boolean) => {
 const onPlayListClick = (track: number) => {
   musicPlayerStore.setCurrentTrackNumber(track)
   musicPlayerStore.setPlay(true)
-  musicPlayer.value?.play()
+  // musicPlayer.value?.play()
+  safePlay()
 }
 
 const currentMusicStatus = computed(() => {
@@ -135,7 +151,11 @@ const currentMusicStatus = computed(() => {
 })
 
 useEventListener(musicPlayer, 'ended', () => {
-  onNextClick()
+  // onNextClick()
+  musicPlayerStore.setNextMusic()
+  setTimeout(() => {
+    safePlay()
+  }, 50)
 })
 useEventListener(musicPlayer, 'timeupdate', () => {
   currentMusicTime.value = musicPlayer.value?.currentTime
@@ -148,22 +168,7 @@ onMounted(() => {
   musicPlayer.value = new Audio()
   setCurrentMusic()
 })
-// watch(musicVolume, (newVal) => {
-//   if (typeof musicPlayer.value !== 'undefined') {
-//     musicPlayer.value.volume = newVal / 100
-//   }
-// })
-// watch(currentTrackNumber, () => {
-//   setCurrentMusic()
-//   if (isMusicPlaying.value === true) {
-//     musicPlayer.value?.play()
-//   }
-// })
-// watch(isMusicPlaying, (newVal) => {
-//   if (newVal === false) {
-//     musicPlayer.value?.pause()
-//   }
-// })
+
 watch(
   [musicVolume, currentTrackNumber, isMusicPlaying],
   (
@@ -176,7 +181,8 @@ watch(
     if (newTrackNumber !== oldTrackNumber) {
       setCurrentMusic()
       if (isMusicPlaying.value === true) {
-        musicPlayer.value?.play()
+        // musicPlayer.value?.play()
+        safePlay()
       }
     }
     if (newMusicPlaying === false) {
@@ -220,7 +226,11 @@ watch(
             class="flex gap-2 items-center relative before:absolute before:w-full before:h-3/5 before:bg-dark-3 before:rounded-2xl"
           >
             <!-- prev -->
-            <button @click="onPrevClick" class="relative ml-2xs md:ml-3">
+            <button
+              @click="onPrevClick"
+              class="relative ml-2xs md:ml-3 cursor-pointer"
+              aria-label="previous-track"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -236,7 +246,8 @@ watch(
             <!-- play/pause -->
             <button
               @click="onPlayButtonClick"
-              class="relative p-2xs md:p-xs rounded-full border-2 border-dark-2 bg-dark-3"
+              class="relative p-2xs md:p-xs rounded-full border-2 border-dark-2 bg-dark-3 cursor-pointer"
+              aria-label="play/pause"
             >
               <svg
                 v-if="isMusicPlaying"
@@ -264,7 +275,11 @@ watch(
               </svg>
             </button>
             <!-- next -->
-            <button @click="onNextClick" class="relative mr-2xs md:mr-3">
+            <button
+              @click="onNextClick"
+              class="relative mr-2xs md:mr-3 cursor-pointer"
+              aria-label="next-track"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"

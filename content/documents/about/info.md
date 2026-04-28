@@ -11,19 +11,23 @@ emailAddress: 'bobby.sihun.kim@gmail.com'
 
 ::info-header{:image-url="imageUrl" image-alt="a cute bird perching on a tree"}
 
-## About Manguito
+## Sihun Kim
 
 ::
 
 ::abstract
 
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa voluptatibus nam facilis nisi, alias quae aliquid quam nobis, dolor cumque tenetur adipisci eos tempore reprehenderit dolores molestias quisquam!
+Sr. Software Engineer | Full-Stack Developer | Frontend Platform | Building Scalable & AI-Integrated Systems
 
 ::
 
-### Info page
+### About Me
 
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa voluptatibus nam facilis nisi, alias quae aliquid quam nobis, dolor cumque tenetur adipisci eos tempore reprehenderit dolores molestias quisquam! Hic, dignissimos. Aut veniam molestias architecto quia rerum nihil sapiente a ab voluptates blanditiis inventore cum tempora, eveniet ipsa in id aliquam.
+Hi, I'm Sihun, a senior software engineer with 5+ years of experience building frontend platforms and the data layers that power them. I specialize in Vue/Nuxt and TypeScript, with a strong focus on SSR/SSG architecture, GraphQL API design, and headless CMS integration at scale.
+<br/><br />
+I genuinely enjoy work that sits at the intersection of architecture and developer experience. Designing systems that are clean to build on, reliable to run, and easy for teams to grow with is kind of my thing. Lately I've been diving deeper into vector search and RAG pipelines, which has been equal parts exciting and humbling.
+<br /><br />
+Outside of work, I'm a history nerd, a foodie, a devoted bird enthusiast, and a lifelong gamer. I also have a soft spot for a good (or terrible) joke. If you've poked around any of my projects, you might have spotted a little bird recurring here and there. That's Manguito, a peachfaced lovebird, and my unofficial signature on everything I ship.
 
 ::contact-buttons{:github-url="githubUrl" :linkedinUrl="linkedinUrl" :email-address="emailAddress"}
 
