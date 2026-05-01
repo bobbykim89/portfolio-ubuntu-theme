@@ -4,7 +4,7 @@ order: 5
 fileName: 'Language.md'
 type: 'md'
 githubUrl: 'https://github.com/bobbykim89'
-linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'
+linkedinUrl: 'https://www.linkedin.com/in/bobbykim89/'
 emailAddress: 'bobby.sihun.kim@gmail.com'
 ---
 
@@ -14,7 +14,7 @@ emailAddress: 'bobby.sihun.kim@gmail.com'
 
 ::
 
-::skill-block{:icons='["typescript", "javascript", "python", "csharp", "html", "css", "rust", "matlab"]'}
+::skill-block{:icons='["typescript", "javascript", "python", "html", "css", "csharp", "matlab"]'}
 ::
 
 ::contact-buttons{:github-url="githubUrl" :linkedinUrl="linkedinUrl" :email-address="emailAddress"}

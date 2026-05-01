@@ -1,42 +1,58 @@
 ---
 title: 'Mango Planner'
-fileName: 'Mango Planner.md'
+fileName: 'mango planner.ts'
 type: 'js'
-imageUrl: '/content_img/about/manguito_small.jpg'
-gitUrl: 'https://github.com/bobbykim89/mango-planner-v2'
+imageUrl: '/content_img/projects/mango_planner.webp'
+githubUrl: 'https://github.com/bobbykim89/mango-planner-v2'
 gitUrlOld: 'https://github.com/bobbykim89/mango-planner'
 pageUrl: 'https://mango-planner.vercel.app/'
 ---
 
-::hero{:image-src="imageUrl" :rounded="false" :gradient="true"}
+::hero{:image-src="imageUrl" :rounded="false" :gradient="true" alt="banner with mango planner logo"}
 
 ## Mango Planner
 
 ::
 
-::text-box{title="Tech Stacks" :display-border="false" :rounded="true" border-color="light-1"}
+::abstract
 
-- Vue
-- Vite
-- Lerna
-- TailwindCSS
+Productivity app designed around real-world user feedback and offline reliability.
 
 ::
 
-Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa voluptatibus nam facilis nisi, alias quae aliquid quam nobis, dolor cumque tenetur adipisci eos tempore reprehenderit dolores molestias quisquam! Hic, dignissimos. Aut veniam molestias architecto quia rerum nihil sapiente a ab voluptates blanditiis inventore cum tempora, eveniet ipsa in id aliquam.
+::text-box{title="Tech Stacks" :display-border="false" :rounded="true" border-color="light-1"}
+
+<div class="grid grid-cols-2 gap-1">
+<p>Vue 3</p>
+<p>Nuxt</p>
+<p>Typescript</p>
+<p>MongoDB</p>
+<p>Mongoose</p>
+<p>TailwindCSS</p>
+<p>JWT</p>
+<p>Bcrypt</p>
+<p>Cloudinary</p>
+<p>Workbox</p>
+</div>
+
+::
+
+- Implemented secure backend API with JWT authentication.
+- Built offline-first PWA architecture using Workbox with local draft persistence to prevent data loss during network failures.
+- Designed markdown-enabled task editor with math rendering support.
 
 ::flex-container
 
-::git-button{:url="gitUrl" color="warning"}
+::git-button{:url="githubUrl" color="warning"}
 New Repo
 
 ::
 
-::git-button{:url="gitUrl"}
+::git-button{url="https://github.com/bobbykim89/mango-planner"}
 Old Repo
 ::
 
-::button-link{:url="pageUrl"}
+::button-link{url="https://mango-planner.vercel.app/"}
 Go to page
 ::
 

@@ -1,10 +1,10 @@
 ---
 title: 'ML/AI Skills'
 order: 4
-fileName: 'ml/ai.md'
+fileName: 'ML/AI.md'
 type: 'md'
 githubUrl: 'https://github.com/bobbykim89'
-linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'
+linkedinUrl: 'https://www.linkedin.com/in/bobbykim89/'
 emailAddress: 'bobby.sihun.kim@gmail.com'
 ---
 
@@ -14,7 +14,7 @@ emailAddress: 'bobby.sihun.kim@gmail.com'
 
 ::
 
-::skill-block{:icons='["langchain", "numpy", "pandas", "pytorch", "scikit-learn", "scipy", "seaborn", "xgboost"]'}
+::skill-block{:icons='["langchain", "claude", "openai", "elasticsearch", "qdrant","pandas", "numpy"]'}
 ::
 
 ::contact-buttons{:github-url="githubUrl" :linkedinUrl="linkedinUrl" :email-address="emailAddress"}

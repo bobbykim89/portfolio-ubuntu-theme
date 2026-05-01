@@ -13,14 +13,14 @@ importers:
   .:
     dependencies:
       '@bobbykim/manguito-theme':
-        specifier: ^0.28.2
-        version: 0.28.2(typescript@6.0.3)
+        specifier: ^0.28.3
+        version: 0.28.3(typescript@6.0.3)
       '@bobbykim/mcl-footer':
-        specifier: 0.9.8
-        version: 0.9.8(typescript@6.0.3)
-      '@bobbykim/mcl-forms':
-        specifier: ^0.9.9
+        specifier: 0.9.9
         version: 0.9.9(typescript@6.0.3)
+      '@bobbykim/mcl-forms':
+        specifier: ^0.9.10
+        version: 0.9.10(typescript@6.0.3)
       '@nuxt/content':
         specifier: ^3.13.0
         version: 3.13.0(better-sqlite3@12.9.0)(magicast@0.5.2)
@@ -749,10 +749,6 @@ packages:
   '@babel/regjsgen@0.8.0':
     resolution: {integrity: sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==}
 
-  '@babel/runtime@7.25.6':
-    resolution: {integrity: sha512-VBj9MYyDb9tuLq7yzqjgzt6Q+IBQLrGZfdjOekyEirZPHxXWoTSGUTMrpsfi58Up73d13NfYLv8HT9vmznjzhQ==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/runtime@7.29.2':
     resolution: {integrity: sha512-JiDShH45zKHWyGe4ZNVRrCjBz8Nh9TMmZG1kh4QTK8hCBTWBi8Da+i7s1fJw7/lYpM4ccepSNfqzZ/QvABBi5g==}
     engines: {node: '>=6.9.0'}
@@ -785,14 +781,14 @@ packages:
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
 
-  '@bobbykim/manguito-theme@0.28.2':
-    resolution: {integrity: sha512-zjJeSz73KklAC8tiTjKHLavbUFzEj2NpWhmISHLRePACcHX96B7TfUsjcILD71dUjmmtoIVfOoejNjGnayYYFg==}
+  '@bobbykim/manguito-theme@0.28.3':
+    resolution: {integrity: sha512-7uJFDnluhwu8MUmjAAkO+U3GkHJq0R6ttukxtchoFYJjQnFTUl63sOsNJXqIdVOq4UWtde+/v6tP+jU0zGkHxw==}
 
-  '@bobbykim/mcl-footer@0.9.8':
-    resolution: {integrity: sha512-aGQsg5jRH1a3l1H6QW0JojPk04La7flMUkT+jtz5m7k7dLPnGzuOCq/Dlsg60zB4i39F2H88a9gTrFdp4hUeSQ==}
+  '@bobbykim/mcl-footer@0.9.9':
+    resolution: {integrity: sha512-hhUVL/hLI8CU/UJlzKzPiXb9YxrICL98gMTZ2DQTijcabtzyRahhZxs+BgHLNiPC3rK1gjL7IRCVbZnMeSLIzQ==}
 
-  '@bobbykim/mcl-forms@0.9.9':
-    resolution: {integrity: sha512-dKmWORV0I/9b3ymhPAN0OYm1lnLERPMrzp/OZPJ0An31v8n+Nshr6qrQhl8b5D6RmY3w1XqMQd7EKG4JuvjelQ==}
+  '@bobbykim/mcl-forms@0.9.10':
+    resolution: {integrity: sha512-EmnWE+9NYSDkLkFm9wvKHxQ/mVlQqOdxdmI97TvKPuTkcEXrMpGoM1GTeVKRtIpSAbRGsBK3FnkXvi4bcC6p7A==}
 
   '@bomb.sh/tab@0.0.14':
     resolution: {integrity: sha512-cHMk2LI430MVoX1unTt9oK1iZzQS4CYDz97MSxKLNErW69T43Z2QLFTpdS/3jVOIKrIADWfuxQ+nQNJkNV7E4w==}
@@ -5103,9 +5099,6 @@ packages:
   regenerate@1.4.2:
     resolution: {integrity: sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==}
 
-  regenerator-runtime@0.14.1:
-    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
-
   regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
 
@@ -7168,10 +7161,6 @@ snapshots:
 
   '@babel/regjsgen@0.8.0': {}
 
-  '@babel/runtime@7.25.6':
-    dependencies:
-      regenerator-runtime: 0.14.1
-
   '@babel/runtime@7.29.2': {}
 
   '@babel/standalone@7.25.5': {}
@@ -7223,23 +7212,23 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@bobbykim/manguito-theme@0.28.2(typescript@6.0.3)':
+  '@bobbykim/manguito-theme@0.28.3(typescript@6.0.3)':
     dependencies:
       '@vueuse/core': 12.8.2(typescript@6.0.3)
       vue: 3.5.33(typescript@6.0.3)
     transitivePeerDependencies:
       - typescript
 
-  '@bobbykim/mcl-footer@0.9.8(typescript@6.0.3)':
+  '@bobbykim/mcl-footer@0.9.9(typescript@6.0.3)':
     dependencies:
-      '@bobbykim/manguito-theme': 0.28.2(typescript@6.0.3)
+      '@bobbykim/manguito-theme': 0.28.3(typescript@6.0.3)
       vue: 3.5.33(typescript@6.0.3)
     transitivePeerDependencies:
       - typescript
 
-  '@bobbykim/mcl-forms@0.9.9(typescript@6.0.3)':
+  '@bobbykim/mcl-forms@0.9.10(typescript@6.0.3)':
     dependencies:
-      '@bobbykim/manguito-theme': 0.28.2(typescript@6.0.3)
+      '@bobbykim/manguito-theme': 0.28.3(typescript@6.0.3)
       '@floating-ui/vue': 1.1.11(vue@3.5.33(typescript@6.0.3))
       '@vueuse/core': 12.8.2(typescript@6.0.3)
       vue: 3.5.33(typescript@6.0.3)
@@ -12328,11 +12317,9 @@ snapshots:
 
   regenerate@1.4.2: {}
 
-  regenerator-runtime@0.14.1: {}
-
   regenerator-transform@0.15.2:
     dependencies:
-      '@babel/runtime': 7.25.6
+      '@babel/runtime': 7.29.2
 
   regex-recursion@6.0.2:
     dependencies:
@@ -13629,7 +13616,7 @@ snapshots:
       '@apideck/better-ajv-errors': 0.3.6(ajv@8.17.1)
       '@babel/core': 7.29.0
       '@babel/preset-env': 7.25.4(@babel/core@7.29.0)
-      '@babel/runtime': 7.25.6
+      '@babel/runtime': 7.29.2
       '@rollup/plugin-babel': 5.3.1(@babel/core@7.29.0)(rollup@2.79.1)
       '@rollup/plugin-node-resolve': 15.2.3(rollup@2.79.1)
       '@rollup/plugin-replace': 2.4.2(rollup@2.79.1)
