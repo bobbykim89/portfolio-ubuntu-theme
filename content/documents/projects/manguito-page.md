@@ -2,12 +2,12 @@
 title: 'Manguito Page'
 fileName: 'manguito page.ts'
 type: 'js'
-imageUrl: '/content_img/about/manguito_small.jpg'
+imageUrl: '/content_img/projects/manguito_page.webp'
 gitUrl: 'https://github.com/bobbykim89/manguito-page-v2'
 pageUrl: 'https://manguito-page.vercel.app/'
 ---
 
-::hero{:image-src="imageUrl" :rounded="false" :gradient="false"}
+::hero{:image-src="imageUrl" :rounded="false" :gradient="true"}
 
 ## Manguito Page
 
@@ -42,7 +42,16 @@ A full-stack photo blog built to document Manguito's adventures, with full CRUD 
 
 ::flex-container
 
-::git-button{:url="gitUrl"}
+::git-button{:url="gitUrl" color="warning"}
+
+New Repo
+
+::
+
+::git-button{url="https://github.com/bobbykim89/manguito-page"}
+
+Old Repo
+
 ::
 
 ::button-link{:url="pageUrl"}

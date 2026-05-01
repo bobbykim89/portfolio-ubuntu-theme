@@ -2,7 +2,7 @@
 title: 'ALPACA Quest'
 fileName: 'alpaca quest.py'
 type: 'py'
-imageUrl: '/content_img/projects/vector_search.webp'
+imageUrl: '/content_img/projects/alpaca.webp'
 githubUrl: 'https://github.com/bobbykim89/alpaca-api'
 ---
 
