@@ -4,7 +4,7 @@ order: 3
 fileName: 'DevOps.md'
 type: 'md'
 githubUrl: 'https://github.com/bobbykim89'
-linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'
+linkedinUrl: 'https://www.linkedin.com/in/bobbykim89/'
 emailAddress: 'bobby.sihun.kim@gmail.com'
 ---
 
@@ -14,7 +14,7 @@ emailAddress: 'bobby.sihun.kim@gmail.com'
 
 ::
 
-::skill-block{:icons='["git", "docker", "kubernetes", "bitbucket", "jira", "terraform", "vercel", "conda", "mlflow", "prefect", "pylint", "pypi", "pytest", "venv", "evidently", "grafana"]'}
+::skill-block{:icons='["git", "docker", "kubernetes", "bitbucket", "aws-cdk", "vercel"]'}
 ::
 
 ::contact-buttons{:github-url="githubUrl" :linkedinUrl="linkedinUrl" :email-address="emailAddress"}

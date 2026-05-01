@@ -7,14 +7,14 @@ const props = withDefaults(
   }>(),
   {
     color: 'warning',
-  }
+  },
 )
 
 const setBgColor = computed(() => generateClass('BGCOLOR', props.color))
 </script>
 
 <template>
-  <div class="pl-md md:pl-lg my-md">
+  <div class="pl-sm md:pl-md pr-sm my-md">
     <div class="py-3xs w-lg mb-xs" :class="setBgColor"></div>
     <slot />
     <div class="py-3xs w-lg mt-xs" :class="setBgColor"></div>

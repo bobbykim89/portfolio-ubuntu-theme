@@ -63,15 +63,15 @@ onClickOutside(
   () => {
     systemMenu.value?.close()
   },
-  { ignore: [menuButton] }
+  { ignore: [menuButton] },
 )
 </script>
 
 <template>
-  <main class="bg-dark-4 relative">
+  <main class="bg-dark-4 h-dvh flex flex-col overflow-hidden">
     <!-- top-bar -->
     <div
-      class="grid grid-cols-3 py-3xs text-light-1 w-full tracking-wide z-[50]"
+      class="flex-none grid grid-cols-3 py-3xs text-light-1 w-full tracking-wide z-50"
     >
       <div class="hidden md:block text-sm pl-2xs cursor-default select-none">
         {{ getUserName }}
@@ -97,19 +97,17 @@ onClickOutside(
           ref="menuButton"
           aria-label="open systems menu"
         >
-          <NetworkSvgIcon class="text-md !mb-0" />
-          <SpeakerSvgIcon class="text-md !mb-0" />
-          <ShutdownSvgIcon class="text-md !mb-0" />
+          <NetworkSvgIcon class="text-md mb-0!" />
+          <SpeakerSvgIcon class="text-md mb-0!" />
+          <ShutdownSvgIcon class="text-md mb-0!" />
         </button>
       </div>
     </div>
 
-    <SystemMenu ref="systemMenu" />
-    <div class="h-[calc(100vh-29px)] relative">
+    <SystemMenu ref="systemMenu" data-allow-mismatch />
+    <div class="flex-1 min-h-0 relative">
       <slot />
       <PwaNotificationBox />
     </div>
   </main>
 </template>
-
-<style scoped></style>
