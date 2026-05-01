@@ -118,6 +118,9 @@ export default defineNuxtConfig({
       baseURL: process.env.CLOUDINARY_API_URL,
     },
   },
+  svgo: {
+    autoImportPath: false,
+  },
   pwa: {
     strategies: 'generateSW',
     manifest: {

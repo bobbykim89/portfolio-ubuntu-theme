@@ -4,7 +4,7 @@ order: 2
 fileName: 'Backend.md'
 type: 'md'
 githubUrl: 'https://github.com/bobbykim89'
-linkedinUrl: 'https://www.linkedin.com/in/sihun-kim-9baa17165/'
+linkedinUrl: 'https://www.linkedin.com/in/bobbykim89/'
 emailAddress: 'bobby.sihun.kim@gmail.com'
 ---
 
