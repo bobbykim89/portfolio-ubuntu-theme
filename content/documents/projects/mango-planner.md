@@ -1,7 +1,7 @@
 ---
 title: 'Mango Planner'
 fileName: 'mango planner.ts'
-type: 'js'
+type: 'ts'
 imageUrl: '/content_img/projects/mango_planner.webp'
 githubUrl: 'https://github.com/bobbykim89/mango-planner-v2'
 gitUrlOld: 'https://github.com/bobbykim89/mango-planner'

@@ -1,7 +1,7 @@
 ---
 title: 'Manguito Page'
 fileName: 'manguito page.ts'
-type: 'js'
+type: 'ts'
 imageUrl: '/content_img/projects/manguito_page.webp'
 gitUrl: 'https://github.com/bobbykim89/manguito-page-v2'
 pageUrl: 'https://manguito-page.vercel.app/'

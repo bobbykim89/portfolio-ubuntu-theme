@@ -124,10 +124,10 @@ export default defineNuxtConfig({
   pwa: {
     strategies: 'generateSW',
     manifest: {
-      short_name: 'Manguito OS',
-      name: 'Manguito OS',
+      short_name: 'SihunKim OS',
+      name: 'SihunKim OS',
       description:
-        'A portfolio template inspired from Ubuntu (based on Ubuntu 22.04)',
+        'A portfolio page of Sihun Kim a Sr. Software Engineer (inspired from Ubuntu 22.04)',
       icons: [
         {
           src: 'favicon.svg',
