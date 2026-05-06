@@ -11,6 +11,7 @@ import CsFile from '@/assets/img/program-icons/text-x-csharp.png'
 import JsFile from '@/assets/img/program-icons/text-x-javascript.png'
 import PyFile from '@/assets/img/program-icons/text-x-python.png'
 import RubyFile from '@/assets/img/program-icons/text-x-ruby.png'
+import TsFile from '@/assets/img/program-icons/text-x-typescript.png'
 
 const folderData: FileMap = {
   image: ImageFile,
@@ -19,6 +20,7 @@ const folderData: FileMap = {
   rust: RustFile,
   cpp: CppFile,
   js: JsFile,
+  ts: TsFile,
   py: PyFile,
   docker: DockerFile,
   ruby: RubyFile,
