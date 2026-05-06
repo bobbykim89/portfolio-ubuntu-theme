@@ -123,8 +123,6 @@ const { data: files } = await useAsyncData(
         .where('path', 'LIKE', `/${currentSection.value}%`)
         .order('order', 'ASC')
         .all()
-      // res = await queryContent(currentSection.value).sort({ order: 1 }).find()
-      console.log(res)
     }
     return res
   },
