@@ -37,9 +37,9 @@ useHead({
           />
         </div>
         <div class="text-light-3">
-          <h2 class="h2-md mb-xs">About Manguito OS</h2>
+          <h2 class="h2-md mb-xs">About SihunKim OS</h2>
           <div class="font-bold text-lg mb-xs">
-            <p>A portfolio template with Ubuntu theme.</p>
+            <p>A portfolio page of Sihun Kim a Sr. Software Engineer.</p>
             <p>Version: 0.2.0</p>
             <p>Maintainer: Bobby Kim</p>
           </div>

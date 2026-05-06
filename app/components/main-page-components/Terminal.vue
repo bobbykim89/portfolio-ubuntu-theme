@@ -30,6 +30,7 @@ const props = withDefaults(
 const initialWidth = 768
 const initialHeight = 480
 const MAX_W_RATIO = 0.95
+const MAX_H_RATIO = 0.95
 const MIN_W = 512
 const MIN_H = 480
 
@@ -49,7 +50,7 @@ const terminalBody = ref<HTMLDivElement>()
 const textInputHistory = ref<string[]>([initialText])
 const breakpoints = useBreakpoints({ mobile: 768 })
 const isMobile = breakpoints.smaller('mobile')
-const { width: windowWidth } = useWindowSize()
+const { width: windowWidth, height: windowHeight } = useWindowSize()
 const cursorPos = ref<number>(0)
 
 const updateCursorPos = () => {
@@ -76,7 +77,10 @@ const { x, y } = useDraggable(draggableRef, {
 const width = ref(
   Math.min(initialWidth, Math.floor(windowWidth.value * MAX_W_RATIO)),
 )
-const height = ref(initialHeight)
+// const height = ref(initialHeight)
+const height = ref(
+  Math.min(initialHeight, Math.floor(windowHeight.value * MAX_H_RATIO)),
+)
 
 const isResizing = ref(false)
 const resizeDir = ref<ResizeDirection>('se')
@@ -200,9 +204,15 @@ useEventListener('pointermove', (e: PointerEvent) => {
 
   // height
   if (resizeDir.value.includes('s')) {
-    height.value = Math.max(MIN_H, startSize.value.h + dy)
+    // height.value = Math.max(MIN_H, startSize.value.h + dy)
+    const maxH = Math.floor(windowHeight.value * MAX_H_RATIO)
+    height.value = Math.min(maxH, Math.max(MIN_H, startSize.value.h + dy))
   } else if (resizeDir.value.includes('n')) {
-    const newH = Math.max(MIN_H, startSize.value.h - dy)
+    // const newH = Math.max(MIN_H, startSize.value.h - dy)
+    // y.value = startPos.value.y + (startSize.value.h - newH)
+    // height.value = newH
+    const maxH = Math.floor(windowHeight.value * MAX_H_RATIO)
+    const newH = Math.min(maxH, Math.max(MIN_H, startSize.value.h - dy))
     y.value = startPos.value.y + (startSize.value.h - newH)
     height.value = newH
   }
@@ -229,6 +239,13 @@ watch(windowWidth, (newW) => {
   const maxW = Math.floor(newW * MAX_W_RATIO)
   if (width.value > maxW) {
     width.value = maxW
+  }
+})
+
+watch(windowHeight, (newH) => {
+  const maxH = Math.floor(newH * MAX_H_RATIO)
+  if (height.value > maxH) {
+    height.value = maxH
   }
 })
 

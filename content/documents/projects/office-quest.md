@@ -2,7 +2,7 @@
 title: 'Office Quest (In Progress)'
 fileName: 'office quest.ts'
 type: 'ts'
-imageUrl: '/content_img/projects/vector_search.webp'
+imageUrl: '/content_img/projects/office_quest.webp'
 githubUrl: 'https://github.com/bobbykim89/POC-agentic-office'
 ---
 
