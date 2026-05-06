@@ -1,7 +1,7 @@
 ---
 title: 'Manguito Component Library (MCL)'
 fileName: 'mcl.ts'
-type: 'js'
+type: 'ts'
 imageUrl: '/content_img/projects/mcl.webp'
 gitUrl: 'https://github.com/bobbykim89/manguito-component-library'
 pageUrl: 'https://manguito-component-library.vercel.app'

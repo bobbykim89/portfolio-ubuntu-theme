@@ -11,6 +11,7 @@ const fileTypeList = [
   'rust',
   'cpp',
   'js',
+  'ts',
   'py',
   'docker',
   'ruby',

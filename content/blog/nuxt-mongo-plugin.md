@@ -9,7 +9,7 @@ emailAddress: 'bobby.sihun.kim@gmail.com'
 date: '2024-08-25'
 ---
 
-::hero{:image-src="image" :rounded="true" :gradient="true"}
+::hero{:image-src="image" :rounded="true" :gradient="true" alt="coding banner image"}
 
 ## Connecting MongoDB to Nuxt via Nitro Server Plugins
 
