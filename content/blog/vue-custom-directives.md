@@ -9,7 +9,7 @@ emailAddress: 'bobby.sihun.kim@gmail.com'
 date: '2026-03-01'
 ---
 
-::hero{:image-src="image" :rounded="true" :gradient="true"}
+::hero{:image-src="image" :rounded="true" :gradient="true" alt="coding banner image"}
 
 # Building Custom Vue Directives: A Practical Guide
 
