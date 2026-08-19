@@ -54,7 +54,7 @@ Old Repo
 
 ::
 
-::button-link{:url="pageUrl"}
+::button-link{url="https://manguito-page.vercel.app"}
 Go to page
 ::
 

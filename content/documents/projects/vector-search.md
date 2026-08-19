@@ -39,7 +39,7 @@ Proof-of-concept project evaluating vector search engines for future product arc
 
 ::flex-container
 
-::git-button{:url="githubUrl" color="warning"}
+::git-button{url="https://github.com/bobbykim89/poc-search-engines" color="warning"}
 
 ::
 

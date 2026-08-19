@@ -38,10 +38,10 @@ Reusable design system used for rapid prototyping foundation for multiple POC pr
 
 ::flex-container
 
-::git-button{:url="gitUrl"}
+::git-button{url="https://github.com/bobbykim89/manguito-component-library"}
 ::
 
-::button-link{:url="pageUrl"}
+::button-link{:url="https://manguito-component-library.bobbykim.dev"}
 Go to page
 ::
 

@@ -42,7 +42,7 @@ A game-style 2D office environment where NPCs are powered by real AI agents. Ins
 
 ::flex-container
 
-::git-button{:url="githubUrl" color="warning"}
+::git-button{url="https://github.com/bobbykim89/POC-agentic-office" color="warning"}
 
 ::
 

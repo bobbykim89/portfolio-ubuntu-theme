@@ -46,7 +46,7 @@ A self-hosted, developer-first headless CMS where a single JSON or YAML schema f
 
 ::flex-container
 
-::git-button{:url="githubUrl" color="warning"}
+::git-button{url="https://github.com/bobbykim89/manguito-cms" color="warning"}
 
 ::
 
